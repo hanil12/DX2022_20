@@ -130,8 +130,7 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 //
 //
 
-vector<HPEN> pens;
-vector<HBRUSH> brushes;
+shared_ptr<Program> program;
 Vector2 mousePos;
 
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
@@ -140,28 +139,15 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
     {
     case WM_CREATE:
     {
-        {
-            pens.reserve(3);
-            HPEN red = CreatePen(PS_SOLID, 3, RGB(255, 0, 0));
-            HPEN green = CreatePen(PS_SOLID, 3, RGB(0, 255, 0));
-            HPEN blue = CreatePen(PS_SOLID, 3, RGB(0, 0, 255));
+        program = make_shared<Program>();
+        SetTimer(hWnd, 1, 1, nullptr); // 0.01초마다 WM_TIMER메시지를 보낸다.
+        break;
+    }
 
-            pens.push_back(red);
-            pens.push_back(green);
-            pens.push_back(blue);
-        }
-
-        {
-            brushes.reserve(3);
-            HBRUSH red = CreateSolidBrush(RGB(255, 0, 0));
-            HBRUSH green = CreateSolidBrush(RGB(0, 255, 0));
-            HBRUSH blue = CreateSolidBrush(RGB(0, 0, 255));
-
-            brushes.push_back(red);
-            brushes.push_back(green);
-            brushes.push_back(blue);
-        }
-
+    case WM_TIMER:
+    {
+        program->Update();
+        InvalidateRect(hWnd, nullptr, true); // WM_PAINT 메시지를 계속 보내주는 얘
         break;
     }
 
@@ -169,8 +155,6 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
     {
         mousePos.x = static_cast<float>(LOWORD(lParam));
         mousePos.y = static_cast<float>(HIWORD(lParam));
-
-        InvalidateRect(hWnd, nullptr, true); // WM_PAINT 메시지를 계속 보내주는 얘
 
         break;
     }
@@ -183,33 +167,12 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
             // => 그릴 때 무조건 필요한 친구
             // => 연출가
             // TODO: 여기에 hdc를 사용하는 그리기 코드를 추가합니다...
-
-            // PEN 색 설정
-            SelectObject(hdc, pens[0]);
-            // Brush 색 설정
-            SelectObject(hdc, brushes[0]);
-
-            // 사각형 그리기
-            Rectangle(hdc, 0, 0, 500, 500);
-
-            SelectObject(hdc, brushes[1]);
-            SelectObject(hdc, pens[2]);
-            // 원 그리기
-            Ellipse(hdc, 0, 0, 50, 50);
-
-            // 선그리기
-            MoveToEx(hdc, 0, 0, nullptr);
-            LineTo(hdc, mousePos.x, mousePos.y);
+            program->Render(hdc);
 
             EndPaint(hWnd, &ps);
         }
         break;
     case WM_DESTROY:
-        for (auto& pen : pens)
-            DeleteObject(pen);
-
-        for (auto& brush : brushes)
-            DeleteObject(brush);
 
         PostQuitMessage(0);
         break;

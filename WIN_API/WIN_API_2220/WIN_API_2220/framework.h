@@ -22,4 +22,16 @@
 
 using namespace std;
 
+// Framework
 #include "Framework/Math/Vector2.h"
+
+#include "Framework/Collider/CircleCollider.h"
+#include "Framework/Collider/RectCollider.h"
+
+// Scene
+#include "Scene/Scene.h"
+
+// Program
+#include "Program/Program.h"
+
+extern Vector2 mousePos;
