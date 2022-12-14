@@ -22,6 +22,8 @@
 
 using namespace std;
 
+#include "Types.h"
+
 // Framework
 #include "Framework/Math/Vector2.h"
 
