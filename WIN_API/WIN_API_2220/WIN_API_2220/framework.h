@@ -27,6 +27,8 @@ using namespace std;
 // Framework
 #include "Framework/Math/Vector2.h"
 
+#include "Framework/Collider/Line.h"
+#include "Framework/Collider/Collider.h"
 #include "Framework/Collider/CircleCollider.h"
 #include "Framework/Collider/RectCollider.h"
 

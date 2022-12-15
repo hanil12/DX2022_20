@@ -2,35 +2,28 @@
 #include "CircleCollider.h"
 
 CircleCollider::CircleCollider(Vector2 center, float radius)
-: center(center)
-, radius(radius)
+: radius(radius)
+, Collider()
 {
-    _pens.reserve(3);
-    HPEN red = CreatePen(PS_SOLID, 2, RGB(255, 0, 0));
-    HPEN green = CreatePen(PS_SOLID, 2, RGB(0, 255, 0));
-    HPEN blue = CreatePen(PS_SOLID, 2, RGB(0, 0, 255));
-
-    _pens.push_back(red);
-    _pens.push_back(green);
-    _pens.push_back(blue);
-
-    _curPen = _pens[1];
+    this->center = center;
+    _type = Collider::Type::CIRCLE;
 }
 
 CircleCollider::~CircleCollider()
 {
-    for (auto pen : _pens)
-    {
-        DeleteObject(pen);
-    }
+
 }
 
 void CircleCollider::Update()
 {
+    if (_isActive == false)
+        return;
 }
 
 void CircleCollider::Render(HDC hdc)
 {
+    if (_isActive == false)
+        return;
     SelectObject(hdc, _curPen);
 
 	float left = center.x - radius;
@@ -42,6 +35,9 @@ void CircleCollider::Render(HDC hdc)
 
 bool CircleCollider::IsCollision(const Vector2& pos)
 {
+    if (_isActive == false)
+        return false;
+
     Vector2 centerToPos = pos - center;
     float length = centerToPos.Length();
 

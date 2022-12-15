@@ -20,6 +20,10 @@ public:
 
 	float Length() const;
 
+	float Cross(const Vector2& other);
+
+	bool IsBetween(const Vector2& a, const Vector2& b);
+
 public:
 	float x;
 	float y;

@@ -2,41 +2,37 @@
 #include "RectCollider.h"
 
 RectCollider::RectCollider(Vector2 center, Vector2 size)
-: center(center)
-, size(size)
+: size(size)
+, Collider()
 {
-    _pens.reserve(3);
-    HPEN red = CreatePen(PS_SOLID, 2, RGB(255, 0, 0));
-    HPEN green = CreatePen(PS_SOLID, 2, RGB(0, 255, 0));
-    HPEN blue = CreatePen(PS_SOLID, 2, RGB(0, 0, 255));
-
-    _pens.push_back(red);
-    _pens.push_back(green);
-    _pens.push_back(blue);
-
-    _curPen = _pens[1];
+    this->center = center;
+    _type = Collider::Type::RECT;
 }
 
 RectCollider::~RectCollider()
 {
-    for (auto pen : _pens)
-    {
-        DeleteObject(pen);
-    }
 }
 
 void RectCollider::Update()
 {
+    if (_isActive == false)
+        return;
 }
 
 void RectCollider::Render(HDC hdc)
 {
+    if (_isActive == false)
+        return;
+
     SelectObject(hdc, _curPen);
 	Rectangle(hdc, Left(), Top(), Right(), Bottom());
 }
 
 bool RectCollider::IsCollision(const Vector2& pos)
 {
+    if (_isActive == false)
+        return false;
+
     if (pos.x <= Right() && pos.x >= Left())
     {
         if (pos.y <= Bottom() && pos.y >= Top())
@@ -59,5 +55,26 @@ bool RectCollider::IsCollision(const shared_ptr<RectCollider> rect)
 
 bool RectCollider::IsCollision(const shared_ptr<CircleCollider> circle)
 {
+    Vector2 leftTop = Vector2(Left(), Top());
+    Vector2 rightTop = Vector2(Right(), Top());
+    Vector2 leftBottom = Vector2(Left(), Bottom());
+    Vector2 rightBottom = Vector2(Right(), Bottom());
+
+    if (circle->IsCollision(leftTop) || circle->IsCollision(rightTop)
+        || circle->IsCollision(leftBottom) || circle->IsCollision(rightBottom))
+        return true;
+
+    if (Right() >= circle->GetCenter().x && Left() <= circle->GetCenter().x)
+    {
+        if (Top() - circle->GetRadius() <= circle->GetCenter().y && Bottom() + circle->GetRadius() >= circle->GetCenter().y)
+            return true;
+    }
+
+    if (Top() <= circle->GetCenter().y && Bottom() >= circle->GetCenter().y)
+    {
+        if (Left() - circle->GetRadius() <= circle->GetCenter().x && Right() + circle->GetRadius() >= circle->GetCenter().x)
+            return true;
+    }
+
     return false;
 }

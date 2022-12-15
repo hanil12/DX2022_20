@@ -78,3 +78,19 @@ float Vector2::Length() const
 	return sqrt(powf(x, 2) + powf(y, 2));
 }
 
+float Vector2::Cross(const Vector2& other)
+{
+	return x * other.y - y * other.x;
+}
+
+bool Vector2::IsBetween(const Vector2& a, const Vector2& b)
+{
+	float z1 = this->Cross(a);
+	float z2 = this->Cross(b);
+
+	if (z1 * z2 < 0)
+		return true;
+
+	return false;
+}
+
