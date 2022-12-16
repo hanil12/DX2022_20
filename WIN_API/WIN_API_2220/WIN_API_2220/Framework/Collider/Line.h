@@ -5,7 +5,7 @@ public:
 	struct Result
 	{
 		Vector2 contact = { 0,0 };
-		bool isCollision;
+		bool isCollision = false;
 	};
 
 	Line();

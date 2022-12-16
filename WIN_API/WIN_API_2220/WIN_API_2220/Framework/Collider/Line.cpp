@@ -52,11 +52,12 @@ Line::Result Line::IsCollision(shared_ptr<Line> line)
     if (between1 & between2)
     {
         result.isCollision = true;
-        result.contact = { 0,0 };
-        return result;
+        float leftTriangle = abs(a.Cross(a1));
+        float rightTriangle = abs(a.Cross(a2));
+
+        float t = (leftTriangle / (leftTriangle + rightTriangle));
+        result.contact = LERP(line->_startPos, line->_endPos, t);
     }
 
-    result.contact = { 0,0 };
-    result.isCollision = false;
     return result;
 }

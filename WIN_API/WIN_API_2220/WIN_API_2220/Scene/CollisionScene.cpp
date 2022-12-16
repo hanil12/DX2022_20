@@ -26,7 +26,7 @@ void CollisionScene::Update()
 	else
 		_rect1->SetGreen();
 
-	_circle2->GetCenter() = mousePos;
+	_circle2->GetCenter() = LERP(_circle2->GetCenter(), mousePos, 0.1f);
 
 	_circle1->Update();
 	_circle2->Update();

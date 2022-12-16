@@ -10,10 +10,10 @@ Program::Program()
 {
 	_sceneTable["Paint"] = make_shared<PaintScene>();
 	_sceneTable["Collision"] = make_shared<CollisionScene>();
-	_sceneTable["Cannon"] = make_shared<CannonScene>();
 	_sceneTable["Line"] = make_shared<LineScene>();
+	_sceneTable["Cannon"] = make_shared<CannonScene>();
 
-	_curScene = _sceneTable["Line"];
+	_curScene = _sceneTable["Cannon"];
 }
 
 Program::~Program()

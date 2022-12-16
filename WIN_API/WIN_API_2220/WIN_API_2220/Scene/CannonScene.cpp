@@ -3,6 +3,7 @@
 
 CannonScene::CannonScene()
 {
+	_cannon = make_shared<Cannon>();
 }
 
 CannonScene::~CannonScene()
@@ -11,8 +12,10 @@ CannonScene::~CannonScene()
 
 void CannonScene::Update()
 {
+	_cannon->Update();
 }
 
 void CannonScene::Render(HDC hdc)
 {
+	_cannon->Render(hdc);
 }

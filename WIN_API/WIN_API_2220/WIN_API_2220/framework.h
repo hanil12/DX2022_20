@@ -32,6 +32,10 @@ using namespace std;
 #include "Framework/Collider/CircleCollider.h"
 #include "Framework/Collider/RectCollider.h"
 
+// Obj
+#include "Object/Cannon/Barrel.h"
+#include "Object/Cannon/Cannon.h"
+
 // Scene
 #include "Scene/Scene.h"
 
