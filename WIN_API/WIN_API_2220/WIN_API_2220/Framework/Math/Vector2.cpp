@@ -47,6 +47,14 @@ bool Vector2::operator>(const Vector2& other) const
 	return this->Length() > other.Length();
 }
 
+Vector2& Vector2::operator+=(const Vector2& other)
+{
+	this->x = this->x + other.x;
+	this->y = this->y + other.y;
+
+	return (*this);
+}
+
 Vector2& Vector2::operator=(const Vector2& other)
 {
 	this->x = other.x;
@@ -92,5 +100,20 @@ bool Vector2::IsBetween(const Vector2& a, const Vector2& b)
 		return true;
 
 	return false;
+}
+
+Vector2 Vector2::NormalVector2()
+{
+	Vector2 temp;
+	temp.x = x / Length();
+	temp.y = y / Length();
+
+	return temp;
+}
+
+void Vector2::Normalize()
+{
+	x = x / Length();
+	y = y / Length();
 }
 

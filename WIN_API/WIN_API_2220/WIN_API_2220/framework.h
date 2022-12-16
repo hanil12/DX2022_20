@@ -33,6 +33,7 @@ using namespace std;
 #include "Framework/Collider/RectCollider.h"
 
 // Obj
+#include "Object/Cannon/Ball.h"
 #include "Object/Cannon/Barrel.h"
 #include "Object/Cannon/Cannon.h"
 

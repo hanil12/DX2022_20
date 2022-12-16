@@ -13,16 +13,19 @@ public:
 	bool operator<(const Vector2& other) const;
 	bool operator>(const Vector2& other) const;
 
+	Vector2& operator+=(const Vector2 & other);
 	Vector2& operator=(const Vector2& other);
 
 	Vector2& operator++();
 	Vector2 operator++(int);
 
 	float Length() const;
-
 	float Cross(const Vector2& other);
 
 	bool IsBetween(const Vector2& a, const Vector2& b);
+
+	Vector2 NormalVector2();
+	void Normalize();
 
 public:
 	float x;
