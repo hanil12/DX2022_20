@@ -20,6 +20,7 @@ public:
 	Vector2 operator++(int);
 
 	float Length() const;
+	float Dot(const Vector2& other);
 	float Cross(const Vector2& other);
 
 	bool IsBetween(const Vector2& a, const Vector2& b);

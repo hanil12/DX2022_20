@@ -86,6 +86,11 @@ float Vector2::Length() const
 	return sqrt(powf(x, 2) + powf(y, 2));
 }
 
+float Vector2::Dot(const Vector2& other)
+{
+	return x * other.x + y * other.y;
+}
+
 float Vector2::Cross(const Vector2& other)
 {
 	return x * other.y - y * other.x;
@@ -113,7 +118,9 @@ Vector2 Vector2::NormalVector2()
 
 void Vector2::Normalize()
 {
-	x = x / Length();
-	y = y / Length();
+	float length = Length();
+
+	x = x / length;
+	y = y / length;
 }
 
