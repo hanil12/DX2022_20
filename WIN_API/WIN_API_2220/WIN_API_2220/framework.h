@@ -14,6 +14,7 @@
 #include <memory.h>
 #include <tchar.h>
 #include <math.h>
+#include <time.h>
 #include <memory>
 #include <vector>
 #include <unordered_map>
@@ -37,6 +38,10 @@ using namespace std;
 #include "Object/Cannon/Barrel.h"
 #include "Object/Cannon/Cannon.h"
 
+// Maze
+#include "Object/Maze/Block.h"
+#include "Object/Maze/Maze.h"
+
 // Scene
 #include "Scene/Scene.h"
 
@@ -44,3 +49,4 @@ using namespace std;
 #include "Program/Program.h"
 
 extern Vector2 mousePos;
+extern HWND hWnd;

@@ -7,6 +7,10 @@
 #define MAX_LOADSTRING 100
 
 // 전역 변수:
+shared_ptr<Program> program;
+Vector2 mousePos;
+HWND hWnd;
+
 HINSTANCE hInst;                                // 현재 인스턴스입니다.
 WCHAR szTitle[MAX_LOADSTRING];                  // 제목 표시줄 텍스트입니다.
 WCHAR szWindowClass[MAX_LOADSTRING];            // 기본 창 클래스 이름입니다.
@@ -100,7 +104,7 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
    // hWnd : 윈도우 핸들
    // -> 윈도우창을 건드릴 때 항상 거쳐야하는 친구
    // => 인력사무소장
-   HWND hWnd = CreateWindowW(
+   hWnd = CreateWindowW(
        szWindowClass,                       // 윈도우 창 클래스 이름
        szTitle,                             // 윈도우 타이틀 이름
        WS_OVERLAPPEDWINDOW,                 // 윈도우 스타일
@@ -130,9 +134,6 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 //
 //
 
-shared_ptr<Program> program;
-Vector2 mousePos;
-
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
     switch (message)
@@ -147,7 +148,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
     case WM_TIMER:
     {
         program->Update();
-        InvalidateRect(hWnd, nullptr, true); // WM_PAINT 메시지를 계속 보내주는 얘
+        // InvalidateRect(hWnd, nullptr, false); // WM_PAINT 메시지를 계속 보내주는 얘
         break;
     }
 
