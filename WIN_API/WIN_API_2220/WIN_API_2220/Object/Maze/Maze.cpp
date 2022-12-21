@@ -10,7 +10,7 @@ Maze::Maze()
 		for (int x = 0; x < _poolCountX; ++x)
 		{
 			shared_ptr<Block> block = make_shared<Block>();
-			block->SetType(Block::Type::DIABLE);
+			block->SetType(Block::Type::DISABLE);
 			Vector2 distance = { 17.0f * x, 17.0f * y };
 			block->SetPosition(offset + distance);
 
@@ -56,7 +56,7 @@ void Maze::CreateMaze()
 		{
 			if (x % 2 == 0 || y % 2 == 0)
 			{
-				_blockMatrix[y][x]->SetType(Block::Type::DIABLE);
+				_blockMatrix[y][x]->SetType(Block::Type::DISABLE);
 			}
 			else
 				_blockMatrix[y][x]->SetType(Block::Type::ABLE);

@@ -10,12 +10,14 @@ Block::Block()
 	HBRUSH red = CreateSolidBrush(RGB(255, 0, 0));
 	HBRUSH yellow = CreateSolidBrush(RGB(0xFF, 0xFF, 0));
 	HBRUSH cyan = CreateSolidBrush(RGB(0, 0xFF, 0xFF));
+	HBRUSH pupple = CreateSolidBrush(RGB(0x80,0x00,0x80));
 
 	_brushes.push_back(white);
 	_brushes.push_back(green);
 	_brushes.push_back(red);
 	_brushes.push_back(yellow);
 	_brushes.push_back(cyan);
+	_brushes.push_back(pupple);
 }
 
 Block::~Block()
@@ -39,7 +41,7 @@ void Block::Render(HDC hdc)
 	case Block::Type::ABLE:
 		_rect->SetGreen();
 		break;
-	case Block::Type::DIABLE:
+	case Block::Type::DISABLE:
 		_rect->SetRed();
 		break;
 	case Block::Type::START:

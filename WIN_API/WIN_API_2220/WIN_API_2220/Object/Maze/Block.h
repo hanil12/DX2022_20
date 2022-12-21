@@ -6,9 +6,10 @@ public:
 	{
 		NONE,
 		ABLE,
-		DIABLE,
+		DISABLE,
 		START,
-		END
+		END,
+		PLAYER
 	};
 
 	Block();
