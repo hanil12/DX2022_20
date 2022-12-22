@@ -9,7 +9,8 @@ public:
 		DISABLE,
 		START,
 		END,
-		PLAYER
+		PLAYER,
+		FOOT_PRINT
 	};
 
 	Block();

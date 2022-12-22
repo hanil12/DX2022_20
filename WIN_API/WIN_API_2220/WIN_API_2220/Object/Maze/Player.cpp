@@ -18,7 +18,7 @@ void Player::Update()
 	if (_pathIndex >= _path.size())
 		return;
 
-	_time += 0.1f;
+	_time += 0.2f;
 
 	if (_time > 1.0f)
 	{
@@ -28,7 +28,7 @@ void Player::Update()
 		if (_pathIndex != 0)
 		{
 			Vector2 temp = _path[_pathIndex - 1];
-			_maze->GetBlock(temp)->SetType(Block::Type::ABLE);
+			_maze->GetBlock(temp)->SetType(Block::Type::FOOT_PRINT);
 		}
 
 		_pathIndex++;
@@ -39,6 +39,7 @@ void Player::Update()
 void Player::RightHand()
 {
 	Vector2 pos = _pos; // 현재 위치
+	_path.push_back(pos);
 	Vector2 endPos = _maze->GetEndPos();
 	_dir = Dir::DIR_UP;
 
@@ -77,6 +78,32 @@ void Player::RightHand()
 			_dir = static_cast<Dir>((_dir + 1 + DIR_COUNT) % DIR_COUNT);
 		}
 	}
+
+	// Stack
+	stack<Vector2> s;
+
+	for (int i = 0; i < _path.size() - 1; i++)
+	{
+		if (s.empty() == false && s.top() == _path[i + 1])
+		{
+			s.pop();
+		}
+		else
+			s.push(_path[i]);
+	}
+
+	s.push(_path.back());
+	_path.clear();
+
+	while (true)
+	{
+		if (s.empty() == true)
+			break;
+		_path.push_back(s.top());
+		s.pop();
+	}
+
+	std::reverse(_path.begin(), _path.end());
 }
 
 bool Player::CanGo(Vector2 pos)
