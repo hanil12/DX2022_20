@@ -9,6 +9,7 @@ public:
 
 	void RightHand();
 	void DFS(Vector2 pos, Vector2 end, vector<Vector2>& tempPath);
+	void BFS(Vector2 start, Vector2 end);
 	bool CanGo(Vector2 pos);
 
 private:
@@ -23,5 +24,9 @@ private:
 
 	// DFS
 	vector<vector<bool>> _visited;
+
+	// BSF
+	vector<vector<bool>> _discorvered;
+	vector<vector<Vector2>> _parent;
 };
 
