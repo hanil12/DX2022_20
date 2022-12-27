@@ -9,10 +9,11 @@
 using namespace std;
 
 // √÷¥Î»¸
+template <typename T, typename Container = vector<T>, typename Pred = less<T>>
 class Priority_Queue
 {
 public:
-	void push(const int& value)
+	void push(const T& value)
 	{
 		v.push_back(value);
 
@@ -27,7 +28,7 @@ public:
 
 			int parent = (now - 1) / 2;
 
-			if (v[now] < v[parent])
+			if (Pred()(v[now],v[parent]))
 			{
 				break;
 			}
@@ -55,10 +56,10 @@ public:
 
 			int next = now;
 
-			if (v[next] < v[leftChild])
+			if (Pred()(v[next],v[leftChild]))
 				next = leftChild;
 
-			if (rightChild < (int)v.size() && v[next] < v[rightChild])
+			if (rightChild < (int)v.size() && Pred()(v[next],v[rightChild]))
 				next = rightChild;
 
 			if (next == now)
@@ -69,7 +70,7 @@ public:
 		}
 	}
 
-	const int& top()
+	const T& top()
 	{
 		return v[0];
 	}
@@ -80,13 +81,13 @@ public:
 	}
 
 private:
-	vector<int> v;
+	Container v;
 };
 
 int main()
 {
 	priority_queue<int, vector<int>, greater<int>> stdPq;
-	Priority_Queue pq;
+	Priority_Queue<int, vector<int>, greater<int>> pq;
 
 	pq.push(10);
 	pq.push(7);

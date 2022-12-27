@@ -10,7 +10,7 @@ Player::Player(shared_ptr<Maze> maze)
 	_discorvered = vector<vector<bool>>(25, vector<bool>(25, false));
 	_parent = vector<vector<Vector2>>(25, vector<Vector2>(25, Vector2(-1, -1)));
 
-	BFS(_pos, _maze->GetEndPos());
+	Djikstra(_pos, _maze->GetEndPos());
 }
 
 Player::~Player()
@@ -178,6 +178,86 @@ void Player::BFS(Vector2 start, Vector2 end)
 
 			_maze->GetBlock(there)->SetType(Block::Type::SEARCH_PRINT);
 			q.push(there);
+			_discorvered[there.y][there.x] = true;
+			_parent[there.y][there.x] = here;
+		}
+	}
+
+	Vector2 pos = end;
+	_path.push_back(pos);
+	while (true)
+	{
+		_path.push_back(_parent[pos.y][pos.x]);
+		pos = _parent[pos.y][pos.x];
+
+		if (pos == start)
+			break;
+	}
+
+	std::reverse(_path.begin(), _path.end());
+}
+
+void Player::Djikstra(Vector2 start, Vector2 end)
+{
+	Vector2 frontPos[8] =
+	{
+		Vector2 {0, 1}, // DOWN 2
+		Vector2 {1, 0}, // RIGHT 3
+		Vector2 {0, -1}, // UP 0
+		Vector2 {-1, 0}, // LEFT 1
+
+		Vector2 {1, 1}, // RIGHT_DOWN
+		Vector2 {-1, 1}, // LEFT_DOWN
+		Vector2 {1, -1}, // RIGHT UP
+		Vector2 {-1, -1} // LEFT UP
+	};
+
+	priority_queue<Vertex_Djikstra, vector<Vertex_Djikstra>, greater<Vertex_Djikstra>> pq;
+	vector<vector<float>> best = vector<vector<float>>(25, vector<float>(25, 100000.0f));
+
+	Vertex_Djikstra startV;
+	startV.pos = start;
+	startV.g = 0;
+	pq.push(startV);
+	best[start.y][start.x] = 0;
+	_discorvered[start.y][start.x] = true;
+	_parent[start.y][start.x] = start;
+
+	while (true)
+	{
+		if (pq.empty() == true)
+			break;
+
+		Vector2 here = pq.top().pos;
+		float cost = pq.top().g;
+		pq.pop();
+
+		if (here == end)
+			break;
+
+		if (best[here.y][here.x] < cost)
+			continue;
+
+		for (int i = 0; i < 8; i++)
+		{
+			Vector2 there = here + frontPos[i];
+			if (CanGo(there) == false)
+				continue;
+			if (here == there)
+				continue;
+
+			float distance = (there - here).Length();
+			float nextCost = distance + best[here.y][here.x];
+
+			if (best[there.y][there.x] < nextCost)
+				continue;
+
+			_maze->GetBlock(there)->SetType(Block::Type::SEARCH_PRINT);
+			Vertex_Djikstra thereV;
+			thereV.pos = there;
+			thereV.g = nextCost;
+			best[there.y][there.x] = nextCost;
+			pq.push(thereV);
 			_discorvered[there.y][there.x] = true;
 			_parent[there.y][there.x] = here;
 		}
