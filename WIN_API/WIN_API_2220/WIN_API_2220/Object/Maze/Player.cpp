@@ -4,25 +4,36 @@
 Player::Player(shared_ptr<Maze> maze)
 : _maze(maze)
 {
-	_pos = _maze->GetStartPos();
-	_maze->GetBlock(_pos)->SetType(Block::Type::PLAYER);
-
-	_discorvered = vector<vector<bool>>(25, vector<bool>(25, false));
-	_parent = vector<vector<Vector2>>(25, vector<Vector2>(25, Vector2(-1, -1)));
-
-	Djikstra(_pos, _maze->GetEndPos());
+	Init();
 }
 
 Player::~Player()
 {
 }
 
+void Player::Init()
+{
+	_pos = _maze->GetStartPos();
+	_maze->GetBlock(_pos)->SetType(Block::Type::PLAYER);
+
+	_discorvered = vector<vector<bool>>(25, vector<bool>(25, false));
+	_parent = vector<vector<Vector2>>(25, vector<Vector2>(25, Vector2(-1, -1)));
+
+	AStar(_pos, _maze->GetEndPos());
+}
+
 void Player::Update()
 {
 	if (_pathIndex >= _path.size())
+	{
+		_maze->CreateMaze();
+		_pathIndex = 0;
+		_path.clear();
+		Init();
 		return;
+	}
 
-	_time += 0.2f;
+	_time += 0.4f;
 
 	if (_time > 1.0f)
 	{
@@ -260,6 +271,92 @@ void Player::Djikstra(Vector2 start, Vector2 end)
 			pq.push(thereV);
 			_discorvered[there.y][there.x] = true;
 			_parent[there.y][there.x] = here;
+		}
+	}
+
+	Vector2 pos = end;
+	_path.push_back(pos);
+	while (true)
+	{
+		_path.push_back(_parent[pos.y][pos.x]);
+		pos = _parent[pos.y][pos.x];
+
+		if (pos == start)
+			break;
+	}
+
+	std::reverse(_path.begin(), _path.end());
+}
+
+void Player::AStar(Vector2 start, Vector2 end)
+{
+	Vector2 frontPos[8] =
+	{
+		Vector2 {0, 1}, // DOWN 2
+		Vector2 {1, 0}, // RIGHT 3
+		Vector2 {0, -1}, // UP 0
+		Vector2 {-1, 0}, // LEFT 1
+
+		Vector2 {1, 1}, // RIGHT_DOWN
+		Vector2 {-1, 1}, // LEFT_DOWN
+		Vector2 {1, -1}, // RIGHT UP
+		Vector2 {-1, -1} // LEFT UP
+	};
+
+	priority_queue<Vertex, vector<Vertex>, greater<Vertex>> pq;
+	vector<vector<float>> best = vector<vector<float>>(25, vector<float>(25, 100000.0f));
+
+	Vertex startV;
+	startV.pos = start;
+	startV.g = 0;
+	startV.h = start.Mahattan(end);
+	startV.f = startV.g + startV.h;
+	pq.push(startV);
+	best[start.y][start.x] = startV.f;
+	_discorvered[start.y][start.x] = true;
+	_parent[start.y][start.x] = start;
+
+	while (true)
+	{
+		if (pq.empty() == true)
+			break;
+
+		Vertex here = pq.top();
+		float f = here.f;
+		pq.pop();
+
+		if (here.pos == end)
+			break;
+
+		if (best[here.pos.y][here.pos.x] < f)
+			continue;
+
+		for (int i = 0; i < 8; i++)
+		{
+			Vector2 there = here.pos + frontPos[i];
+			if (CanGo(there) == false)
+				continue;
+			if (here.pos == there)
+				continue;
+
+			float distance = (there - here.pos).Length();
+			float nextG = distance + here.g;
+			float nextH = there.Mahattan(end);
+			float nextF = nextG + nextH;
+
+			if (best[there.y][there.x] < nextF)
+				continue;
+
+			_maze->GetBlock(there)->SetType(Block::Type::SEARCH_PRINT);
+			Vertex thereV;
+			thereV.pos = there;
+			thereV.g = nextG;
+			thereV.h = nextH;
+			thereV.f = nextF;
+			best[there.y][there.x] = nextF;
+			pq.push(thereV);
+			_discorvered[there.y][there.x] = true;
+			_parent[there.y][there.x] = here.pos;
 		}
 	}
 

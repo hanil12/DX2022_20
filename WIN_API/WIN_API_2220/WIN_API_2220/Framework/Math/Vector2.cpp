@@ -104,6 +104,11 @@ float Vector2::Length() const
 	return sqrt(powf(x, 2) + powf(y, 2));
 }
 
+float Vector2::Mahattan(const Vector2& other) const
+{
+	return abs(x - other.x) + abs(y - other.y);
+}
+
 float Vector2::Dot(const Vector2& other)
 {
 	return x * other.x + y * other.y;

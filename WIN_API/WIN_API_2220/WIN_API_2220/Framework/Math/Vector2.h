@@ -23,6 +23,7 @@ public:
 	Vector2 operator++(int);
 
 	float Length() const;
+	float Mahattan(const Vector2& other) const;
 	float Dot(const Vector2& other);
 	float Cross(const Vector2& other);
 
