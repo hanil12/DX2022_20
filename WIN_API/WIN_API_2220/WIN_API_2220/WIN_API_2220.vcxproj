@@ -151,6 +151,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Framework\Math\DisJointSet.h" />
     <ClInclude Include="Object\Maze\Block.h" />
     <ClInclude Include="Object\Maze\Maze.h" />
     <ClInclude Include="Object\Maze\Player.h" />
@@ -177,6 +178,7 @@
     <ClInclude Include="WIN_API_2220.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Framework\Math\DisJointSet.cpp" />
     <ClCompile Include="Object\Maze\Block.cpp" />
     <ClCompile Include="Object\Maze\Maze.cpp" />
     <ClCompile Include="Object\Maze\Player.cpp" />

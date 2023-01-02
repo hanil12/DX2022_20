@@ -29,6 +29,7 @@ using namespace std;
 
 // Framework
 #include "Framework/Math/Vector2.h"
+#include "Framework/Math/DisJointSet.h"
 
 #include "Framework/Collider/Line.h"
 #include "Framework/Collider/Collider.h"

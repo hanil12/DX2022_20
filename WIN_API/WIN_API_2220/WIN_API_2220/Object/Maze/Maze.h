@@ -5,10 +5,18 @@ public:
 	Maze();
 	~Maze();
 
+	struct Edge
+	{
+		int cost = 0;
+		Vector2 u;
+		Vector2 v;
+	};
+
 	void Update();
 	void Render(HDC hdc);
 
 	void CreateMaze();
+	void CreateMaze_Kruskal();
 
 	Vector2 GetStartPos() { return { 1,1 }; }
 	Vector2 GetEndPos() { return Vector2( (int)_poolCountX - 2, (int)_poolCountY - 2 ); }

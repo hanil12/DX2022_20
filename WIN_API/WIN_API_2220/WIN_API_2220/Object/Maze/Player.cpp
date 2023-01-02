@@ -26,7 +26,7 @@ void Player::Update()
 {
 	if (_pathIndex >= _path.size())
 	{
-		_maze->CreateMaze();
+		_maze->CreateMaze_Kruskal();
 		_pathIndex = 0;
 		_path.clear();
 		Init();
@@ -347,7 +347,7 @@ void Player::AStar(Vector2 start, Vector2 end)
 			if (best[there.y][there.x] < nextF)
 				continue;
 
-			_maze->GetBlock(there)->SetType(Block::Type::SEARCH_PRINT);
+			//_maze->GetBlock(there)->SetType(Block::Type::SEARCH_PRINT);
 			Vertex thereV;
 			thereV.pos = there;
 			thereV.g = nextG;
