@@ -45,7 +45,7 @@
     <ClCompile Include="DisJoint_Set.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="MST.cpp">
+    <ClCompile Include="MST_Kruskal.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>

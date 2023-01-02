@@ -10,6 +10,9 @@
 
 #define LERP(s,e,t) s + (e - s)*t
 
+#define _poolCountX 35
+#define _poolCountY 25
+
 enum Dir
 {
 	DIR_UP,

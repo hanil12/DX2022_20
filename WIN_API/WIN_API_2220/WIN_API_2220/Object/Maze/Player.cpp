@@ -16,8 +16,8 @@ void Player::Init()
 	_pos = _maze->GetStartPos();
 	_maze->GetBlock(_pos)->SetType(Block::Type::PLAYER);
 
-	_discorvered = vector<vector<bool>>(25, vector<bool>(25, false));
-	_parent = vector<vector<Vector2>>(25, vector<Vector2>(25, Vector2(-1, -1)));
+	_discorvered = vector<vector<bool>>(_poolCountY, vector<bool>(_poolCountX, false));
+	_parent = vector<vector<Vector2>>(_poolCountY, vector<Vector2>(_poolCountX, Vector2(-1, -1)));
 
 	AStar(_pos, _maze->GetEndPos());
 }
@@ -26,7 +26,24 @@ void Player::Update()
 {
 	if (_pathIndex >= _path.size())
 	{
-		_maze->CreateMaze_Kruskal();
+		int randValue = rand() % 3;
+
+		switch (randValue)
+		{
+		case 0 : 
+			_maze->CreateMaze_Kruskal();
+			break;
+		case 1:
+			_maze->CreateMaze();
+			break;
+		case 2:
+			_maze->CreateMaze_Prim();
+			break;
+		default:
+			break;
+		}
+
+
 		_pathIndex = 0;
 		_path.clear();
 		Init();
@@ -304,7 +321,7 @@ void Player::AStar(Vector2 start, Vector2 end)
 	};
 
 	priority_queue<Vertex, vector<Vertex>, greater<Vertex>> pq;
-	vector<vector<float>> best = vector<vector<float>>(25, vector<float>(25, 100000.0f));
+	vector<vector<float>> best = vector<vector<float>>(_poolCountY, vector<float>(_poolCountX , 100000.0f));
 
 	Vertex startV;
 	startV.pos = start;
