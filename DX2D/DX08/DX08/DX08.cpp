@@ -66,6 +66,13 @@ HWND hWnd;
 
 struct Vertex
 {
+    Vertex() {}
+    Vertex(float x, float y, float z)
+    : pos(x, y, z)
+    {
+
+    }
+
     XMFLOAT3 pos;
 };
 
@@ -334,6 +341,8 @@ void InitDevice()
     D3DCompileFromFile(L"Shader/TutorialShader.hlsl", nullptr, nullptr,
         "VS", "vs_5_0", flags, 0, vertexBlob.GetAddressOf(), nullptr);
 
+    device->CreateInputLayout(layOut, layoutSize, vertexBlob->GetBufferPointer(), vertexBlob->GetBufferSize(), inputLayOut.GetAddressOf());
+
     device->CreateVertexShader(vertexBlob->GetBufferPointer(), vertexBlob->GetBufferSize(),
         nullptr, vertexShader.GetAddressOf());
 
@@ -344,20 +353,19 @@ void InitDevice()
     device->CreatePixelShader(pixelBlob->GetBufferPointer(), pixelBlob->GetBufferSize(),
         nullptr, pixelShader.GetAddressOf());
 
-    Vertex vertices[] =
-    {
-        XMFLOAT3(0.0f, 0.5f, 0.0f), // 위
-        XMFLOAT3(0.5f, -0.5f, 0.0f), // 우측
-        XMFLOAT3(-0.5f, -0.5f, 0.0f) // 좌측
-    };
+    vector<Vertex> vertices;
+
+    vertices.push_back({ 0.0f, 0.5f, 0.0f }); // 위
+    vertices.push_back({ 0.5f, -0.5f, 0.0f }); // 오아
+    vertices.push_back({ - 0.5f, -0.5f, 0.0f }); // 왼아
 
     D3D11_BUFFER_DESC bd = {};
     bd.Usage = D3D11_USAGE_DEFAULT;
-    bd.ByteWidth = sizeof(Vertex) * 3;
+    bd.ByteWidth = sizeof(Vertex) * vertices.size();
     bd.BindFlags = D3D11_BIND_VERTEX_BUFFER;
 
     D3D11_SUBRESOURCE_DATA initData = {};
-    initData.pSysMem = vertices;
+    initData.pSysMem = vertices.data();
 
     device->CreateBuffer(&bd, &initData, vertexBuffer.GetAddressOf());
 }
