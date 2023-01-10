@@ -62,6 +62,10 @@ Microsoft::WRL::ComPtr<ID3D11VertexShader> vertexShader;
 Microsoft::WRL::ComPtr<ID3D11PixelShader> pixelShader;
 Microsoft::WRL::ComPtr<ID3D11InputLayout> inputLayOut;
 
+// 텍스쳐 맵핑
+Microsoft::WRL::ComPtr<ID3D11ShaderResourceView> shaderResourceView; // SRV -> 판박이 만드는 아저씨
+Microsoft::WRL::ComPtr<ID3D11SamplerState> samplerState; // Sampler -> 판박이를 붙이는 아저씨
+
 HWND hWnd;
 
 struct Vertex
@@ -74,6 +78,7 @@ struct Vertex
     }
 
     XMFLOAT3 pos;
+    XMFLOAT2 uv;
 };
 
 void InitDevice();
@@ -330,6 +335,10 @@ void InitDevice()
         {
             "POSITION",0,DXGI_FORMAT_R32G32B32_FLOAT,0,0,
             D3D11_INPUT_PER_VERTEX_DATA,0
+        },
+        {
+            "UV",0,DXGI_FORMAT_R32G32_FLOAT,0,12,
+            D3D11_INPUT_PER_VERTEX_DATA,0
         }
     };
 
@@ -355,9 +364,32 @@ void InitDevice()
 
     vector<Vertex> vertices;
 
-    vertices.push_back({ 0.0f, 0.5f, 0.0f }); // 위
-    vertices.push_back({ 0.5f, -0.5f, 0.0f }); // 오아
-    vertices.push_back({ - 0.5f, -0.5f, 0.0f }); // 왼아
+    Vertex vertex;
+
+    vertex.pos = { -0.5f, 0.5f, 0.0f }; // 왼쪽 위
+    vertex.uv = { 0.0f, 0.0f };
+    vertices.push_back(vertex);
+
+    vertex.pos = { 0.5f, -0.5f, 0.0f }; // 오른쪽 아래
+    vertex.uv = { 1.0f, 1.0f };
+    vertices.push_back(vertex);
+
+    vertex.pos = { -0.5f, -0.5f, 0.0f }; // 왼쪽 아래
+    vertex.uv = { 0.0f, 1.0f };
+    vertices.push_back(vertex);
+
+    vertex.pos = { -0.5f, 0.5f, 0.0f }; // 왼쪽 위
+    vertex.uv = { 0.0f, 0.0f };
+    vertices.push_back(vertex);
+
+    vertex.pos = { 0.5f, 0.5f, 0.0f }; // 오른쪽 위
+    vertex.uv = { 1.0f, 0.0f };
+    vertices.push_back(vertex);
+
+    vertex.pos = { 0.5f, -0.5f, 0.0f }; // 오른쪽 아래
+    vertex.uv = { 1.0f, 1.0f };
+    vertices.push_back(vertex);
+
 
     D3D11_BUFFER_DESC bd = {};
     bd.Usage = D3D11_USAGE_DEFAULT;
@@ -368,13 +400,32 @@ void InitDevice()
     initData.pSysMem = vertices.data();
 
     device->CreateBuffer(&bd, &initData, vertexBuffer.GetAddressOf());
+
+    // Textrue를 준비하고, shader 넘기는 작업
+    ScratchImage image;
+    wstring path = L"Resource/Texture/Pochita.png";
+    LoadFromWICFile(path.c_str(), WIC_FLAGS_NONE, nullptr ,image);
+
+    // 판박이 아저씨 고용하는 작업
+    CreateShaderResourceView(device.Get(), image.GetImages(), image.GetImageCount(), image.GetMetadata(), IN shaderResourceView.GetAddressOf());
+
+    D3D11_SAMPLER_DESC sampDesc = {};
+    sampDesc.Filter = D3D11_FILTER_MIN_MAG_MIP_POINT;
+    sampDesc.AddressU = D3D11_TEXTURE_ADDRESS_WRAP;
+    sampDesc.AddressV = D3D11_TEXTURE_ADDRESS_WRAP;
+    sampDesc.AddressW = D3D11_TEXTURE_ADDRESS_WRAP;
+    sampDesc.ComparisonFunc = D3D11_COMPARISON_NEVER;
+    sampDesc.MinLOD = 0;
+    sampDesc.MaxLOD = D3D11_FLOAT32_MAX;
+
+    device->CreateSamplerState(&sampDesc, IN samplerState.GetAddressOf());
 }
 
 void Render()
 {
-    FLOAT myColorR = 0.0f;
-    FLOAT myColorG = 0.0f;
-    FLOAT myColorB = 0.0f;
+    FLOAT myColorR = 0 / 255.0f;
+    FLOAT myColorG = (float)0xA3 / 255.0f;
+    FLOAT myColorB = (float)0xD2 / 255.0f;
 
     FLOAT clearColor[4] = { myColorR, myColorG, myColorB, 1.0f };
 
@@ -388,10 +439,13 @@ void Render()
     deviceContext->IASetVertexBuffers(0, 1, vertexBuffer.GetAddressOf(), &stride, &offset);
     deviceContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 
+    deviceContext->PSSetShaderResources(0, 1, shaderResourceView.GetAddressOf());
+    deviceContext->PSSetSamplers(0, 1, samplerState.GetAddressOf());
+
     deviceContext->VSSetShader(vertexShader.Get(), nullptr, 0);
     deviceContext->PSSetShader(pixelShader.Get(), nullptr, 0);
 
-    deviceContext->Draw(3, 0);
+    deviceContext->Draw(6, 0);
 
     swapChain->Present(0, 0);
 }
