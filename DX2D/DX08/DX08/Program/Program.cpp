@@ -19,5 +19,10 @@ void Program::Update()
 
 void Program::Render()
 {
+	Device::GetInstance()->Clear();
+
+
 	_scene->Render();
+
+	Device::GetInstance()->Present();
 }

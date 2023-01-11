@@ -34,6 +34,9 @@ public:
 	Microsoft::WRL::ComPtr<ID3D11RenderTargetView> GetRenderTarget() { return _renderTargetView; }
 	Microsoft::WRL::ComPtr<IDXGISwapChain> GetSwapChain() { return _swapChain; }
 
+	void Clear();
+	void Present();
+
 private:
 	static Device* _instance;
 

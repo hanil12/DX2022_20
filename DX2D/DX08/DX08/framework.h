@@ -42,6 +42,16 @@ using namespace DirectX;
 // Framework
 #include "Framework/Device/Device.h"
 
+// Render
+#include "Framework/Render/VertexLayout.h"
+#include "Framework/Render/VertexBuffer.h"
+#include "Framework/Render/VertexShader.h"
+#include "Framework/Render/PixelShader.h"
+
+// Texture
+#include "Framework/Texture/SRV.h"
+#include "Framework/Texture/SamplerState.h"
+
 // Scene
 #include "Scene/Scene.h"
 

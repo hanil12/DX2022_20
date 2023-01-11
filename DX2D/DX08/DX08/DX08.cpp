@@ -6,65 +6,8 @@
 
 #define MAX_LOADSTRING 100
 
-// WIN_API
-// CPU에서 그리는 작업 해줬음.
-// -> pixel 계산
-
-// 1980 x 1080 : 200,0000
-
-// DX
-// -> GPU한테 Pixel 계산을 맡긴다.
-// DX11
-// 목표 : 2D 게임 엔진 만들기
-
-// CPU : 어려운 계산 작업을 직렬처리한다.
-// GPU : 단순 계산을 병렬처리하는데 특화되어있다.
-// -> ALU가 많기 때문에 픽셀 병렬 계산에 매우 효율적이다.
-
-// DX 그래픽스
-// 영화 촬영
-// 카메라 / 카메라(View)
-// 세트장 / World
-// 총감독 / 프로그래머
-// 조명 / Light
-// 영화사 / 엔진
-
-// DX2D
-// 인력사무소장 / Device
-// 연출담당 / Device Context
-
-// 렌더링 파이프라인
-// -> 그림 그리는 작업 과정
-
-
-
-// 렌더링파이프라인 단계
-Microsoft::WRL::ComPtr<ID3D11Buffer> vertexBuffer; // 정점들을 담아놓는 버퍼
-Microsoft::WRL::ComPtr<ID3D11VertexShader> vertexShader;
-Microsoft::WRL::ComPtr<ID3D11PixelShader> pixelShader;
-Microsoft::WRL::ComPtr<ID3D11InputLayout> inputLayOut;
-
-// 텍스쳐 맵핑
-Microsoft::WRL::ComPtr<ID3D11ShaderResourceView> shaderResourceView; // SRV -> 판박이 만드는 아저씨
-Microsoft::WRL::ComPtr<ID3D11SamplerState> samplerState; // Sampler -> 판박이를 붙이는 아저씨
-
 HWND hWnd;
 
-struct Vertex
-{
-    Vertex() {}
-    Vertex(float x, float y, float z)
-    : pos(x, y, z)
-    {
-
-    }
-
-    XMFLOAT3 pos;
-    XMFLOAT2 uv;
-};
-
-void InitDevice();
-void Render();
 
 // 전역 변수:
 HINSTANCE hInst;                                // 현재 인스턴스입니다.
@@ -102,7 +45,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
     // 생성
     Device::Create(hWnd);
-    InitDevice();
+    //InitDevice();
     shared_ptr<Program> program = make_shared<Program>();
 
     MSG msg = {};
@@ -122,8 +65,6 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
         {
             program->Update();
             program->Render();
-            // 메인루프
-            Render();
         }
     }
 
@@ -253,130 +194,4 @@ INT_PTR CALLBACK About(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
         break;
     }
     return (INT_PTR)FALSE;
-}
-
-void InitDevice()
-{
-
-
-
-
-    D3D11_INPUT_ELEMENT_DESC layOut[] =
-    {
-        {
-            "POSITION",0,DXGI_FORMAT_R32G32B32_FLOAT,0,0,
-            D3D11_INPUT_PER_VERTEX_DATA,0
-        },
-        {
-            "UV",0,DXGI_FORMAT_R32G32_FLOAT,0,12,
-            D3D11_INPUT_PER_VERTEX_DATA,0
-        }
-    };
-
-    UINT layoutSize = ARRAYSIZE(layOut);
-
-    DWORD flags = D3DCOMPILE_ENABLE_STRICTNESS | D3DCOMPILE_DEBUG;
-
-    Microsoft::WRL::ComPtr<ID3DBlob> vertexBlob; // VertexShader만들 때 필요한 얘
-    D3DCompileFromFile(L"Shader/TutorialShader.hlsl", nullptr, nullptr,
-        "VS", "vs_5_0", flags, 0, vertexBlob.GetAddressOf(), nullptr);
-
-    DEVICE->CreateInputLayout(layOut, layoutSize, vertexBlob->GetBufferPointer(), vertexBlob->GetBufferSize(), inputLayOut.GetAddressOf());
-
-    DEVICE->CreateVertexShader(vertexBlob->GetBufferPointer(), vertexBlob->GetBufferSize(),
-        nullptr, vertexShader.GetAddressOf());
-
-    Microsoft::WRL::ComPtr<ID3DBlob> pixelBlob; // PixelShader만들 때 필요한 얘
-    D3DCompileFromFile(L"Shader/TutorialShader.hlsl", nullptr, nullptr,
-        "PS", "ps_5_0", flags, 0, pixelBlob.GetAddressOf(), nullptr);
-
-    DEVICE->CreatePixelShader(pixelBlob->GetBufferPointer(), pixelBlob->GetBufferSize(),
-        nullptr, pixelShader.GetAddressOf());
-
-    vector<Vertex> vertices;
-
-    Vertex vertex;
-
-    vertex.pos = { -0.5f, 0.5f, 0.0f }; // 왼쪽 위
-    vertex.uv = { 0.0f, 0.0f };
-    vertices.push_back(vertex);
-
-    vertex.pos = { 0.5f, -0.5f, 0.0f }; // 오른쪽 아래
-    vertex.uv = { 1.0f, 1.0f };
-    vertices.push_back(vertex);
-
-    vertex.pos = { -0.5f, -0.5f, 0.0f }; // 왼쪽 아래
-    vertex.uv = { 0.0f, 1.0f };
-    vertices.push_back(vertex);
-
-    vertex.pos = { -0.5f, 0.5f, 0.0f }; // 왼쪽 위
-    vertex.uv = { 0.0f, 0.0f };
-    vertices.push_back(vertex);
-
-    vertex.pos = { 0.5f, 0.5f, 0.0f }; // 오른쪽 위
-    vertex.uv = { 1.0f, 0.0f };
-    vertices.push_back(vertex);
-
-    vertex.pos = { 0.5f, -0.5f, 0.0f }; // 오른쪽 아래
-    vertex.uv = { 1.0f, 1.0f };
-    vertices.push_back(vertex);
-
-
-    D3D11_BUFFER_DESC bd = {};
-    bd.Usage = D3D11_USAGE_DEFAULT;
-    bd.ByteWidth = sizeof(Vertex) * vertices.size();
-    bd.BindFlags = D3D11_BIND_VERTEX_BUFFER;
-
-    D3D11_SUBRESOURCE_DATA initData = {};
-    initData.pSysMem = vertices.data();
-
-    DEVICE->CreateBuffer(&bd, &initData, vertexBuffer.GetAddressOf());
-
-    // Textrue를 준비하고, shader 넘기는 작업
-    ScratchImage image;
-    wstring path = L"Resource/Texture/Pochita.png";
-    LoadFromWICFile(path.c_str(), WIC_FLAGS_NONE, nullptr ,image);
-
-    // 판박이 아저씨 고용하는 작업
-    CreateShaderResourceView(DEVICE.Get(), image.GetImages(), image.GetImageCount(), image.GetMetadata(), IN shaderResourceView.GetAddressOf());
-
-    D3D11_SAMPLER_DESC sampDesc = {};
-    sampDesc.Filter = D3D11_FILTER_MIN_MAG_MIP_POINT;
-    sampDesc.AddressU = D3D11_TEXTURE_ADDRESS_WRAP;
-    sampDesc.AddressV = D3D11_TEXTURE_ADDRESS_WRAP;
-    sampDesc.AddressW = D3D11_TEXTURE_ADDRESS_WRAP;
-    sampDesc.ComparisonFunc = D3D11_COMPARISON_NEVER;
-    sampDesc.MinLOD = 0;
-    sampDesc.MaxLOD = D3D11_FLOAT32_MAX;
-
-    DEVICE->CreateSamplerState(&sampDesc, IN samplerState.GetAddressOf());
-}
-
-void Render()
-{
-    FLOAT myColorR = 0 / 255.0f;
-    FLOAT myColorG = (float)0xA3 / 255.0f;
-    FLOAT myColorB = (float)0xD2 / 255.0f;
-
-    FLOAT clearColor[4] = { myColorR, myColorG, myColorB, 1.0f };
-
-    DC->ClearRenderTargetView(Device::GetInstance()->GetRenderTarget().Get(), clearColor);
-
-    UINT stride = sizeof(Vertex);
-    UINT offset = 0;
-
-    DC->IASetInputLayout(inputLayOut.Get());
-
-    DC->IASetVertexBuffers(0, 1, vertexBuffer.GetAddressOf(), &stride, &offset);
-    DC->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
-
-    DC->PSSetShaderResources(0, 1, shaderResourceView.GetAddressOf());
-    DC->PSSetSamplers(0, 1, samplerState.GetAddressOf());
-
-    DC->VSSetShader(vertexShader.Get(), nullptr, 0);
-    DC->PSSetShader(pixelShader.Get(), nullptr, 0);
-
-    DC->Draw(6, 0);
-
-    Device::GetInstance()->GetSwapChain()->Present(0, 0);
 }

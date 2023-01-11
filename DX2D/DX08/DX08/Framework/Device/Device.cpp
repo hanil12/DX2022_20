@@ -79,3 +79,19 @@ void Device::CreateDoubleBuffer()
     vp.TopLeftY = 0;
     _deviceContext->RSSetViewports(1, &vp);
 }
+
+void Device::Clear()
+{
+    FLOAT myColorR = 0 / 255.0f;
+    FLOAT myColorG = (float)0xA3 / 255.0f;
+    FLOAT myColorB = (float)0xD2 / 255.0f;
+
+    FLOAT clearColor[4] = { myColorR, myColorG, myColorB, 1.0f };
+
+    _deviceContext->ClearRenderTargetView(Device::GetInstance()->GetRenderTarget().Get(), clearColor);
+}
+
+void Device::Present()
+{
+    _swapChain->Present(0, 0);
+}
