@@ -1,0 +1,76 @@
+#include "framework.h"
+#include "Quad.h"
+
+Quad::Quad(wstring file)
+{
+    CreateMaterial(file);
+    CreateMesh();
+}
+
+Quad::~Quad()
+{
+}
+
+void Quad::Update()
+{
+}
+
+void Quad::Render()
+{
+    _vertexBuffer->Set(0);
+    _indexBuffer->IASetIndexBuffer();
+
+    DC->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+
+    _srv->Set(0);
+    _sampler->Set(0);
+
+    _vs->Set();
+    _ps->Set();
+
+    DC->DrawIndexed(6, 0, 0);
+}
+
+void Quad::CreateMaterial(wstring file)
+{
+	_vs = make_shared<VertexShader>(L"Shader/TutorialShader.hlsl");
+	_ps = make_shared<PixelShader>(L"Shader/TutorialShader.hlsl");
+	_srv = make_shared<SRV>(file);
+    _size = _srv->GetImageSize();
+
+	_sampler = make_shared<SamplerState>();
+}
+
+void Quad::CreateMesh()
+{
+    Vertex vertex;
+
+    Vector2 halfSize = _size * 0.5f;
+
+    vertex.pos = { -0.5f, 0.5f, 0.0f }; // 왼쪽 위
+    vertex.uv = { 0.0f, 0.0f };
+    _vertices.push_back(vertex);
+
+    vertex.pos = { 0.5f, 0.5f, 0.0f }; // 오른쪽 위
+    vertex.uv = { 1.0f, 0.0f };
+    _vertices.push_back(vertex);
+
+    vertex.pos = { -0.5f, -0.5f, 0.0f }; // 왼쪽 아래
+    vertex.uv = { 0.0f, 1.0f };
+    _vertices.push_back(vertex);
+
+    vertex.pos = { 0.5f, -0.5f, 0.0f }; // 오른쪽 아래
+    vertex.uv = { 1.0f, 1.0f };
+    _vertices.push_back(vertex);
+
+    _indices.push_back(0); // 왼쪽위
+    _indices.push_back(1); // 오른쪽 위
+    _indices.push_back(2); // 왼쪽 아래
+
+    _indices.push_back(1); // 오른쪽 위
+    _indices.push_back(3); // 오른쪽 아래
+    _indices.push_back(2); // 왼쪽 아래
+
+    _vertexBuffer = make_shared<VertexBuffer>(_vertices.data(), sizeof(Vertex), 4);
+    _indexBuffer = make_shared<IndexBuffer>(&_indices[0], 6);
+}
