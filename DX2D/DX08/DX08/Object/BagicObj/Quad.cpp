@@ -5,6 +5,8 @@ Quad::Quad(wstring file)
 {
     CreateMaterial(file);
     CreateMesh();
+
+    _world = make_shared<MatrixBuffer>();
 }
 
 Quad::~Quad()
@@ -13,6 +15,7 @@ Quad::~Quad()
 
 void Quad::Update()
 {
+    _world->Update();
 }
 
 void Quad::Render()
@@ -24,6 +27,8 @@ void Quad::Render()
 
     _srv->Set(0);
     _sampler->Set(0);
+
+    _world->SetVSBuffer(0);
 
     _vs->Set();
     _ps->Set();
@@ -47,19 +52,19 @@ void Quad::CreateMesh()
 
     Vector2 halfSize = _size * 0.5f;
 
-    vertex.pos = { -0.5f, 0.5f, 0.0f }; // 왼쪽 위
+    vertex.pos = { -halfSize.x, halfSize.y, 0.0f }; // 왼쪽 위
     vertex.uv = { 0.0f, 0.0f };
     _vertices.push_back(vertex);
 
-    vertex.pos = { 0.5f, 0.5f, 0.0f }; // 오른쪽 위
+    vertex.pos = { halfSize.x, halfSize.y, 0.0f }; // 오른쪽 위
     vertex.uv = { 1.0f, 0.0f };
     _vertices.push_back(vertex);
 
-    vertex.pos = { -0.5f, -0.5f, 0.0f }; // 왼쪽 아래
+    vertex.pos = { -halfSize.x, -halfSize.y, 0.0f }; // 왼쪽 아래
     vertex.uv = { 0.0f, 1.0f };
     _vertices.push_back(vertex);
 
-    vertex.pos = { 0.5f, -0.5f, 0.0f }; // 오른쪽 아래
+    vertex.pos = { halfSize.x, -halfSize.y, 0.0f }; // 오른쪽 아래
     vertex.uv = { 1.0f, 1.0f };
     _vertices.push_back(vertex);
 
