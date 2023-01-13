@@ -10,13 +10,6 @@ TutorialScene::TutorialScene()
 	_quad2 = make_shared<Quad>(L"Resource/Texture/Pochita.png");
 	_quad2->GetTransform()->SetParent(_quad->GetTransform());
 	_quad2->GetTransform()->GetPos().x += 500;
-
-	_view = make_shared<MatrixBuffer>();
-	_projection = make_shared<MatrixBuffer>();
-
-	XMMATRIX projectM = XMMatrixOrthographicOffCenterLH(0,WIN_WIDTH, 0, WIN_HEIGHT, -1.0f, 1.0f);
-
-	_projection->SetData(projectM);
 }
 
 TutorialScene::~TutorialScene()
@@ -54,15 +47,10 @@ void TutorialScene::Update()
 
 	_quad->Update();
 	_quad2->Update();
-
-	_view->Update();
-	_projection->Update();
 }
 
 void TutorialScene::Render()
 {
-	_view->SetVSBuffer(1);
-	_projection->SetVSBuffer(2);
 	_quad->Render();
 	_quad2->Render();
 }
