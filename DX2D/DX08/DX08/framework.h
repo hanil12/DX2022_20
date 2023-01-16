@@ -34,10 +34,7 @@
 using namespace std;
 using namespace DirectX;
 
-#define WIN_WIDTH 1280
-#define WIN_HEIGHT 720
-#define DEVICE Device::GetInstance()->GetDevice()
-#define DC Device::GetInstance()->GetDeviceContext()
+#include "Types.h"
 
 // Framework
 #include "Framework/Device/Device.h"
@@ -58,12 +55,20 @@ using namespace DirectX;
 // Texture
 #include "Framework/Texture/SRV.h"
 #include "Framework/Texture/SamplerState.h"
+#include "Framework/Texture/BlendState.h"
+#include "Framework/Texture/StateManager.h"
 
 // Object
 #include "Object/BagicObj/Quad.h"
+
+// GameObj
+#include "Object/GameObj/SolarSystem/Planet.h"
 
 // Scene
 #include "Scene/Scene.h"
 
 // Program
 #include "Program/Program.h"
+
+
+extern Vector2 mousePos;

@@ -26,7 +26,7 @@ void Quad::Render()
     DC->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 
     _srv->Set(0);
-    _sampler->Set(0);
+    SAMPLER->Set(0);
 
     _transform->SetBuffer(0);
 
@@ -43,7 +43,6 @@ void Quad::CreateMaterial(wstring file)
 	_srv = make_shared<SRV>(file);
     _size = _srv->GetImageSize();
 
-	_sampler = make_shared<SamplerState>();
 }
 
 void Quad::CreateMesh()

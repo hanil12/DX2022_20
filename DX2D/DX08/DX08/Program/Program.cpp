@@ -6,7 +6,7 @@
 
 Program::Program()
 {
-	_scene = make_shared<TutorialScene>();
+	_scene = make_shared<SolarSystemScene>();
 
 	_view = make_shared<MatrixBuffer>();
 	_proj = make_shared<MatrixBuffer>();
@@ -34,6 +34,9 @@ void Program::Render()
 
 	_view->SetVSBuffer(1);
 	_proj->SetVSBuffer(2);
+
+	ALPHA->SetState();
+
 	_scene->Render();
 
 	Device::GetInstance()->Present();

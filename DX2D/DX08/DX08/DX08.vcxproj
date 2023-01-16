@@ -151,6 +151,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Framework\Texture\BlendState.h" />
     <ClInclude Include="Framework\Render\ConstantBuffer.h" />
     <ClInclude Include="Framework\Device\Device.h" />
     <ClInclude Include="DX08.h" />
@@ -160,10 +161,13 @@
     <ClInclude Include="Framework\Render\VertexLayout.h" />
     <ClInclude Include="Framework\Render\IndexBuffer.h" />
     <ClInclude Include="Framework\Render\GlobalBuffer.h" />
+    <ClInclude Include="Object\GameObj\SolarSystem\Planet.h" />
     <ClInclude Include="Program\Program.h" />
     <ClInclude Include="Object\BagicObj\Quad.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="Framework\Texture\SamplerState.h" />
+    <ClInclude Include="Framework\Texture\StateManager.h" />
+    <ClInclude Include="Types.h" />
     <ClInclude Include="Scene\Scene.h" />
     <ClInclude Include="Framework\Texture\SRV.h" />
     <ClInclude Include="Scene\SolarSystemScene.h" />
@@ -174,6 +178,7 @@
     <ClInclude Include="Framework\Math\Transform.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Framework\Texture\BlendState.cpp" />
     <ClCompile Include="Framework\Render\ConstantBuffer.cpp" />
     <ClCompile Include="Framework\Device\Device.cpp" />
     <ClCompile Include="DX08.cpp" />
@@ -190,6 +195,7 @@
     <ClCompile Include="Framework\Math\Vector2.cpp" />
     <ClCompile Include="Framework\Render\PixelShader.cpp" />
     <ClCompile Include="Framework\Render\IndexBuffer.cpp" />
+    <ClCompile Include="Object\GameObj\SolarSystem\Planet.cpp" />
     <ClCompile Include="Program\Program.cpp" />
     <ClCompile Include="Framework\Texture\SamplerState.cpp" />
     <ClCompile Include="Object\BagicObj\Quad.cpp" />
@@ -200,14 +206,19 @@
     <ClCompile Include="Framework\Texture\SRV.cpp" />
     <ClCompile Include="Framework\Math\Transform.cpp" />
     <ClCompile Include="Scene\SolarSystemScene.cpp" />
+    <ClCompile Include="Framework\Texture\StateManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="DX08.rc" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="DX08.ico" />
+    <Image Include="Resource\Texture\Bow.png" />
+    <Image Include="Resource\Texture\earth.png" />
+    <Image Include="Resource\Texture\moon.png" />
     <Image Include="Resource\Texture\SpyFamilly.png" />
     <Image Include="Resource\Texture\SpyFamilly2.png" />
+    <Image Include="Resource\Texture\sun.png" />
     <Image Include="small.ico" />
   </ItemGroup>
   <ItemGroup>
