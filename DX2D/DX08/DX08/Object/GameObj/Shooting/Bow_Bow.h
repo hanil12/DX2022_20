@@ -1,0 +1,19 @@
+#pragma once
+class Bow_Bow
+{
+public:
+	Bow_Bow();
+	~Bow_Bow();
+
+	void Update();
+	void Render();
+
+	void Fire();
+
+	shared_ptr<Transform> GetTransform() { return _quad->GetTransform(); }
+
+private:
+	shared_ptr<Quad> _quad;
+	shared_ptr<Bow_Bullet> _bullet;
+};
+

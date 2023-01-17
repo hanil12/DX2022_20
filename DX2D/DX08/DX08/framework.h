@@ -54,6 +54,7 @@ using namespace DirectX;
 
 // Utillity
 #include "Framework/Utillity/InputManager.h"
+#include "Framework/Utillity/Timer.h"
 
 // Texture
 #include "Framework/Texture/SRV.h"
@@ -66,6 +67,9 @@ using namespace DirectX;
 
 // GameObj
 #include "Object/GameObj/SolarSystem/Planet.h"
+
+#include "Object/GameObj/Shooting/Bow_Bullet.h"
+#include "Object/GameObj/Shooting/Bow_Bow.h"
 
 // Scene
 #include "Scene/Scene.h"

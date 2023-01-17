@@ -151,6 +151,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Scene\BowScene.h" />
+    <ClInclude Include="Object\GameObj\Shooting\Bow_Bow.h" />
+    <ClInclude Include="Object\GameObj\Shooting\Bow_Bullet.h" />
     <ClInclude Include="Framework\Texture\BlendState.h" />
     <ClInclude Include="Framework\Render\ConstantBuffer.h" />
     <ClInclude Include="Framework\Device\Device.h" />
@@ -168,6 +171,7 @@
     <ClInclude Include="Resource.h" />
     <ClInclude Include="Framework\Texture\SamplerState.h" />
     <ClInclude Include="Framework\Texture\StateManager.h" />
+    <ClInclude Include="Framework\Utillity\Timer.h" />
     <ClInclude Include="Types.h" />
     <ClInclude Include="Scene\Scene.h" />
     <ClInclude Include="Framework\Texture\SRV.h" />
@@ -179,6 +183,9 @@
     <ClInclude Include="Framework\Math\Transform.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Scene\BowScene.cpp" />
+    <ClCompile Include="Object\GameObj\Shooting\Bow_Bow.cpp" />
+    <ClCompile Include="Object\GameObj\Shooting\Bow_Bullet.cpp" />
     <ClCompile Include="Framework\Texture\BlendState.cpp" />
     <ClCompile Include="Framework\Render\ConstantBuffer.cpp" />
     <ClCompile Include="Framework\Device\Device.cpp" />
@@ -209,6 +216,7 @@
     <ClCompile Include="Framework\Math\Transform.cpp" />
     <ClCompile Include="Scene\SolarSystemScene.cpp" />
     <ClCompile Include="Framework\Texture\StateManager.cpp" />
+    <ClCompile Include="Framework\Utillity\Timer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="DX08.rc" />

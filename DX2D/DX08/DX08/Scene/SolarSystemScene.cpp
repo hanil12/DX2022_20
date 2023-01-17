@@ -19,8 +19,8 @@ SolarSystemScene::~SolarSystemScene()
 
 void SolarSystemScene::Update()
 {
-	if(KEY_PRESS(VK_SPACE))
-		_sun->SetPos(InputManager::GetInstance()->GetMousePos());
+	Vector2 lerp = LERP(_sun->GetTransform()->GetPos(), MOUSE_POS, DELTA_TIME);
+	_sun->SetPos(lerp);
 
 	_sun->Update();
 	_earth->Update();
