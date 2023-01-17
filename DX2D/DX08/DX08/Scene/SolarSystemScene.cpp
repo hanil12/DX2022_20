@@ -19,7 +19,8 @@ SolarSystemScene::~SolarSystemScene()
 
 void SolarSystemScene::Update()
 {
-	_sun->SetPos(mousePos);
+	if(KEY_PRESS(VK_SPACE))
+		_sun->SetPos(InputManager::GetInstance()->GetMousePos());
 
 	_sun->Update();
 	_earth->Update();

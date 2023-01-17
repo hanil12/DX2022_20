@@ -161,6 +161,7 @@
     <ClInclude Include="Framework\Render\VertexLayout.h" />
     <ClInclude Include="Framework\Render\IndexBuffer.h" />
     <ClInclude Include="Framework\Render\GlobalBuffer.h" />
+    <ClInclude Include="Framework\Utillity\InputManager.h" />
     <ClInclude Include="Object\GameObj\SolarSystem\Planet.h" />
     <ClInclude Include="Program\Program.h" />
     <ClInclude Include="Object\BagicObj\Quad.h" />
@@ -195,6 +196,7 @@
     <ClCompile Include="Framework\Math\Vector2.cpp" />
     <ClCompile Include="Framework\Render\PixelShader.cpp" />
     <ClCompile Include="Framework\Render\IndexBuffer.cpp" />
+    <ClCompile Include="Framework\Utillity\InputManager.cpp" />
     <ClCompile Include="Object\GameObj\SolarSystem\Planet.cpp" />
     <ClCompile Include="Program\Program.cpp" />
     <ClCompile Include="Framework\Texture\SamplerState.cpp" />

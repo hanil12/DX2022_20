@@ -52,6 +52,9 @@ using namespace DirectX;
 #include "Framework/Render/VertexShader.h"
 #include "Framework/Render/PixelShader.h"
 
+// Utillity
+#include "Framework/Utillity/InputManager.h"
+
 // Texture
 #include "Framework/Texture/SRV.h"
 #include "Framework/Texture/SamplerState.h"
@@ -69,6 +72,3 @@ using namespace DirectX;
 
 // Program
 #include "Program/Program.h"
-
-
-extern Vector2 mousePos;
