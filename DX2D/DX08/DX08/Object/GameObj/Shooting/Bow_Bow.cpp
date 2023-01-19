@@ -8,7 +8,12 @@ Bow_Bow::Bow_Bow()
 
 	_quad->GetTransform()->GetPos() = { 100,100 };
 
-	_bullet = make_shared<Bow_Bullet>();
+	for (int i = 0; i < 30; i++)
+	{
+		shared_ptr<Bow_Bullet> bullet = make_shared<Bow_Bullet>();
+		bullet->isActive = false;
+		_bullets.push_back(bullet);
+	}
 }
 
 Bow_Bow::~Bow_Bow()
@@ -21,25 +26,35 @@ void Bow_Bow::Update()
 
 	_quad->Update();
 
-	_bullet->Update();
+	for (auto bullet : _bullets)
+		bullet->Update();
 }
 
 void Bow_Bow::Render()
 {
 	_quad->Render();
 
-	_bullet->Render();
+	for (auto bullet : _bullets)
+		bullet->Render();
 }
 
 void Bow_Bow::Fire()
 {
 	if (KEY_DOWN(VK_LBUTTON))
 	{
-		_bullet->isActive = true;
+		for (auto bullet : _bullets)
+		{
+			if (bullet->isActive == false)
+			{
+				bullet->isActive = true;
 
-		Vector2 direction = MOUSE_POS - _quad->GetTransform()->GetPos();
-		_bullet->GetTransform()->GetPos() = _quad->GetTransform()->GetPos();
-		_bullet->SetDirection(direction);
-		_bullet->GetTransform()->GetAngle() = direction.Angle();
+				Vector2 direction = MOUSE_POS - _quad->GetTransform()->GetPos();
+				bullet->GetTransform()->GetPos() = _quad->GetTransform()->GetPos();
+				bullet->SetDirection(direction);
+				bullet->GetTransform()->GetAngle() = direction.Angle();
+
+				break;
+			}
+		}
 	}
 }

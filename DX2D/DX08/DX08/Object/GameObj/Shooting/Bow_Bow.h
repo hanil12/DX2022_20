@@ -14,6 +14,6 @@ public:
 
 private:
 	shared_ptr<Quad> _quad;
-	shared_ptr<Bow_Bullet> _bullet;
+	vector<shared_ptr<Bow_Bullet>> _bullets;
 };
 

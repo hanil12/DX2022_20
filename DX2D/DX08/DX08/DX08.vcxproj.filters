@@ -105,6 +105,15 @@
     <ClInclude Include="Scene\BowScene.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+    <ClInclude Include="Framework\Texture\SRVManager.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\CollisionScene.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Framework\Collider\RectCollider.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DX08.cpp">
@@ -182,6 +191,15 @@
     <ClCompile Include="Scene\BowScene.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="Framework\Texture\SRVManager.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\CollisionScene.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Framework\Collider\RectCollider.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="DX08.rc">
@@ -218,5 +236,7 @@
     <FxCompile Include="Shader\TutorialShader.hlsl" />
     <FxCompile Include="Shader\TextureVertexShader.hlsl" />
     <FxCompile Include="Shader\TexturePixelShader.hlsl" />
+    <FxCompile Include="Shader\Collider\ColliderPixelShader.hlsl" />
+    <FxCompile Include="Shader\Collider\ColliderVertexShader.hlsl" />
   </ItemGroup>
 </Project>

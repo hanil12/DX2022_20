@@ -16,6 +16,14 @@ void Bow_Bullet::Update()
 	if (isActive == false)
 		return;
 
+	_check += DELTA_TIME;
+
+	if (_check > _delay)
+	{
+		isActive = false;
+		_check = 0.0f;
+	}
+
 	_quad->GetTransform()->GetPos() += _dir * _speed * DELTA_TIME;
 
 	_quad->Update();
