@@ -1,34 +1,25 @@
 #pragma once
-class RectCollider
+class CircleCollider
 {
 public:
-	struct OBB_DESC
-	{
-		Vector2 position;
-		Vector2 direction[2]; // 가로 세로 벡터
-		float length[2]; // 가로 세로 길이
-	};
-
-	RectCollider(Vector2 size);
-	~RectCollider();
+	CircleCollider(float radius);
+	~CircleCollider();
 
 	void Update();
 	void Render();
 
 	shared_ptr<Transform> GetTransform() { return _transform; }
 
+	bool IsCollision(shared_ptr<CircleCollider> other);
+
 	void SetRed() { _colorBuffer->_data.color = { 1,0,0,1 }; }
 	void SetGreen() { _colorBuffer->_data.color = { 0,1,0,1 }; }
-
-	OBB_DESC GetOBB();
-
-	float SeparateAxis(Vector2 separate, Vector2 e1, Vector2 e2);
 
 private:
 	void CreateData();
 	void CreateVertices();
 
-	Vector2 _size = { 0,0 };
+	float _radius = 0.0f;
 
 	vector<Vertex_Bagic> _vertices;
 
