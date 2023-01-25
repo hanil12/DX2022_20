@@ -4,6 +4,7 @@
 CircleCollider::CircleCollider(float radius)
 : _radius(radius)
 {
+    _type = Collider::Type::CIRCLE;
 	CreateData();
 }
 
@@ -13,31 +14,12 @@ CircleCollider::~CircleCollider()
 
 void CircleCollider::Update()
 {
-	_transform->Update();
-	_colorBuffer->Update();
+    Collider::Update();
 }
 
 void CircleCollider::Render()
 {
-    _transform->SetBuffer(0);
-    _colorBuffer->SetPSBuffer(0);
-
-    _vertexBuffer->IASet(0);
-
-    DC->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_LINESTRIP);
-
-    _vs->Set();
-    _ps->Set();
-
-    DC->Draw(_vertices.size(), 0);
-}
-
-bool CircleCollider::IsCollision(shared_ptr<CircleCollider> other)
-{
-    float radiusSum = this->_radius * this->GetTransform()->GetWorldScale().x + other->_radius * other->GetTransform()->GetWorldScale().x;
-    float distance = (other->_transform->GetWorldPos() - this->_transform->GetWorldPos()).Length();
-
-    return distance < radiusSum;
+    Collider::Render();
 }
 
 void CircleCollider::CreateData()
@@ -52,6 +34,32 @@ void CircleCollider::CreateData()
     _colorBuffer = make_shared<ColorBuffer>();
     _colorBuffer->_data.color = { 0,1,0,1 };
     _transform = make_shared<Transform>();
+}
+
+bool CircleCollider::IsCollision(Vector2 pos)
+{
+    float length = (pos - _transform->GetWorldPos()).Length();
+    float worldRadius = WorldRadius();
+
+    return length < worldRadius;
+}
+
+bool CircleCollider::IsCollision(shared_ptr<CircleCollider> other, bool isObb)
+{
+    float radiusSum = this->_radius * this->GetTransform()->GetWorldScale().x + other->_radius * other->GetTransform()->GetWorldScale().x;
+    float distance = (other->_transform->GetWorldPos() - this->_transform->GetWorldPos()).Length();
+
+    return distance < radiusSum;
+}
+
+bool CircleCollider::IsCollision(shared_ptr<RectCollider> other, bool isObb)
+{
+    return other->IsCollision(shared_from_this(), isObb);
+}
+
+float CircleCollider::WorldRadius()
+{
+    return _radius * _transform->GetScale().x;
 }
 
 void CircleCollider::CreateVertices()

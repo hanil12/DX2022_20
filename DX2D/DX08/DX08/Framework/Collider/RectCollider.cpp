@@ -4,6 +4,7 @@
 RectCollider::RectCollider(Vector2 size)
 : _size(size)
 {
+    _type = Collider::Type::RECT;
     CreateData();
 }
 
@@ -13,23 +14,12 @@ RectCollider::~RectCollider()
 
 void RectCollider::Update()
 {
-    _transform->Update();
-    _colorBuffer->Update();
+    Collider::Update();
 }
 
 void RectCollider::Render()
 {
-    _transform->SetBuffer(0);
-    _colorBuffer->SetPSBuffer(0);
-
-    _vertexBuffer->IASet(0);
-
-    DC->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_LINESTRIP);
-
-    _vs->Set();
-    _ps->Set();
-
-    DC->Draw(_vertices.size(), 0);
+    Collider::Render();
 }
 
 RectCollider::OBB_DESC RectCollider::GetOBB()
@@ -73,6 +63,178 @@ void RectCollider::CreateData()
     _colorBuffer = make_shared<ColorBuffer>();
     _colorBuffer->_data.color = { 0,1,0,1 };
     _transform = make_shared<Transform>();
+}
+
+bool RectCollider::IsCollision(Vector2 pos)
+{
+    float left = Left();
+    float right = Right();
+    float top = Top();
+    float bottom = Bottom();
+
+    if (pos.x < right && pos.x > left)
+    {
+        if (pos.y < top && pos.y > bottom)
+            return true;
+    }
+
+    return false;
+}
+
+bool RectCollider::IsCollision(shared_ptr<CircleCollider> other, bool isObb)
+{
+    if (isObb)
+        return IsOBB(other);
+    else
+        return IsAABB(other);
+}
+
+bool RectCollider::IsCollision(shared_ptr<RectCollider> other, bool isObb)
+{
+    if (isObb)
+        return IsOBB(other);
+    else
+        return IsAABB(other);
+}
+
+bool RectCollider::IsAABB(shared_ptr<RectCollider> other)
+{
+    Vector2 leftTop = Vector2(other->Left(), other->Top());
+    Vector2 leftBottom = Vector2(other->Left(), other->Bottom());
+    Vector2 rightTop = Vector2(other->Right(), other->Top());
+    Vector2 rightBottom = Vector2(other->Right(), other->Bottom());
+
+    if (IsCollision(leftTop) || IsCollision(leftBottom)
+        || IsCollision(rightTop) || IsCollision(rightBottom))
+        return true;
+
+    leftTop = Vector2(Left(), Top());
+    leftBottom = Vector2(Left(), Bottom());
+    rightTop = Vector2(Right(), Top());
+    rightBottom = Vector2(Right(), Bottom());
+
+    if (other->IsCollision(leftTop) || other->IsCollision(leftBottom)
+        || other->IsCollision(rightTop) || other->IsCollision(rightBottom))
+        return true;
+
+    return false;
+}
+
+bool RectCollider::IsAABB(shared_ptr<CircleCollider> other)
+{
+    Vector2 circlePos = other->GetTransform()->GetWorldPos();
+
+    Vector2 leftTop = Vector2(Left(), Top());
+    Vector2 leftBottom = Vector2(Left(), Bottom());
+    Vector2 rightTop = Vector2(Right(), Top());
+    Vector2 rightBottom = Vector2(Right(), Bottom());
+
+    if (other->IsCollision(leftTop) || other->IsCollision(leftBottom)
+        || other->IsCollision(rightTop) || other->IsCollision(rightBottom))
+        return true;
+
+    float left = Left();
+    float right = Right();
+    float top = Top();
+    float bottom = Bottom();
+
+    if (circlePos.x < right && circlePos.x > left)
+    {
+        if (circlePos.y < top + other->WorldRadius() && circlePos.y > bottom - other->WorldRadius())
+            return true;
+    }
+
+    if (circlePos.y < top && circlePos.y > bottom)
+    {
+        if (circlePos.x < right + other->WorldRadius() && circlePos.x > left - other->WorldRadius())
+            return true;
+    }
+
+    return false;
+}
+
+bool RectCollider::IsOBB(shared_ptr<RectCollider> other)
+{
+    OBB_DESC aInfo = GetOBB();
+    OBB_DESC bInfo = other->GetOBB();
+
+    Vector2 aToB = aInfo.position - bInfo.position;
+
+    // n : Normal 약자
+    // e : edge 약자
+
+    Vector2 nea1 = aInfo.direction[0];
+    Vector2 ea1 = nea1 * aInfo.length[0];
+    Vector2 nea2 = aInfo.direction[1];
+    Vector2 ea2 = nea2 * aInfo.length[1];
+
+    Vector2 neb1 = bInfo.direction[0];
+    Vector2 eb1 = neb1 * bInfo.length[0];
+    Vector2 neb2 = bInfo.direction[1];
+    Vector2 eb2 = neb2 * bInfo.length[1];
+
+    // nea1 기준으로 투영
+    float lengthA = ea1.Length();
+    float lengthB = SeparateAxis(nea1, eb1, eb2);
+    float length = abs(nea1.Dot(aToB));
+    if (length > lengthA + lengthB)
+        return false;
+
+    // nea2 기준으로 투영
+    lengthA = ea2.Length();
+    lengthB = SeparateAxis(nea2, eb1, eb2);
+    length = abs(nea2.Dot(aToB));
+    if (length > lengthA + lengthB)
+        return false;
+
+    // neb1 기준으로 투영
+    lengthB = eb1.Length();
+    lengthA = SeparateAxis(neb1, ea1, ea2);
+    length = abs(neb1.Dot(aToB));
+    if (length > lengthA + lengthB)
+        return false;
+
+    // neb2 기준으로 투영
+    lengthB = eb2.Length();
+    lengthA = SeparateAxis(neb2, ea1, ea2);
+    length = abs(neb2.Dot(aToB));
+    if (length > lengthA + lengthB)
+        return false;
+
+    return true;
+}
+
+bool RectCollider::IsOBB(shared_ptr<CircleCollider> other)
+{
+    OBB_DESC aInfo = GetOBB();
+
+    Vector2 aToB = aInfo.position - other->GetTransform()->GetWorldPos();
+
+    Vector2 nea1 = aInfo.direction[0];
+    Vector2 ea1 = nea1 * aInfo.length[0];
+    Vector2 nea2 = aInfo.direction[1];
+    Vector2 ea2 = nea2 * aInfo.length[1];
+
+    float d = sqrtf(powf(aInfo.length[0], 2) + powf(aInfo.length[1], 2)) + other->WorldRadius();
+
+    if (aToB.Length() > d)
+        return false;
+
+    // nea1 기준으로 투영
+    float lengthA = ea1.Length();
+    float lengthB = other->WorldRadius();
+    float length = abs(nea1.Dot(aToB));
+    if (length > lengthA + lengthB)
+        return false;
+
+    // nea2 기준으로 투영
+    lengthA = ea2.Length();
+    lengthB = other->WorldRadius();
+    length = abs(nea2.Dot(aToB));
+    if (length > lengthA + lengthB)
+        return false;
+
+    return true;
 }
 
 void RectCollider::CreateVertices()
