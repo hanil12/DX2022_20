@@ -1,10 +1,15 @@
 #include "framework.h"
+#include "../../../Scene/BowScene.h"
 #include "Bow_Bullet.h"
 
 Bow_Bullet::Bow_Bullet()
 {
 	_quad = make_shared<Quad>(L"Resource/Texture/Bullet.png");
 	_quad->GetTransform()->GetScale() *= 0.1f;
+
+	_col = make_shared<CircleCollider>(70);
+	_col->GetTransform()->SetParent(_quad->GetTransform());
+	_col->GetTransform()->GetPos().x += 300;
 }
 
 Bow_Bullet::~Bow_Bullet()
@@ -27,6 +32,16 @@ void Bow_Bullet::Update()
 	_quad->GetTransform()->GetPos() += _dir * _speed * DELTA_TIME;
 
 	_quad->Update();
+	_col->Update();
+
+	if (_target.expired() == false)
+	{
+		if (_col->IsCollision(_target.lock()))
+		{
+			--BowScene::_hp;
+			DisAble();
+		}
+	}
 }
 
 void Bow_Bullet::Render()
@@ -35,10 +50,25 @@ void Bow_Bullet::Render()
 		return;
 
 	_quad->Render();
+	_col->Render();
 }
 
 void Bow_Bullet::SetDirection(Vector2 dir)
 {
 	dir.Normalize();
 	_dir = dir;
+}
+
+void Bow_Bullet::EnAble()
+{
+	isActive = true;
+	_col->isActive = true;
+	_check = 0.0f;
+}
+
+void Bow_Bullet::DisAble()
+{
+	isActive = false;
+	_col->isActive = false;
+	_check = 0.0f;
 }

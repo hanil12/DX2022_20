@@ -235,6 +235,7 @@
     <Image Include="DX08.ico" />
     <Image Include="Resource\Texture\Bow.png" />
     <Image Include="Resource\Texture\earth.png" />
+    <Image Include="Resource\Texture\monster.png" />
     <Image Include="Resource\Texture\moon.png" />
     <Image Include="Resource\Texture\SpyFamilly.png" />
     <Image Include="Resource\Texture\SpyFamilly2.png" />

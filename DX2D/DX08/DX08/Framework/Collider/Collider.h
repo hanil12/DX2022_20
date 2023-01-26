@@ -4,7 +4,7 @@ class CircleCollider;
 
 class Collider
 {
-public:
+protected:
 	enum Type
 	{
 		NONE,
@@ -12,6 +12,7 @@ public:
 		RECT
 	};
 
+public:
 	Collider();
 	~Collider();
 
@@ -31,6 +32,9 @@ public:
 	void SetRed() { _colorBuffer->_data.color = { 1,0,0,1 }; }
 	void SetGreen() { _colorBuffer->_data.color = { 0,1,0,1 }; }
 
+	static bool isDebug;
+
+	bool isActive = true;
 protected:
 	Type _type = NONE;
 

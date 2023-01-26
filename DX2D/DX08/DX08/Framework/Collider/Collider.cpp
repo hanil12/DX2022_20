@@ -1,6 +1,8 @@
 #include "framework.h"
 #include "Collider.h"
 
+bool Collider::isDebug = false;
+
 Collider::Collider()
 {
 }
@@ -11,12 +13,18 @@ Collider::~Collider()
 
 void Collider::Update()
 {
+    if (!isActive)
+        return;
+
 	_transform->Update();
 	_colorBuffer->Update();
 }
 
 void Collider::Render()
 {
+    if (isDebug == false || isActive == false)
+        return;
+
     _transform->SetBuffer(0);
     _colorBuffer->SetPSBuffer(0);
 
@@ -32,6 +40,9 @@ void Collider::Render()
 
 bool Collider::IsCollision(shared_ptr<Collider> other, bool isObb)
 {
+    if (isActive == false)
+        return false;
+
     switch (other->_type)
     {
     case Collider::NONE:

@@ -46,7 +46,7 @@ void Bow_Bow::Fire()
 		{
 			if (bullet->isActive == false)
 			{
-				bullet->isActive = true;
+				bullet->EnAble();
 
 				Vector2 direction = MOUSE_POS - _quad->GetTransform()->GetPos();
 				bullet->GetTransform()->GetPos() = _quad->GetTransform()->GetPos();
@@ -57,4 +57,10 @@ void Bow_Bow::Fire()
 			}
 		}
 	}
+}
+
+void Bow_Bow::SetTarget(shared_ptr<Collider> collider)
+{
+	for (auto bullet : _bullets)
+		bullet->SetTarget(collider);
 }

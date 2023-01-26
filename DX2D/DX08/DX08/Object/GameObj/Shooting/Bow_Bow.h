@@ -11,6 +11,8 @@ public:
 	void Fire();
 
 	shared_ptr<Transform> GetTransform() { return _quad->GetTransform(); }
+	vector<shared_ptr<Bow_Bullet>>& GetBullets() { return _bullets; }
+	void SetTarget(shared_ptr<Collider> collider);
 
 private:
 	shared_ptr<Quad> _quad;

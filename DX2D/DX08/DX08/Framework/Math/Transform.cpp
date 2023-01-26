@@ -10,7 +10,7 @@ Transform::~Transform()
 {
 }
 
-void Transform::Update()
+void Transform::UpdateSRT()
 {
 	// SRT Matrix ¼³Á¤
 	_scaleM = XMMatrixScaling(_scale.x, _scale.y, 1);
@@ -23,6 +23,11 @@ void Transform::Update()
 	{
 		_srtMatrix *= _parent.lock()->GetMatrix();
 	}
+}
+
+void Transform::Update()
+{
+	UpdateSRT();
 
 	_world->SetData(_srtMatrix);
 	_world->Update();
@@ -35,6 +40,8 @@ void Transform::SetBuffer(UINT slot)
 
 Vector2 Transform::GetWorldPos()
 {
+	UpdateSRT();
+
 	XMFLOAT4X4 temp;
 	XMStoreFloat4x4(&temp, _srtMatrix);
 
@@ -43,6 +50,8 @@ Vector2 Transform::GetWorldPos()
 
 Vector2 Transform::GetWorldScale()
 {
+	UpdateSRT();
+
 	XMFLOAT4X4 temp;
 	XMStoreFloat4x4(&temp, _scaleM);
 
