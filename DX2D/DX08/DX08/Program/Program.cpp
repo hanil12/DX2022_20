@@ -5,10 +5,11 @@
 #include "../Scene/SolarSystemScene.h"
 #include "../Scene/BowScene.h"
 #include "../Scene/CollisionScene.h"
+#include "../Scene/SpriteScene.h"
 
 Program::Program()
 {
-	_scene = make_shared<BowScene>();
+	_scene = make_shared<TutorialScene>();
 
 	_view = make_shared<MatrixBuffer>();
 	_proj = make_shared<MatrixBuffer>();

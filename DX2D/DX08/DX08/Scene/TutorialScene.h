@@ -10,6 +10,10 @@ public:
 
 private:
 	shared_ptr<Quad> _quad;
-	shared_ptr<Quad> _quad2;
+
+	// 상수버퍼를 이용해서
+	// -> 1. Shader를 이용해서 좌우반전 시켜야됌
+	// -> 2. Shader에 넘길 정보(버퍼)를 만들어야됌
+	// 좌우 반전 시키기
 };
 

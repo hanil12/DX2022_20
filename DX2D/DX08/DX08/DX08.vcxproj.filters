@@ -120,6 +120,18 @@
     <ClInclude Include="Framework\Collider\Collider.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+    <ClInclude Include="Scene\SpriteScene.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\BagicObj\Sprite.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Framework\Render\Shader.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Framework\Render\ShaderManager.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DX08.cpp">
@@ -212,6 +224,18 @@
     <ClCompile Include="Framework\Collider\Collider.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="Scene\SpriteScene.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\BagicObj\Sprite.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Framework\Render\Shader.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Framework\Render\ShaderManager.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="DX08.rc">
@@ -246,6 +270,9 @@
     <Image Include="Resource\Texture\monster.png">
       <Filter>리소스 파일</Filter>
     </Image>
+    <Image Include="Resource\Texture\zelda.png">
+      <Filter>리소스 파일</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Shader\TutorialShader.hlsl" />
@@ -253,5 +280,6 @@
     <FxCompile Include="Shader\TexturePixelShader.hlsl" />
     <FxCompile Include="Shader\Collider\ColliderPixelShader.hlsl" />
     <FxCompile Include="Shader\Collider\ColliderVertexShader.hlsl" />
+    <FxCompile Include="Shader\SpritePixelShader.hlsl" />
   </ItemGroup>
 </Project>
