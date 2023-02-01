@@ -68,6 +68,7 @@ using namespace DirectX;
 // Utillity
 #include "Framework/Utillity/InputManager.h"
 #include "Framework/Utillity/Timer.h"
+#include "Framework/Utillity/tinyxml2.h"
 
 // Texture
 #include "Framework/Texture/SRV.h"
@@ -90,6 +91,8 @@ using namespace DirectX;
 #include "Object/GameObj/Shooting/Bow_Bow.h"
 
 #include "Object/GameObj/Zelda/Zelda.h"
+
+#include "Object/GameObj/CupHead/Cup_Player.h"
 
 // Scene
 #include "Scene/Scene.h"

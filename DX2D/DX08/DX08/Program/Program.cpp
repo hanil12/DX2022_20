@@ -7,10 +7,11 @@
 #include "../Scene/CollisionScene.h"
 #include "../Scene/SpriteScene.h"
 #include "../Scene/ActionScene.h"
+#include "../Scene/CupHeadScene.h"
 
 Program::Program()
 {
-	_scene = make_shared<ActionScene>();
+	_scene = make_shared<CupHeadScene>();
 
 	_view = make_shared<MatrixBuffer>();
 	_proj = make_shared<MatrixBuffer>();
