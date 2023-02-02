@@ -150,6 +150,9 @@
     <ClInclude Include="Object\GameObj\CupHead\Cup_Player.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+    <ClInclude Include="Object\GameObj\CupHead\Cup_Bg.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DX08.cpp">
@@ -272,6 +275,9 @@
     <ClCompile Include="Object\GameObj\CupHead\Cup_Player.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="Object\GameObj\CupHead\Cup_Bg.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="DX08.rc">
@@ -312,6 +318,18 @@
     <Image Include="Resource\Texture\CupHead\Idle.png">
       <Filter>리소스 파일</Filter>
     </Image>
+    <Image Include="Resource\Texture\CupHead\Run.png">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="Resource\Texture\CupHead\AimStraightShot.png">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="Resource\Texture\CupHead\clown_bg_main.png">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="Resource\Texture\CupHead\clown_bg_track.png">
+      <Filter>리소스 파일</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Shader\TutorialShader.hlsl" />
@@ -325,5 +343,7 @@
   </ItemGroup>
   <ItemGroup>
     <Xml Include="Resource\XML\Idle.xml" />
+    <Xml Include="Resource\XML\Run.xml" />
+    <Xml Include="Resource\XML\AimStraightShot.xml" />
   </ItemGroup>
 </Project>
