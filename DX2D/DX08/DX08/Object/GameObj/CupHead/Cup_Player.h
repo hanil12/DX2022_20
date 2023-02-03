@@ -13,22 +13,21 @@ public:
 	Cup_Player();
 	~Cup_Player();
 
-	void Update();
-	void Render();
+	virtual void Update();
+	virtual void Render();
 
 	void SetRight();
 	void SetLeft();
 
 	void Input();
 	void Jump();
-	void Shot();
 
 	void SetAction(State state);
 	void SetIDLE();
 
 	shared_ptr<Transform> GetTransform() { return _transform; }
 
-private:
+protected:
 	void CreateAction(string name, Action::Type type);
 
 	State _curState = CUP_IDLE;
@@ -41,5 +40,7 @@ private:
 
 	float _speed = 300.0f;
 	float _jumpPower = 400.0f;
+
+	bool _isRight = true;
 };
 

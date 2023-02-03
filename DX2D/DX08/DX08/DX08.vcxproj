@@ -151,6 +151,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Object\GameObj\CupHead\Cup_Advanced_Player.h" />
+    <ClInclude Include="Object\GameObj\CupHead\Cup_Bullet.h" />
+    <ClInclude Include="Framework\Animation\MyXML.h" />
     <ClInclude Include="Object\GameObj\CupHead\Cup_Bg.h" />
     <ClInclude Include="Object\GameObj\CupHead\Cup_Player.h" />
     <ClInclude Include="Scene\CupHeadScene.h" />
@@ -199,6 +202,9 @@
     <ClInclude Include="Object\GameObj\Zelda\Zelda.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Object\GameObj\CupHead\Cup_Advanced_Player.cpp" />
+    <ClCompile Include="Object\GameObj\CupHead\Cup_Bullet.cpp" />
+    <ClCompile Include="Framework\Animation\MyXML.cpp" />
     <ClCompile Include="Object\GameObj\CupHead\Cup_Bg.cpp" />
     <ClCompile Include="Object\GameObj\CupHead\Cup_Player.cpp" />
     <ClCompile Include="Scene\CupHeadScene.cpp" />
@@ -261,6 +267,7 @@
     <Image Include="Resource\Texture\CupHead\clown_bg_track.png" />
     <Image Include="Resource\Texture\CupHead\Idle.png" />
     <Image Include="Resource\Texture\CupHead\Run.png" />
+    <Image Include="Resource\Texture\CupHead\Special_Bullet_Loop.png" />
     <Image Include="Resource\Texture\earth.png" />
     <Image Include="Resource\Texture\monster.png" />
     <Image Include="Resource\Texture\moon.png" />
@@ -396,6 +403,7 @@
     <Xml Include="Resource\XML\AimStraightShot.xml" />
     <Xml Include="Resource\XML\Idle.xml" />
     <Xml Include="Resource\XML\Run.xml" />
+    <Xml Include="Resource\XML\Special_Bullet_Loop.xml" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -28,7 +28,6 @@ Cup_Player::~Cup_Player()
 
 void Cup_Player::Update()
 {
-	Shot();
 	Input();
 
 	for (auto sprite : _sprites)
@@ -48,6 +47,8 @@ void Cup_Player::Render()
 
 void Cup_Player::SetRight()
 {
+	_isRight = true;
+
 	for (auto sprite : _sprites)
 	{
 		sprite->GetLeftRight() = 0;
@@ -56,6 +57,8 @@ void Cup_Player::SetRight()
 
 void Cup_Player::SetLeft()
 {
+	_isRight = false;
+
 	for (auto sprite : _sprites)
 	{
 		sprite->GetLeftRight() = 1;
@@ -90,14 +93,6 @@ void Cup_Player::Jump()
 {
 }
 
-void Cup_Player::Shot()
-{
-	if (KEY_DOWN(VK_LBUTTON))
-	{
-		SetAction(State::CUP_SHOT);
-	}
-}
-
 void Cup_Player::SetAction(State state)
 {
 	_curState = state;
@@ -117,47 +112,14 @@ void Cup_Player::SetIDLE()
 
 void Cup_Player::CreateAction(string name, Action::Type type)
 {
-	wstring wName = wstring(name.begin(), name.end());
-	wstring srvPath = L"Resource/Texture/CupHead/" + wName + L".png";
-	shared_ptr<SRV> srv = SRV_ADD(srvPath);
+	// idle.png
+	string xmlPath = "Resource/XML/" + name + ".xml";
+	wstring srvPath(name.begin(), name.end());
+	srvPath = L"Resource/Texture/CupHead/" + srvPath + L".png";
 
-	shared_ptr<tinyxml2::XMLDocument> document = make_shared<tinyxml2::XMLDocument>();
-	string path = "Resource/XML/" + name + ".xml";
-	document->LoadFile(path.c_str());
-
-	XMLElement* textureAtlas = document->FirstChildElement();
-	XMLElement* row = textureAtlas->FirstChildElement();
-
-	vector<Action::Clip> clips;
-
-	float wAverage = 0;
-	float hAverage = 0;
-
-	int count = 0;
-
-	while (true)
-	{
-		if (row == nullptr)
-			break;
-
-		int x = row->FindAttribute("x")->IntValue();
-		int y = row->FindAttribute("y")->IntValue();
-		int w = row->FindAttribute("w")->IntValue();
-		int h = row->FindAttribute("h")->IntValue();
-
-		clips.emplace_back(x, y, w, h, srv);
-
-		wAverage += w;
-		hAverage += h;
-		count++;
-
-		row = row->NextSiblingElement();
-	}
-
-	wAverage /= count;
-	hAverage /= count;
+	MyXML xml = MyXML(xmlPath, srvPath);
 
 	string actionName = "CUP_" + name;
-	_actions.emplace_back(make_shared<Action>(clips, actionName, type));
-	_sprites.emplace_back(make_shared<Sprite>(srvPath, Vector2(wAverage, hAverage)));
+	_actions.emplace_back(make_shared<Action>(xml.GetClips(), actionName, type));
+	_sprites.emplace_back(make_shared<Sprite>(srvPath, xml.AverageSize()));
 }

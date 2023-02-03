@@ -79,6 +79,7 @@ using namespace DirectX;
 
 // Action
 #include "Framework/Animation/Action.h"
+#include "Framework/Animation/MyXML.h"
 
 // Object
 #include "Object/BagicObj/Quad.h"
@@ -93,7 +94,9 @@ using namespace DirectX;
 #include "Object/GameObj/Zelda/Zelda.h"
 
 #include "Object/GameObj/CupHead/Cup_Bg.h"
+#include "Object/GameObj/CupHead/Cup_Bullet.h"
 #include "Object/GameObj/CupHead/Cup_Player.h"
+#include "Object/GameObj/CupHead/Cup_Advanced_Player.h"
 
 // Scene
 #include "Scene/Scene.h"
