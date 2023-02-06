@@ -8,6 +8,9 @@ CollisionScene::CollisionScene()
 
 	_circle2 = make_shared<CircleCollider>(50);
 	_circle2->GetTransform()->GetPos() = Vector2(CENTER_X + 200, CENTER_Y + 100);
+
+	_rect1 = make_shared<RectCollider>(Vector2(100, 100));
+	_rect1->GetTransform()->GetPos() = Vector2(CENTER_X - 200, CENTER_Y + 100);
 }
 
 CollisionScene::~CollisionScene()
@@ -19,21 +22,26 @@ void CollisionScene::Update()
 	_circle1->GetTransform()->GetPos() = MOUSE_POS;
 
 	_circle1->Block(_circle2);
+	_circle1->Block(_rect1);
+	_circle2->Block(_rect1);
 
 	_circle1->Update();
 	_circle2->Update();
+	_rect1->Update();
 }
 
 void CollisionScene::Render()
 {
 	_circle1->Render();
 	_circle2->Render();
+	_rect1->Render();
 }
 
 void CollisionScene::PostRender()
 {
 	//ImGui::SliderFloat2("Rect Pos", (float*)&_rect->GetTransform()->GetPos(),0, WIN_WIDTH);
-	//ImGui::SliderFloat2("Circle1 Pos", (float*)&_circle1->GetTransform()->GetPos(),0, WIN_WIDTH);
+	ImGui::SliderFloat2("Circle1 Pos", (float*)&_circle1->GetTransform()->GetPos(),0, WIN_WIDTH);
+	ImGui::SliderFloat2("Rect1 Pos", (float*)&_rect1->GetTransform()->GetPos(),0, WIN_WIDTH);
 	//ImGui::SliderFloat2("Circle2 Pos", (float*)&_rect2->GetTransform()->GetPos(),0, WIN_WIDTH);
 	//ImGui::SliderFloat("RectAngle", &_rect->GetTransform()->GetAngle(), 0, 2 * PI);
 

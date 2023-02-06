@@ -14,11 +14,13 @@ public:
 	virtual bool IsCollision(shared_ptr<CircleCollider> other, bool isObb = false) override;
 	virtual bool IsCollision(shared_ptr<RectCollider> other, bool isObb = false) override;
 
-	bool Block(shared_ptr<CircleCollider> other);
+	HIT_RESULT Block(shared_ptr<CircleCollider> other);
+	HIT_RESULT Block(shared_ptr<RectCollider> other);
 
 	float WorldRadius();
 
 private:
+	Vector2 GetCloserVertex(shared_ptr<RectCollider> rect);
 	void CreateVertices();
 
 	float _radius = 0.0f;

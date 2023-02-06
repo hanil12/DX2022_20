@@ -19,6 +19,8 @@ public:
 	float Top() { return _transform->GetWorldPos().y + _size.y * 0.5f * _transform->GetWorldScale().y; }
 	float Bottom() { return _transform->GetWorldPos().y - _size.y * 0.5f * _transform->GetWorldScale().y; }
 
+	Vector2 GetWorldHalfSize();
+
 	virtual void CreateData() override;
 
 	virtual void Update() override;

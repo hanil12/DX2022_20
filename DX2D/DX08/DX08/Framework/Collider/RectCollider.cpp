@@ -51,6 +51,17 @@ float RectCollider::SeparateAxis(Vector2 separate, Vector2 e1, Vector2 e2)
     return r1 + r2;
 }
 
+Vector2 RectCollider::GetWorldHalfSize()
+{
+    OBB_DESC info = GetOBB();
+
+    Vector2 result;
+    result.x = (info.direction[0] * info.length[0]).Length();
+    result.y = (info.direction[1] * info.length[1]).Length();
+
+    return result;
+}
+
 void RectCollider::CreateData()
 {
     CreateVertices();
