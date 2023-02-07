@@ -17,7 +17,11 @@ private:
 
 	shared_ptr<Quad> _bg;
 
-	shared_ptr<RectCollider> _collider;
-	shared_ptr<Quad> _ground;
+	vector<shared_ptr<RectCollider>> _colliders;
+	shared_ptr<RectCollider> _collider1;
+	shared_ptr<Quad> _ground1;
+
+	shared_ptr<RectCollider> _collider2;
+	shared_ptr<Quad> _ground2;
 };
 

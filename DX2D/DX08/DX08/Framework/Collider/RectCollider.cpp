@@ -186,8 +186,9 @@ HIT_RESULT RectCollider::Block(shared_ptr<CircleCollider> other)
 
             result.isHit = true;
         }
-        return result;
     }
+
+    return result;
 }
 
 bool RectCollider::IsAABB(shared_ptr<RectCollider> other)
