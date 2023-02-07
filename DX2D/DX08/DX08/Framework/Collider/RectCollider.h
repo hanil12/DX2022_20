@@ -1,9 +1,11 @@
 #pragma once
 class CircleCollider;
 
-class RectCollider : public Collider
+class RectCollider : public Collider, public enable_shared_from_this<RectCollider>
 {
 public:
+	friend CircleCollider;
+
 	struct OBB_DESC
 	{
 		Vector2 position;
@@ -29,6 +31,9 @@ public:
 	virtual bool IsCollision(Vector2 pos) override;
 	virtual bool IsCollision(shared_ptr<CircleCollider> other, bool isObb = false) override;
 	virtual bool IsCollision(shared_ptr<RectCollider> other, bool isObb = false) override;
+
+	HIT_RESULT Block(shared_ptr<RectCollider> other);
+	HIT_RESULT Block(shared_ptr<CircleCollider> other);
 
 	bool IsAABB(shared_ptr<RectCollider> other);
 	bool IsAABB(shared_ptr<CircleCollider> other);

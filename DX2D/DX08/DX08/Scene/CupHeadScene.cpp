@@ -10,6 +10,8 @@ CupHeadScene::CupHeadScene()
 	_bg->SetPos(CENTER);
 
 	_player->GetTransform()->GetPos().y -= 180.0f;
+
+	_bg->SetPlayer(_player);
 }
 
 CupHeadScene::~CupHeadScene()
@@ -25,6 +27,11 @@ void CupHeadScene::Update()
 void CupHeadScene::PreRender()
 {
 	_bg->Render();
+}
+
+void CupHeadScene::PostRender()
+{
+	_bg->PostRender();
 }
 
 void CupHeadScene::Render()

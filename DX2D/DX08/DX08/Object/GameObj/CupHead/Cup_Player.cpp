@@ -9,9 +9,12 @@ Cup_Player::Cup_Player()
 	CreateAction("Idle", Action::Type::LOOP);
 	CreateAction("Run", Action::Type::LOOP);
 	CreateAction("AimStraightShot", Action::Type::END);
+	CreateAction("Jump", Action::Type::LOOP);
 	_actions[State::CUP_SHOT]->SetCallBack(std::bind(&Cup_Player::SetIDLE, this));
 
-	_transform = make_shared<Transform>();
+	_collider = make_shared<CircleCollider>(73);
+
+	_transform = _collider->GetTransform();
 
 	for (auto sprite : _sprites)
 		sprite->GetTransform()->SetParent(_transform);
@@ -24,10 +27,12 @@ Cup_Player::Cup_Player()
 
 Cup_Player::~Cup_Player()
 {
+	_transform = nullptr;
 }
 
 void Cup_Player::Update()
 {
+	Jump();
 	Input();
 
 	for (auto sprite : _sprites)
@@ -37,12 +42,14 @@ void Cup_Player::Update()
 		action->Update();
 
 	_transform->UpdateSRT();
+	_collider->Update();
 }
 
 void Cup_Player::Render()
 {
 	_sprites[_curState]->SetActionClip(_actions[_curState]->GetCurClip());
 	_sprites[_curState]->Render();
+	_collider->Render();
 }
 
 void Cup_Player::SetRight()
@@ -70,7 +77,8 @@ void Cup_Player::Input()
 	if (KEY_PRESS('A'))
 	{
 		_transform->GetPos().x -= _speed * DELTA_TIME;
-		SetAction(State::CUP_RUN);
+		if(_curState != State::JUMP)
+			SetAction(State::CUP_RUN);
 
 		SetLeft();
 	}
@@ -78,19 +86,37 @@ void Cup_Player::Input()
 	if (KEY_PRESS('D'))
 	{
 		_transform->GetPos().x += _speed * DELTA_TIME;
-		SetAction(State::CUP_RUN);
+		if (_curState != State::JUMP)
+			SetAction(State::CUP_RUN);
 
 		SetRight();
 	}
 
 	if (KEY_UP('A') || KEY_UP('D'))
 	{
-		SetAction(State::CUP_IDLE);
+		if (_curState != State::JUMP)
+			SetAction(State::CUP_IDLE);
 	}
 }
 
 void Cup_Player::Jump()
 {
+	if (KEY_DOWN(VK_SPACE))
+	{
+		SetAction(State::JUMP);
+	}
+
+	if (_curState == State::JUMP)
+	{
+		_transform->GetPos().y += _jumpPower * DELTA_TIME;
+		_jumpPower -= GRAVITY * GRAVITY * DELTA_TIME;
+	}
+}
+
+void Cup_Player::Ground()
+{
+	SetAction(State::CUP_IDLE);
+	_jumpPower = 700.0f;
 }
 
 void Cup_Player::SetAction(State state)

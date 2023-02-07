@@ -266,6 +266,7 @@
     <Image Include="Resource\Texture\CupHead\clown_bg_main.png" />
     <Image Include="Resource\Texture\CupHead\clown_bg_track.png" />
     <Image Include="Resource\Texture\CupHead\Idle.png" />
+    <Image Include="Resource\Texture\CupHead\Jump.png" />
     <Image Include="Resource\Texture\CupHead\Run.png" />
     <Image Include="Resource\Texture\CupHead\Special_Bullet_Loop.png" />
     <Image Include="Resource\Texture\earth.png" />
@@ -402,6 +403,7 @@
   <ItemGroup>
     <Xml Include="Resource\XML\AimStraightShot.xml" />
     <Xml Include="Resource\XML\Idle.xml" />
+    <Xml Include="Resource\XML\Jump.xml" />
     <Xml Include="Resource\XML\Run.xml" />
     <Xml Include="Resource\XML\Special_Bullet_Loop.xml" />
   </ItemGroup>

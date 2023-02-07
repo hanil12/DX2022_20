@@ -7,6 +7,7 @@ public:
 
 	virtual void Update() override;
 	virtual void PreRender() override;
+	virtual void PostRender() override;
 	virtual void Render() override;
 private:
 	shared_ptr<Cup_Player> _player;

@@ -7,6 +7,7 @@ public:
 		CUP_IDLE,
 		CUP_RUN,
 		CUP_SHOT,
+		JUMP,
 		NONE
 	};
 
@@ -21,11 +22,13 @@ public:
 
 	void Input();
 	void Jump();
+	void Ground();
 
 	void SetAction(State state);
 	void SetIDLE();
 
 	shared_ptr<Transform> GetTransform() { return _transform; }
+	shared_ptr<CircleCollider> GetBodyCollider() { return _collider; }
 
 protected:
 	void CreateAction(string name, Action::Type type);
@@ -34,12 +37,13 @@ protected:
 	State _oldState = NONE ;
 
 	shared_ptr<Transform> _transform;
+	shared_ptr<CircleCollider> _collider;
 
 	vector<shared_ptr<Sprite>> _sprites;
 	vector<shared_ptr<Action>> _actions;
 
 	float _speed = 300.0f;
-	float _jumpPower = 400.0f;
+	float _jumpPower = 700.0f;
 
 	bool _isRight = true;
 };

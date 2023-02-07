@@ -351,6 +351,9 @@
     <Image Include="Resource\Texture\CupHead\Special_Bullet_Loop.png">
       <Filter>리소스 파일</Filter>
     </Image>
+    <Image Include="Resource\Texture\CupHead\Jump.png">
+      <Filter>리소스 파일</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Shader\TutorialShader.hlsl" />
@@ -367,5 +370,6 @@
     <Xml Include="Resource\XML\Run.xml" />
     <Xml Include="Resource\XML\AimStraightShot.xml" />
     <Xml Include="Resource\XML\Special_Bullet_Loop.xml" />
+    <Xml Include="Resource\XML\Jump.xml" />
   </ItemGroup>
 </Project>

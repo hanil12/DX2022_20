@@ -7,10 +7,13 @@ CollisionScene::CollisionScene()
 	_circle1->GetTransform()->GetPos() = Vector2(CENTER_X + 200, CENTER_Y + 100);
 
 	_circle2 = make_shared<CircleCollider>(50);
-	_circle2->GetTransform()->GetPos() = Vector2(CENTER_X + 200, CENTER_Y + 100);
+	_circle2->GetTransform()->GetPos() = Vector2(CENTER_X - 20, CENTER_Y + 100);
 
-	_rect1 = make_shared<RectCollider>(Vector2(100, 100));
+	_rect1 = make_shared<RectCollider>(Vector2(5, 100));
 	_rect1->GetTransform()->GetPos() = Vector2(CENTER_X - 200, CENTER_Y + 100);
+
+	_rect2 = make_shared<RectCollider>(Vector2(100, 100));
+	_rect2->GetTransform()->GetPos() = Vector2(CENTER_X - 200, CENTER_Y - 100);
 }
 
 CollisionScene::~CollisionScene()
@@ -19,15 +22,17 @@ CollisionScene::~CollisionScene()
 
 void CollisionScene::Update()
 {
-	_circle1->GetTransform()->GetPos() = MOUSE_POS;
+	_rect1->GetTransform()->GetPos() = MOUSE_POS;
 
 	_circle1->Block(_circle2);
-	_circle1->Block(_rect1);
-	_circle2->Block(_rect1);
+	_rect1->Block(_circle1);
+	_rect1->Block(_circle2);
+	_rect1->Block(_rect2);
 
 	_circle1->Update();
 	_circle2->Update();
 	_rect1->Update();
+	_rect2->Update();
 }
 
 void CollisionScene::Render()
@@ -35,6 +40,7 @@ void CollisionScene::Render()
 	_circle1->Render();
 	_circle2->Render();
 	_rect1->Render();
+	_rect2->Render();
 }
 
 void CollisionScene::PostRender()
