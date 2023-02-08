@@ -33,12 +33,13 @@ Cup_Bg::~Cup_Bg()
 
 void Cup_Bg::Update()
 {
+	_collider1->Update();
+	_collider2->Update();
+
 	_bg->Update();
 	_ground1->Update();
-	_collider1->Update();
 
 	_ground2->Update();
-	_collider2->Update();
 
 	if (_player.expired() == false)
 	{
@@ -48,11 +49,21 @@ void Cup_Bg::Update()
 		for (auto rect : _colliders)
 		{
 			result = rect->Block(circle);
-			if (result.isHit == true)
+			if (result.isHit == true && result.dir == Dir::UP)
 			{
 				_player.lock()->Ground();
 				break;
 			}
+			else if (result.isHit && result.dir == Dir::DOWN)
+			{
+				_player.lock()->Falling();
+				break;
+			}
+		}
+
+		if (result.isHit == false)
+		{
+			_player.lock()->Falling();
 		}
 	}
 }

@@ -23,6 +23,7 @@ public:
 	void Input();
 	void Jump();
 	void Ground();
+	void Falling();
 
 	void SetAction(State state);
 	void SetIDLE();

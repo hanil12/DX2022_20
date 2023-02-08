@@ -31,7 +31,17 @@
 #define ADD_VS(k) ShaderManager::GetInstance()->AddVS(k)
 #define ADD_PS(k) ShaderManager::GetInstance()->AddPS(k)
 
+enum Dir
+{
+	LEFT,
+	UP,
+	RIGHT,
+	DOWN,
+	NONE
+};
+
 struct HIT_RESULT
 {
 	bool isHit = false;
+	Dir dir = Dir::NONE;
 };

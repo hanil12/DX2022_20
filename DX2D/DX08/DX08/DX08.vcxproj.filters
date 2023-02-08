@@ -162,6 +162,9 @@
     <ClInclude Include="Object\GameObj\CupHead\Cup_Advanced_Player.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+    <ClInclude Include="Object\GameObj\CupHead\Cup_Monster.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DX08.cpp">
@@ -296,6 +299,9 @@
     <ClCompile Include="Object\GameObj\CupHead\Cup_Advanced_Player.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="Object\GameObj\CupHead\Cup_Monster.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="DX08.rc">
@@ -354,6 +360,9 @@
     <Image Include="Resource\Texture\CupHead\Jump.png">
       <Filter>리소스 파일</Filter>
     </Image>
+    <Image Include="Resource\Texture\CupHead\Clown_Page_Last_Spawn_Penguin_Start.png">
+      <Filter>리소스 파일</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Shader\TutorialShader.hlsl" />
@@ -371,5 +380,6 @@
     <Xml Include="Resource\XML\AimStraightShot.xml" />
     <Xml Include="Resource\XML\Special_Bullet_Loop.xml" />
     <Xml Include="Resource\XML\Jump.xml" />
+    <Xml Include="Resource\XML\Clown_Page_Last_Spawn_Penguin_Start.xml" />
   </ItemGroup>
 </Project>

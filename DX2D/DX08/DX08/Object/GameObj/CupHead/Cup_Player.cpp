@@ -32,6 +32,8 @@ Cup_Player::~Cup_Player()
 
 void Cup_Player::Update()
 {
+	_collider->Update();
+
 	Jump();
 	Input();
 
@@ -40,9 +42,6 @@ void Cup_Player::Update()
 
 	for (auto action : _actions)
 		action->Update();
-
-	_transform->UpdateSRT();
-	_collider->Update();
 }
 
 void Cup_Player::Render()
@@ -103,20 +102,29 @@ void Cup_Player::Jump()
 {
 	if (KEY_DOWN(VK_SPACE))
 	{
-		SetAction(State::JUMP);
+		_jumpPower = 700.0f;
+		_curState = State::JUMP;
 	}
 
-	if (_curState == State::JUMP)
-	{
-		_transform->GetPos().y += _jumpPower * DELTA_TIME;
-		_jumpPower -= GRAVITY * GRAVITY * DELTA_TIME;
-	}
+	_transform->GetPos().y += _jumpPower * DELTA_TIME;
+
+	if (_curState == State::CUP_RUN)
+		return;
+
+	if (abs(_jumpPower) <= 5.0f)
+		SetAction(State::CUP_IDLE);
+	else
+		SetAction(State::JUMP);
 }
 
 void Cup_Player::Ground()
 {
-	SetAction(State::CUP_IDLE);
-	_jumpPower = 700.0f;
+	_jumpPower = 0.0f;
+}
+
+void Cup_Player::Falling()
+{
+	_jumpPower -= GRAVITY * GRAVITY * DELTA_TIME;
 }
 
 void Cup_Player::SetAction(State state)

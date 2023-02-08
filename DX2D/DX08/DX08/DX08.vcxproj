@@ -151,6 +151,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Object\GameObj\CupHead\Cup_Monster.h" />
     <ClInclude Include="Object\GameObj\CupHead\Cup_Advanced_Player.h" />
     <ClInclude Include="Object\GameObj\CupHead\Cup_Bullet.h" />
     <ClInclude Include="Framework\Animation\MyXML.h" />
@@ -202,6 +203,7 @@
     <ClInclude Include="Object\GameObj\Zelda\Zelda.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Object\GameObj\CupHead\Cup_Monster.cpp" />
     <ClCompile Include="Object\GameObj\CupHead\Cup_Advanced_Player.cpp" />
     <ClCompile Include="Object\GameObj\CupHead\Cup_Bullet.cpp" />
     <ClCompile Include="Framework\Animation\MyXML.cpp" />
@@ -265,6 +267,7 @@
     <Image Include="Resource\Texture\CupHead\AimStraightShot.png" />
     <Image Include="Resource\Texture\CupHead\clown_bg_main.png" />
     <Image Include="Resource\Texture\CupHead\clown_bg_track.png" />
+    <Image Include="Resource\Texture\CupHead\Clown_Page_Last_Spawn_Penguin_Start.png" />
     <Image Include="Resource\Texture\CupHead\Idle.png" />
     <Image Include="Resource\Texture\CupHead\Jump.png" />
     <Image Include="Resource\Texture\CupHead\Run.png" />
@@ -402,6 +405,7 @@
   </ItemGroup>
   <ItemGroup>
     <Xml Include="Resource\XML\AimStraightShot.xml" />
+    <Xml Include="Resource\XML\Clown_Page_Last_Spawn_Penguin_Start.xml" />
     <Xml Include="Resource\XML\Idle.xml" />
     <Xml Include="Resource\XML\Jump.xml" />
     <Xml Include="Resource\XML\Run.xml" />

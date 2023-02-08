@@ -159,6 +159,11 @@ HIT_RESULT RectCollider::Block(shared_ptr<CircleCollider> other)
 
             other->GetTransform()->GetPos() += dir * (sum - distance);
 
+            if (dir.y > 0)
+                result.dir = Dir::UP;
+            else
+                result.dir = Dir::DOWN;
+
             result.isHit = true;
         }
         else if (circlePos.y > leftBottom.y && circlePos.y < rightTop.y)
@@ -170,6 +175,11 @@ HIT_RESULT RectCollider::Block(shared_ptr<CircleCollider> other)
             float distance = abs(rectPos.x - circlePos.x);
 
             other->GetTransform()->GetPos() += dir * (sum - distance);
+
+            if (dir.x > 0)
+                result.dir = Dir::RIGHT;
+            else
+                result.dir = Dir::LEFT;
 
             result.isHit = true;
         }
