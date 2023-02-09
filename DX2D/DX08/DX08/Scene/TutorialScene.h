@@ -17,5 +17,6 @@ private:
 	// -> 2. Shader에 넘길 정보(버퍼)를 만들어야됌
 	// 좌우 반전 시키기
 	shared_ptr<ReverseBuffer> _reverseBuffer;
+	shared_ptr<FilterBuffer> _filterBuffer;
 };
 

@@ -21,10 +21,10 @@ Cup_Advanced_Player::~Cup_Advanced_Player()
 
 void Cup_Advanced_Player::Update()
 {
+	Shot();
+
 	for (auto bullet : _bullets)
 		bullet->Update();
-
-	Shot();
 
 	Cup_Player::Update();
 }
@@ -56,8 +56,8 @@ void Cup_Advanced_Player::Shot()
 			dir = Vector2(-1, 0);
 		}
 
+		bullet->Enable();
 		bullet->SetPostion(_muzzle->GetWorldPos());
-		bullet->isActive = true;
 		bullet->Fire(dir);
 	}
 }

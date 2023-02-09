@@ -108,7 +108,7 @@ void Cup_Player::Jump()
 
 	_transform->GetPos().y += _jumpPower * DELTA_TIME;
 
-	if (_curState == State::CUP_RUN)
+	if (_curState == State::CUP_RUN || _curState == State::CUP_SHOT)
 		return;
 
 	if (abs(_jumpPower) <= 5.0f)

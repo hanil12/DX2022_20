@@ -4,6 +4,10 @@
 Cup_Bullet::Cup_Bullet()
 {
 	CreateAction();
+
+	_collider = make_shared<CircleCollider>(21);
+	_collider->GetTransform()->SetParent(_sprite->GetTransform());
+	_collider->GetTransform()->GetPos().y += 40;
 }
 
 Cup_Bullet::~Cup_Bullet()
@@ -13,6 +17,8 @@ Cup_Bullet::~Cup_Bullet()
 void Cup_Bullet::Update()
 {
 	if (!isActive) return;
+
+	_collider->Update();
 
 	_delay += DELTA_TIME;
 
@@ -35,6 +41,7 @@ void Cup_Bullet::Render()
 
 	_sprite->SetActionClip(_action->GetCurClip());
 	_sprite->Render();
+	_collider->Render();
 }
 
 void Cup_Bullet::Fire(Vector2 dir)
@@ -42,6 +49,33 @@ void Cup_Bullet::Fire(Vector2 dir)
 	_action->Play();
 	_sprite->GetTransform()->GetAngle() = dir.Angle() - PI * 0.5f;
 	_direction = dir.NormalVector2();
+}
+
+void Cup_Bullet::Enable()
+{
+	isActive = true;
+	_delay = 0.0f;
+}
+
+void Cup_Bullet::Disable()
+{
+	isActive = false;
+	_delay = 0.0f;
+}
+
+bool Cup_Bullet::Collision(shared_ptr<Collider> col)
+{
+	if (isActive == false)
+		return false;
+
+	bool result = _collider->IsCollision(col);
+
+	if (result == true)
+	{
+		Disable();
+	}
+
+	return result;
 }
 
 void Cup_Bullet::CreateAction()

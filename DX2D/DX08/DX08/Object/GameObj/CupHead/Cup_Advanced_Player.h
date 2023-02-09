@@ -9,9 +9,12 @@ public:
 	virtual void Render() override;
 
 	void Shot();
-	shared_ptr<Cup_Bullet> SeletBullet();
+
+	vector<shared_ptr<Cup_Bullet>>& GetBullets() { return _bullets; }
 
 private:
+	shared_ptr<Cup_Bullet> SeletBullet();
+
 	shared_ptr<Transform> _muzzle;
 
 	vector<shared_ptr<Cup_Bullet>> _bullets;

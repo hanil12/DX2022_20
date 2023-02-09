@@ -24,6 +24,27 @@ void CupHeadScene::Update()
 	_bg->Update();
 	_player->Update();
 	_monster->Update();
+
+	_monster->Shot(_player->GetTransform()->GetWorldPos());
+
+	for (auto monsterBullet : _monster->GetBullets())
+	{
+		if (monsterBullet->Collision(_player->GetBodyCollider()))
+		{
+			// Player Damaged;
+		}
+	}
+
+	shared_ptr<Cup_Advanced_Player> player = dynamic_pointer_cast<Cup_Advanced_Player>(_player);
+	if (player == nullptr)
+		return;
+	for (auto playerBullet : player->GetBullets())
+	{
+		if (playerBullet->Collision(_monster->GetBodyCollider()))
+		{
+			_monster->Dameged(10);
+		}
+	}
 }
 
 void CupHeadScene::PreRender()
