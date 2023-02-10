@@ -122,7 +122,7 @@ public:
 		int value2 = 0;
 		int value3 = 0;
 		Vector2 imageSize;
-		XMFLOAT2 padding;
+		Vector2 radialCenter;
 	};
 
 	// 상수버퍼 규칙

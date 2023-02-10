@@ -11,7 +11,7 @@
 
 Program::Program()
 {
-	_scene = make_shared<TutorialScene>();
+	_scene = make_shared<SolarSystemScene>();
 
 	_view = make_shared<MatrixBuffer>();
 	_proj = make_shared<MatrixBuffer>();

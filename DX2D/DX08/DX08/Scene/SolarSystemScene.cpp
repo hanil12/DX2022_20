@@ -3,9 +3,9 @@
 
 SolarSystemScene::SolarSystemScene()
 {
-	_sun = make_shared<Planet>(L"Resource/Texture/Bow.png");
+	_sun = make_shared<Planet>(L"Resource/Texture/sun.png");
 	_sun->SetPos(Vector2(CENTER_X, CENTER_Y));
-	_sun->SetScale(Vector2(2, 2));
+	_sun->SetScale(Vector2(0.3f, 0.3f));
 
 	_earth = make_shared<Planet>(L"Resource/Texture/earth.png");
 	_earth->SetParent(_sun->GetVirtualTransform());
