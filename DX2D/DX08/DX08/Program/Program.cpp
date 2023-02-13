@@ -8,10 +8,11 @@
 #include "../Scene/SpriteScene.h"
 #include "../Scene/ActionScene.h"
 #include "../Scene/CupHeadScene.h"
+#include "../Scene/EffectScene.h"
 
 Program::Program()
 {
-	_scene = make_shared<SolarSystemScene>();
+	_scene = make_shared<EffectScene>();
 
 	_view = make_shared<MatrixBuffer>();
 	_proj = make_shared<MatrixBuffer>();
@@ -37,6 +38,7 @@ void Program::Update()
 	Timer::GetInstance()->Update();
 
 	_scene->Update();
+	EFFECT->Update();
 }
 
 void Program::Render()
@@ -54,6 +56,7 @@ void Program::Render()
 	ALPHA->SetState();
 
 	_scene->Render();
+	EFFECT->Render();
 
 	ImGui::Text("FPS : %d", Timer::GetInstance()->GetFPS());
 	_scene->PostRender();
