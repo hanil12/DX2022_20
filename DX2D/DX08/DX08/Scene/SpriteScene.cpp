@@ -3,7 +3,7 @@
 
 SpriteScene::SpriteScene()
 {
-	_sprite = make_shared<Sprite>(L"Resource/Texture/zelda.png", Vector2(10.0f,8.0f), Vector2(400,400));
+	_sprite = make_shared<Sprite>(L"Resource/Texture/zelda.png", Vector2(10.0f,8.0f), Vector2(50,50));
 
 	_sprite->GetTransform()->GetPos() = CENTER;
 }

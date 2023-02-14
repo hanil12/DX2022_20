@@ -20,7 +20,6 @@ Sprite::Sprite(wstring file, Vector2 maxFrame, Vector2 size)
 : _maxFrame(maxFrame)
 , _clipSize(size)
 {
-    _size = size;
     Sprite::CreateMaterial(file);
     Sprite::CreateMesh();
 

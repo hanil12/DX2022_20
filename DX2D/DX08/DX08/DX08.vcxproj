@@ -151,6 +151,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Framework\Utillity\Audio.h" />
     <ClInclude Include="Object\BagicObj\EffectManager.h" />
     <ClInclude Include="Object\BagicObj\Effect.h" />
     <ClInclude Include="Scene\EffectScene.h" />
@@ -206,6 +207,7 @@
     <ClInclude Include="Object\GameObj\Zelda\Zelda.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Framework\Utillity\Audio.cpp" />
     <ClCompile Include="Object\BagicObj\EffectManager.cpp" />
     <ClCompile Include="Object\BagicObj\Effect.cpp" />
     <ClCompile Include="Scene\EffectScene.cpp" />
@@ -433,6 +435,12 @@
     <Xml Include="Resource\XML\Jump.xml" />
     <Xml Include="Resource\XML\Run.xml" />
     <Xml Include="Resource\XML\Special_Bullet_Loop.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Media Include="Resource\Sound\attack.wav" />
+    <Media Include="Resource\Sound\BGM.mp3" />
+    <Media Include="Resource\Sound\drumloop.wav" />
+    <Media Include="Resource\Sound\jump.wav" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

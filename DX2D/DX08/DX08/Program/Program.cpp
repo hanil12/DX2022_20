@@ -12,7 +12,7 @@
 
 Program::Program()
 {
-	_scene = make_shared<EffectScene>();
+	_scene = make_shared<CupHeadScene>();
 
 	_view = make_shared<MatrixBuffer>();
 	_proj = make_shared<MatrixBuffer>();
@@ -36,6 +36,7 @@ void Program::Update()
 
 	InputManager::GetInstance()->Update();
 	Timer::GetInstance()->Update();
+	Audio::GetInstance()->Update();
 
 	_scene->Update();
 	EFFECT->Update();

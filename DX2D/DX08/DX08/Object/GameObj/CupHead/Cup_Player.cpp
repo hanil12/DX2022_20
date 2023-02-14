@@ -104,6 +104,7 @@ void Cup_Player::Jump()
 	{
 		_jumpPower = 700.0f;
 		_curState = State::JUMP;
+		Audio::GetInstance()->Play("jump");
 	}
 
 	_transform->GetPos().y += _jumpPower * DELTA_TIME;

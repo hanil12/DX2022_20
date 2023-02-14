@@ -29,6 +29,10 @@
 // DirectXTex
 #include "../DirectXTex/DirectXTex.h"
 
+// FMOD
+#include "Library/FMOD/inc/fmod.hpp"
+#pragma comment(lib,"Library/FMOD/fmod_vc.lib")
+
 // ImGui
 #include "../ImGUI/imgui.h"
 #include "../ImGUI/imgui_impl_dx11.h"
@@ -69,6 +73,7 @@ using namespace DirectX;
 #include "Framework/Utillity/InputManager.h"
 #include "Framework/Utillity/Timer.h"
 #include "Framework/Utillity/tinyxml2.h"
+#include "Framework/Utillity/Audio.h"
 
 // Texture
 #include "Framework/Texture/SRV.h"
