@@ -82,3 +82,17 @@ void Cup_Bg::PostRender()
 {
 	ImGui::SliderFloat("ColliderY", (float*)&_collider1->GetTransform()->GetPos().y, -200.0f, 200.0f);
 }
+
+Vector2 Cup_Bg::LeftBottom()
+{
+	Vector2 curPos = _bg->GetTransform()->GetWorldPos();
+	Vector2 size = _bg->GetImageSize() * 0.5f;
+	return (curPos - size);
+}
+
+Vector2 Cup_Bg::RightTop()
+{
+	Vector2 curPos = _bg->GetTransform()->GetWorldPos();
+	Vector2 size = _bg->GetImageSize() * 0.5f;
+	return (curPos + size);
+}

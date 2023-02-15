@@ -33,6 +33,8 @@
 
 #define EFFECT EffectManager::GetInstance()
 
+#define CAMERA Camera::GetInstance()
+
 enum Dir
 {
 	LEFT,

@@ -70,10 +70,14 @@ using namespace DirectX;
 #include "Framework/Collider/CircleCollider.h"
 
 // Utillity
+#include "Framework/Utillity/MathUtility.h"
 #include "Framework/Utillity/InputManager.h"
 #include "Framework/Utillity/Timer.h"
 #include "Framework/Utillity/tinyxml2.h"
 #include "Framework/Utillity/Audio.h"
+
+// Camera
+#include "Framework/Camera/Camera.h"
 
 // Texture
 #include "Framework/Texture/SRV.h"

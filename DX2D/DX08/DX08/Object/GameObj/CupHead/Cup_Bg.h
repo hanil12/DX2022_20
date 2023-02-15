@@ -12,6 +12,9 @@ public:
 	void SetPos(Vector2 pos) { _bg->GetTransform()->GetPos() = pos; }
 	void SetPlayer(shared_ptr<Cup_Player> player) { _player = player; }
 
+	Vector2 LeftBottom();
+	Vector2 RightTop();
+
 private:
 	weak_ptr<Cup_Player> _player;
 

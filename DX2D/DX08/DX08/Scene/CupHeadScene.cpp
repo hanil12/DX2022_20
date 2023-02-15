@@ -14,6 +14,13 @@ CupHeadScene::CupHeadScene()
 
 	_bg->SetPlayer(_player);
 
+	Vector2 bgLB = _bg->LeftBottom();
+	Vector2 bgRT = _bg->RightTop();
+	CAMERA->SetTarget(_player->GetTransform());
+	CAMERA->SetLeftBottom(_bg->LeftBottom());
+	CAMERA->SetRightTop(_bg->RightTop());
+	CAMERA->SetOffset(CENTER);
+
 	Audio::GetInstance()->Add("bgm", "Resource/Sound/BGM.mp3", true);
 	Audio::GetInstance()->Add("jump", "Resource/Sound/jump.wav");
 	Audio::GetInstance()->Play("bgm");
@@ -35,7 +42,7 @@ void CupHeadScene::Update()
 	{
 		if (monsterBullet->Collision(_player->GetBodyCollider()))
 		{
-			// Player Damaged;
+			Camera::GetInstance()->ShakeStart(2.0f, 0.3f);
 		}
 	}
 
