@@ -15,6 +15,8 @@ public:
 	Vector2 LeftBottom();
 	Vector2 RightTop();
 
+	void LoadTrack();
+
 private:
 	weak_ptr<Cup_Player> _player;
 

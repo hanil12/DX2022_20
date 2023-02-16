@@ -75,6 +75,8 @@ using namespace DirectX;
 #include "Framework/Utillity/Timer.h"
 #include "Framework/Utillity/tinyxml2.h"
 #include "Framework/Utillity/Audio.h"
+#include "Framework/Utillity/BinaryWriter.h"
+#include "Framework/Utillity/BinaryReader.h"
 
 // Camera
 #include "Framework/Camera/Camera.h"

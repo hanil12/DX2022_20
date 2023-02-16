@@ -13,7 +13,7 @@ Cup_Bg::Cup_Bg()
 	_collider1->GetTransform()->GetPos().y -= 82.0f;
 
 	_ground2 = make_shared<Quad>(L"Resource/Texture/CupHead/clown_bg_track.png");
-	_ground2->GetTransform()->SetParent(_bg->GetTransform());
+	//_ground2->GetTransform()->SetParent(_bg->GetTransform());
 
 	Vector2 col2Size = _ground2->GetImageSize();
 	col2Size.y -= 100;
@@ -25,6 +25,8 @@ Cup_Bg::Cup_Bg()
 
 	_colliders.push_back(_collider1);
 	_colliders.push_back(_collider2);
+
+	LoadTrack();
 }
 
 Cup_Bg::~Cup_Bg()
@@ -95,4 +97,20 @@ Vector2 Cup_Bg::RightTop()
 	Vector2 curPos = _bg->GetTransform()->GetWorldPos();
 	Vector2 size = _bg->GetImageSize() * 0.5f;
 	return (curPos + size);
+}
+
+void Cup_Bg::LoadTrack()
+{
+	BinaryReader reader = BinaryReader(L"Save/CupHeadTrackPos.track");
+	Vector2 pos;
+	Vector2* posPtr = &pos;
+	reader.Byte((void**)&posPtr, sizeof(Vector2));
+
+	_ground2->GetTransform()->SetPosition(pos);
+
+	vector<Vector2> test;
+	test.resize(3);
+	void* testPtr = &test[0];
+	UINT size = reader.UInt();
+	reader.Byte(&testPtr, sizeof(Vector2) * size);
 }

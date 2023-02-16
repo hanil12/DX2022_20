@@ -9,6 +9,7 @@
 #include "../Scene/ActionScene.h"
 #include "../Scene/CupHeadScene.h"
 #include "../Scene/EffectScene.h"
+#include "../Scene/CupMaptoolScene.h"
 
 Program::Program()
 {

@@ -6,6 +6,8 @@ CupHeadScene::CupHeadScene()
 	_player = make_shared<Cup_Advanced_Player>();
 	_player->GetTransform()->GetPos() = CENTER;
 
+	Load();
+
 	_monster = make_shared<Cup_Monster>();
 	_monster->GetTransform()->GetPos() = Vector2(WIN_WIDTH - 300, CENTER_Y);
 
@@ -66,10 +68,39 @@ void CupHeadScene::PreRender()
 void CupHeadScene::PostRender()
 {
 	_bg->PostRender();
+
+	if (ImGui::Button("Save", { 100,100 }))
+	{
+		Save();
+	}
+
+	if (ImGui::Button("Load", { 100,100 }))
+	{
+		Load();
+	}
 }
 
 void CupHeadScene::Render()
 {
 	_monster->Render();
 	_player->Render();
+}
+
+void CupHeadScene::Save()
+{
+	BinaryWriter writer = BinaryWriter(L"Save/CupHeadInfo.cup");
+
+	Vector2 pos = _player->GetTransform()->GetWorldPos();
+	writer.Byte((void*)&pos, sizeof(Vector2));
+}
+
+void CupHeadScene::Load()
+{
+	BinaryReader reader = BinaryReader(L"Save/CupHeadInfo.cup");
+
+	Vector2 pos;
+	Vector2* posPtr = &pos;
+	reader.Byte((void**)&posPtr, sizeof(Vector2));
+
+	_player->GetTransform()->GetPos() = pos;
 }
