@@ -1,19 +1,8 @@
 #include "framework.h"
 #include "Program.h"
 
-#include "../Scene/TutorialScene.h"
-#include "../Scene/SolarSystemScene.h"
-#include "../Scene/BowScene.h"
-#include "../Scene/CollisionScene.h"
-#include "../Scene/SpriteScene.h"
-#include "../Scene/ActionScene.h"
-#include "../Scene/CupHeadScene.h"
-#include "../Scene/EffectScene.h"
-#include "../Scene/CupMaptoolScene.h"
-
 Program::Program()
 {
-	_scene = make_shared<CupHeadScene>();
 }
 
 Program::~Program()
@@ -30,7 +19,7 @@ void Program::Update()
 	Audio::GetInstance()->Update();
 	Camera::GetInstance()->Update();
 
-	_scene->Update();
+	SceneManager::GetInstance()->Update();
 	EFFECT->Update();
 }
 
@@ -40,7 +29,7 @@ void Program::Render()
 
 	Camera::GetInstance()->SetCameraWorldBuffer();
 	Camera::GetInstance()->SetProjectBuffer();
-	_scene->PreRender();
+	SceneManager::GetInstance()->PreRender();
 
 	ImGui_ImplDX11_NewFrame();
 	ImGui_ImplWin32_NewFrame();
@@ -48,12 +37,12 @@ void Program::Render()
 
 	ALPHA->SetState();
 
-	_scene->Render();
+	SceneManager::GetInstance()->Render();
 	EFFECT->Render();
 
 	ImGui::Text("FPS : %d", Timer::GetInstance()->GetFPS());
 	Camera::GetInstance()->PostRender();
-	_scene->PostRender();
+	SceneManager::GetInstance()->PostRender();
 	ImGui::Render();
 	ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
 

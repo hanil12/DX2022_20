@@ -1,5 +1,5 @@
 #include "framework.h"
-#include "../../../Scene/BowScene.h"
+#include "../../../Scene/BagicScene/BowScene.h"
 #include "Bow_Bullet.h"
 
 Bow_Bullet::Bow_Bullet()

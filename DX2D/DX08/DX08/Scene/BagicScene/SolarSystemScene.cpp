@@ -17,6 +17,11 @@ SolarSystemScene::~SolarSystemScene()
 {
 }
 
+void SolarSystemScene::Init()
+{
+	_sun->SetPos(Vector2(CENTER_X, CENTER_Y));
+}
+
 void SolarSystemScene::Update()
 {
 	Vector2 lerp = LERP(_sun->GetTransform()->GetPos(), MOUSE_POS, DELTA_TIME);
@@ -30,4 +35,12 @@ void SolarSystemScene::Render()
 {
 	_sun->Render();
 	_earth->Render();
+}
+
+void SolarSystemScene::PostRender()
+{
+	if (ImGui::Button("NextScene", { 100,100 }))
+	{
+		SCENE->SetScene("TutorialScene");
+	}
 }

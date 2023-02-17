@@ -6,8 +6,6 @@ CupHeadScene::CupHeadScene()
 	_player = make_shared<Cup_Advanced_Player>();
 	_player->GetTransform()->GetPos() = CENTER;
 
-	Load();
-
 	_monster = make_shared<Cup_Monster>();
 	_monster->GetTransform()->GetPos() = Vector2(WIN_WIDTH - 300, CENTER_Y);
 
@@ -18,18 +16,34 @@ CupHeadScene::CupHeadScene()
 
 	Vector2 bgLB = _bg->LeftBottom();
 	Vector2 bgRT = _bg->RightTop();
+
+	Audio::GetInstance()->Add("bgm", "Resource/Sound/BGM.mp3", true);
+	Audio::GetInstance()->Add("jump", "Resource/Sound/jump.wav");
+
+	//Init();
+	Audio::GetInstance()->Stop("bgm");
+}
+
+CupHeadScene::~CupHeadScene()
+{
+}
+
+void CupHeadScene::Init()
+{
+	Load();
+
 	CAMERA->SetTarget(_player->GetTransform());
 	CAMERA->SetLeftBottom(_bg->LeftBottom());
 	CAMERA->SetRightTop(_bg->RightTop());
 	CAMERA->SetOffset(CENTER);
 
-	Audio::GetInstance()->Add("bgm", "Resource/Sound/BGM.mp3", true);
-	Audio::GetInstance()->Add("jump", "Resource/Sound/jump.wav");
 	Audio::GetInstance()->Play("bgm");
+	Audio::GetInstance()->SetVolume("bgm", 0.5f);
 }
 
-CupHeadScene::~CupHeadScene()
+void CupHeadScene::Finalize()
 {
+	Audio::GetInstance()->Stop("bgm");
 }
 
 void CupHeadScene::Update()
@@ -77,6 +91,11 @@ void CupHeadScene::PostRender()
 	if (ImGui::Button("Load", { 100,100 }))
 	{
 		Load();
+	}
+
+	if (ImGui::Button("NextScene", { 100,100 }))
+	{
+		SCENE->SetScene("SolarSystemScene");
 	}
 }
 
