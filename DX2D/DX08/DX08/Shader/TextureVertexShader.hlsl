@@ -16,7 +16,7 @@ cbuffer Projection : register(b2)
 
 struct VertexInput
 {
-	float4 pos : POSITION;
+	float4 pos : POSITION; // ½Ã¸àÆ½ ³×ÀÓ
 	float2 uv : UV;
 };
 

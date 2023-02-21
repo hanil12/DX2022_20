@@ -15,11 +15,11 @@ SceneManager* SceneManager::_instance = nullptr;
 
 SceneManager::SceneManager()
 {
-	_sceneTable["TutorialScene"] = make_shared<TutorialScene>();
+	_sceneTable["SpriteScene"] = make_shared<SpriteScene>();
 	_sceneTable["SolarSystemScene"] = make_shared<SolarSystemScene>();
 	_sceneTable["CupHeadScene"] = make_shared<CupHeadScene>();
 
-	_curScene = _sceneTable["TutorialScene"];
+	_curScene = _sceneTable["SpriteScene"];
 }
 
 SceneManager::~SceneManager()
