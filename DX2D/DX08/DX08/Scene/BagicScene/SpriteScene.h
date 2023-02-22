@@ -2,6 +2,13 @@
 class SpriteScene : public Scene
 {
 public:
+	struct InstanceData
+	{
+		XMMATRIX matrix;
+		Vector2 maxFrame;
+		Vector2 curFrame;
+	};
+
 	SpriteScene();
 	virtual ~SpriteScene();
 
@@ -10,18 +17,10 @@ public:
 	virtual void PostRender() override;
 
 private:
-	shared_ptr<Sprite> _sprite;
-	int curFrameX = 0;
-	int curFrameY = 0;
+	shared_ptr<Quad> _quad;
+	vector<InstanceData> _instanceDates;
+	shared_ptr<VertexBuffer> _instanceBuffer;
 
-	// 최적화
-	// - 프레임 드랍이 일어나는 이유
-	// - GPU한테 DrawCall을 많이 날려줘서.
-
-	// 1. 프러스텀 컬링
-	// 2. 오클리전 컬링
-
-	// Instancing
-	// -> Vertex 버퍼를 이용
+	shared_ptr<Transform> _transform;
 };
 
