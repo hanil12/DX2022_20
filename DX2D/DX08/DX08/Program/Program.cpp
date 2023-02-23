@@ -3,7 +3,8 @@
 
 Program::Program()
 {
-	Timer::GetInstance()->SetLockFPS(60);
+	//Timer::GetInstance()->SetLockFPS(60);
+	SCENE->Init();
 }
 
 Program::~Program()
@@ -28,8 +29,9 @@ void Program::Render()
 {
 	Device::GetInstance()->Clear();
 
-	Camera::GetInstance()->SetCameraWorldBuffer();
 	Camera::GetInstance()->SetProjectBuffer();
+	Camera::GetInstance()->SetCameraWorldBuffer();
+
 	SceneManager::GetInstance()->PreRender();
 
 	ImGui_ImplDX11_NewFrame();
@@ -43,6 +45,7 @@ void Program::Render()
 
 	ImGui::Text("FPS : %d", Timer::GetInstance()->GetFPS());
 	Camera::GetInstance()->PostRender();
+	Camera::GetInstance()->UICameraBuffer();
 	SceneManager::GetInstance()->PostRender();
 	ImGui::Render();
 	ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());

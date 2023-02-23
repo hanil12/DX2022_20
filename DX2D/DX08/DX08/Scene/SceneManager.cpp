@@ -19,7 +19,7 @@ SceneManager::SceneManager()
 	_sceneTable["SolarSystemScene"] = make_shared<SolarSystemScene>();
 	_sceneTable["CupHeadScene"] = make_shared<CupHeadScene>();
 
-	_curScene = _sceneTable["SpriteScene"];
+	_curScene = _sceneTable["CupHeadScene"];
 }
 
 SceneManager::~SceneManager()
@@ -49,6 +49,11 @@ void SceneManager::PostRender()
 {
 	if (_curScene == nullptr) return;
 	_curScene->PostRender();
+}
+
+void SceneManager::Init()
+{
+	_curScene->Init();
 }
 
 void SceneManager::SetScene(string name)

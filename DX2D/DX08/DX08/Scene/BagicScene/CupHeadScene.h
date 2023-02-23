@@ -19,6 +19,8 @@ private:
 	shared_ptr<Cup_Monster> _monster;
 	shared_ptr<Cup_Bg> _bg;
 
+	shared_ptr<Button> _button;
+
 	// 과제
 	// 몬스터 혹은 플레이어가 죽었을 때,
 	// 1초 간격으로 모자이크 처리되면서 죽기

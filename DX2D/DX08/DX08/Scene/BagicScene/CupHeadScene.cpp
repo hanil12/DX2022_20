@@ -22,6 +22,12 @@ CupHeadScene::CupHeadScene()
 
 	//Init();
 	Audio::GetInstance()->Stop("bgm");
+
+	_button = make_shared<Button>(L"Resource/Texture/UI/Button.png");
+	_button->SetScale({ 0.1f,0.1f });
+	_button->SetPostion(CENTER);
+
+	//_button->SetEvent(std::bind(&CupHeadScene::Save, this));
 }
 
 CupHeadScene::~CupHeadScene()
@@ -30,7 +36,7 @@ CupHeadScene::~CupHeadScene()
 
 void CupHeadScene::Init()
 {
-	Load();
+	//Load();
 
 	CAMERA->SetTarget(_player->GetTransform());
 	CAMERA->SetLeftBottom(_bg->LeftBottom());
@@ -39,6 +45,9 @@ void CupHeadScene::Init()
 
 	Audio::GetInstance()->Play("bgm");
 	Audio::GetInstance()->SetVolume("bgm", 0.5f);
+
+	// _button->SetStringEvent(std::bind(&SceneManager::SetScene, SCENE, "SolarSystemScene"));
+
 }
 
 void CupHeadScene::Finalize()
@@ -58,7 +67,6 @@ void CupHeadScene::Update()
 	{
 		if (monsterBullet->Collision(_player->GetBodyCollider()))
 		{
-			Camera::GetInstance()->ShakeStart(2.0f, 0.3f);
 		}
 	}
 
@@ -72,6 +80,8 @@ void CupHeadScene::Update()
 			_monster->Dameged(10);
 		}
 	}
+
+	_button->Update();
 }
 
 void CupHeadScene::PreRender()
@@ -97,6 +107,8 @@ void CupHeadScene::PostRender()
 	{
 		SCENE->SetScene("SolarSystemScene");
 	}
+
+	_button->PostRender();
 }
 
 void CupHeadScene::Render()

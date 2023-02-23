@@ -99,6 +99,9 @@ using namespace DirectX;
 #include "Object/BagicObj/Effect.h"
 #include "Object/BagicObj/EffectManager.h"
 
+// UI
+#include "Object/UI/Button.h"
+
 // GameObj
 #include "Object/GameObj/SolarSystem/Planet.h"
 

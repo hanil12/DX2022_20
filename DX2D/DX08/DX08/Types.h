@@ -37,6 +37,9 @@
 
 #define SCENE SceneManager::GetInstance()
 
+using CallBack = std::function<void()>;
+using CallBack_String = std::function<void(string)>;
+
 enum Dir
 {
 	LEFT,

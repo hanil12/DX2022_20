@@ -112,7 +112,7 @@ void Cup_Player::Jump()
 	if (_curState == State::CUP_RUN || _curState == State::CUP_SHOT)
 		return;
 
-	if (abs(_jumpPower) <= 5.0f)
+	if (abs(_jumpPower) <= 30.0f)
 		SetAction(State::CUP_IDLE);
 	else
 		SetAction(State::JUMP);
