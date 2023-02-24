@@ -27,7 +27,7 @@ CupHeadScene::CupHeadScene()
 	_button->SetScale({ 0.1f,0.1f });
 	_button->SetPostion(CENTER);
 
-	//_button->SetEvent(std::bind(&CupHeadScene::Save, this));
+	// _button->SetEvent(std::bind(&CupHeadScene::Save, this));
 }
 
 CupHeadScene::~CupHeadScene()
@@ -46,8 +46,7 @@ void CupHeadScene::Init()
 	Audio::GetInstance()->Play("bgm");
 	Audio::GetInstance()->SetVolume("bgm", 0.5f);
 
-	// _button->SetStringEvent(std::bind(&SceneManager::SetScene, SCENE, "SolarSystemScene"));
-
+	_button->SetStringEvent(std::bind(&SceneManager::SetScene, SCENE, "SolarSystemScene"));
 }
 
 void CupHeadScene::Finalize()
