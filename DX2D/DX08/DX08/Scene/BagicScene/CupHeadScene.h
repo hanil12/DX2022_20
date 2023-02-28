@@ -20,6 +20,7 @@ private:
 	shared_ptr<Cup_Bg> _bg;
 
 	shared_ptr<Button> _button;
+	shared_ptr<Slider> _slider;
 
 	// 과제
 	// 몬스터 혹은 플레이어가 죽었을 때,

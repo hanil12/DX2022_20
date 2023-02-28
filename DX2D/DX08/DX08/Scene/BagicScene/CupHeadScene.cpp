@@ -27,6 +27,9 @@ CupHeadScene::CupHeadScene()
 	_button->SetScale({ 0.1f,0.1f });
 	_button->SetPostion(CENTER);
 
+	_slider = make_shared<Slider>(Vector2(150, 50));
+	_slider->SetPostion({ CENTER_X, CENTER_Y - 100 });
+
 	// _button->SetEvent(std::bind(&CupHeadScene::Save, this));
 }
 
@@ -66,6 +69,7 @@ void CupHeadScene::Update()
 	{
 		if (monsterBullet->Collision(_player->GetBodyCollider()))
 		{
+			_player->Damaged(10.0f);
 		}
 	}
 
@@ -81,6 +85,9 @@ void CupHeadScene::Update()
 	}
 
 	_button->Update();
+	_slider->Update();
+
+	_slider->SetRatio(_player->GetHp() / 100.0f);
 }
 
 void CupHeadScene::PreRender()
@@ -108,6 +115,7 @@ void CupHeadScene::PostRender()
 	}
 
 	_button->PostRender();
+	_slider->PostRender();
 }
 
 void CupHeadScene::Render()

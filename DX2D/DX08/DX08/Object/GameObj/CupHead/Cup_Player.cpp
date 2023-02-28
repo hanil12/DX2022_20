@@ -145,6 +145,17 @@ void Cup_Player::SetIDLE()
 	SetAction(State::CUP_IDLE);
 }
 
+void Cup_Player::Damaged(float amount)
+{
+	if (amount <= 0.0f)
+		return;
+
+	_hp -= amount;
+
+	if (_hp < 0.0f)
+		_hp = 0.0f;
+}
+
 void Cup_Player::CreateAction(string name, Action::Type type)
 {
 	// idle.png

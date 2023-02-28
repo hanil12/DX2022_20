@@ -28,6 +28,9 @@ public:
 	void SetAction(State state);
 	void SetIDLE();
 
+	void Damaged(float amount);
+	const float& GetHp() { return _hp; }
+
 	shared_ptr<Transform> GetTransform() { return _transform; }
 	shared_ptr<CircleCollider> GetBodyCollider() { return _collider; }
 
@@ -47,5 +50,6 @@ protected:
 	float _jumpPower = 700.0f;
 
 	bool _isRight = true;
+	float _hp = 100.0f;
 };
 

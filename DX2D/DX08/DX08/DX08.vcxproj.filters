@@ -198,6 +198,9 @@
     <ClInclude Include="Object\UI\Button.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+    <ClInclude Include="Object\UI\Slider.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DX08.cpp">
@@ -368,6 +371,9 @@
     <ClCompile Include="Object\UI\Button.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="Object\UI\Slider.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="DX08.rc">
@@ -441,6 +447,9 @@
     <Image Include="Resource\Texture\UI\Button.png">
       <Filter>리소스 파일</Filter>
     </Image>
+    <Image Include="Resource\Texture\UI\Grey.png">
+      <Filter>리소스 파일</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Shader\TutorialShader.hlsl" />
@@ -455,6 +464,7 @@
     <FxCompile Include="Shader\InstancingVertexShader.hlsl" />
     <FxCompile Include="Shader\InstancingPixelShader.hlsl" />
     <FxCompile Include="Shader\UI\ButtonPixelShader.hlsl" />
+    <FxCompile Include="Shader\UI\SliderPixelShader.hlsl" />
   </ItemGroup>
   <ItemGroup>
     <Xml Include="Resource\XML\Idle.xml" />
