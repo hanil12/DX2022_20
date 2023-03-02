@@ -22,9 +22,11 @@ private:
 	shared_ptr<Button> _button;
 	shared_ptr<Slider> _slider;
 
-	// 과제
-	// 몬스터 혹은 플레이어가 죽었을 때,
-	// 1초 간격으로 모자이크 처리되면서 죽기
-	// (모자이크 value1이 서서히 감소하면서..)
+	shared_ptr<RenderTarget> _renderTarget;
+	shared_ptr<RenderTarget> _renderTarget2;
+	shared_ptr<Quad> _rtvQuad;
+
+	shared_ptr<ReverseBuffer> _reverse;
+	shared_ptr<FilterBuffer> _filter;
 };
 

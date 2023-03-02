@@ -31,6 +31,20 @@ CupHeadScene::CupHeadScene()
 	_slider->SetPostion({ CENTER_X, CENTER_Y - 100 });
 
 	// _button->SetEvent(std::bind(&CupHeadScene::Save, this));
+
+	_renderTarget = make_shared<RenderTarget>(WIN_WIDTH, WIN_HEIGHT);
+	_rtvQuad = make_shared<Quad>(Vector2(WIN_WIDTH, WIN_HEIGHT));
+	_rtvQuad->SetPS(ADD_PS(L"Shader/FilterPixelShader.hlsl"));
+	_rtvQuad->SetSRV(_renderTarget->GetSRV());
+	_rtvQuad->GetTransform()->SetPosition(Vector2(CENTER_X,CENTER_Y));
+	_rtvQuad->Update();
+
+	_reverse = make_shared<ReverseBuffer>();
+	_reverse->Update();
+	_filter = make_shared<FilterBuffer>();
+	_filter->_data.selected = 1;
+	_filter->_data.value1 = 30;
+	_filter->Update();
 }
 
 CupHeadScene::~CupHeadScene()
@@ -47,7 +61,7 @@ void CupHeadScene::Init()
 	CAMERA->SetOffset(CENTER);
 
 	Audio::GetInstance()->Play("bgm");
-	Audio::GetInstance()->SetVolume("bgm", 0.5f);
+	Audio::GetInstance()->SetVolume("bgm", 0.0f);
 
 	_button->SetStringEvent(std::bind(&SceneManager::SetScene, SCENE, "SolarSystemScene"));
 }
@@ -88,11 +102,17 @@ void CupHeadScene::Update()
 	_slider->Update();
 
 	_slider->SetRatio(_player->GetHp() / 100.0f);
+
+	_filter->Update();
 }
 
 void CupHeadScene::PreRender()
 {
+	//_bg->Render();
+	_renderTarget->Set(XMFLOAT4(0.0f,0.0f,0.0f,1.0f));
 	_bg->Render();
+	_monster->Render();
+	_player->Render();
 }
 
 void CupHeadScene::PostRender()
@@ -120,8 +140,9 @@ void CupHeadScene::PostRender()
 
 void CupHeadScene::Render()
 {
-	_monster->Render();
-	_player->Render();
+	_reverse->SetPSBuffer(0);
+	_filter->SetPSBuffer(1);
+	_rtvQuad->Render();
 }
 
 void CupHeadScene::Save()
