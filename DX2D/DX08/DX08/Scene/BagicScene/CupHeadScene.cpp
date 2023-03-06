@@ -43,7 +43,7 @@ CupHeadScene::CupHeadScene()
 	_reverse->Update();
 	_filter = make_shared<FilterBuffer>();
 	_filter->_data.selected = 1;
-	_filter->_data.value1 = 30;
+	_filter->_data.value1 = 1000;
 	_filter->Update();
 }
 
@@ -149,17 +149,24 @@ void CupHeadScene::Save()
 {
 	BinaryWriter writer = BinaryWriter(L"Save/CupHeadInfo.cup");
 
-	Vector2 pos = _player->GetTransform()->GetWorldPos();
-	writer.Byte((void*)&pos, sizeof(Vector2));
+	vector<int> v;
+	v = { 1,1,1,1,1};
+
+	writer.UInt(v.size());
+	writer.Byte(&v[0], v.size() * sizeof(int));
 }
 
 void CupHeadScene::Load()
 {
 	BinaryReader reader = BinaryReader(L"Save/CupHeadInfo.cup");
 
-	Vector2 pos;
-	Vector2* posPtr = &pos;
-	reader.Byte((void**)&posPtr, sizeof(Vector2));
+	int size = reader.UInt();
 
-	_player->GetTransform()->GetPos() = pos;
+	vector<int> v;
+	v.resize(size);
+
+	void* ptr = &v[0];
+
+	reader.Byte(&ptr, size * sizeof(int));
+
 }
