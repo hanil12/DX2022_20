@@ -210,6 +210,12 @@
     <ClInclude Include="Framework\Utillity\DataManager.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+    <ClInclude Include="Object\UI\Inventory.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\UI\Slot.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DX08.cpp">
@@ -392,6 +398,12 @@
     <ClCompile Include="Framework\Utillity\DataManager.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="Object\UI\Inventory.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\UI\Slot.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="DX08.rc">
@@ -468,6 +480,9 @@
     <Image Include="Resource\Texture\UI\Grey.png">
       <Filter>리소스 파일</Filter>
     </Image>
+    <Image Include="Resource\Texture\UI\InventoryPanel.png">
+      <Filter>리소스 파일</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Shader\TutorialShader.hlsl" />
@@ -483,6 +498,7 @@
     <FxCompile Include="Shader\InstancingPixelShader.hlsl" />
     <FxCompile Include="Shader\UI\ButtonPixelShader.hlsl" />
     <FxCompile Include="Shader\UI\SliderPixelShader.hlsl" />
+    <FxCompile Include="Shader\UI\SlotPixelShader.hlsl" />
   </ItemGroup>
   <ItemGroup>
     <Xml Include="Resource\XML\Idle.xml" />

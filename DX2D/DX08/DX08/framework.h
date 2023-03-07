@@ -104,6 +104,8 @@ using namespace DirectX;
 // UI
 #include "Object/UI/Button.h"
 #include "Object/UI/Slider.h"
+#include "Object/UI/Slot.h"
+#include "Object/UI/Inventory.h"
 
 // GameObj
 #include "Object/GameObj/SolarSystem/Planet.h"

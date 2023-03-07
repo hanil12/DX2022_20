@@ -152,6 +152,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Framework\Utillity\DataManager.h" />
+    <ClInclude Include="Object\UI\Inventory.h" />
     <ClInclude Include="Scene\BagicScene\InventoryScene.h" />
     <ClInclude Include="Object\UI\Button.h" />
     <ClInclude Include="Framework\Render\RenderTarget.h" />
@@ -206,6 +207,7 @@
     <ClInclude Include="Framework\Render\Shader.h" />
     <ClInclude Include="Framework\Render\ShaderManager.h" />
     <ClInclude Include="Object\UI\Slider.h" />
+    <ClInclude Include="Object\UI\Slot.h" />
     <ClInclude Include="Types.h" />
     <ClInclude Include="Scene\Scene.h" />
     <ClInclude Include="Framework\Texture\SRV.h" />
@@ -219,6 +221,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Framework\Utillity\DataManager.cpp" />
+    <ClCompile Include="Object\UI\Inventory.cpp" />
     <ClCompile Include="Scene\BagicScene\InventoryScene.cpp" />
     <ClCompile Include="Object\UI\Button.cpp" />
     <ClCompile Include="Framework\Render\RenderTarget.cpp" />
@@ -287,6 +290,7 @@
     <ClCompile Include="Framework\Render\ShaderManager.cpp" />
     <ClCompile Include="Object\GameObj\Zelda\Zelda.cpp" />
     <ClCompile Include="Object\UI\Slider.cpp" />
+    <ClCompile Include="Object\UI\Slot.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="DX08.rc" />
@@ -313,6 +317,7 @@
     <Image Include="Resource\Texture\sun.png" />
     <Image Include="Resource\Texture\UI\Button.png" />
     <Image Include="Resource\Texture\UI\Grey.png" />
+    <Image Include="Resource\Texture\UI\InventoryPanel.png" />
     <Image Include="Resource\Texture\zelda.png" />
     <Image Include="small.ico" />
   </ItemGroup>
@@ -486,6 +491,20 @@
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">5.0</ShaderModel>
     </FxCompile>
     <FxCompile Include="Shader\UI\SliderPixelShader.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">PS</EntryPointName>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">5.0</ShaderModel>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">PS</EntryPointName>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">5.0</ShaderModel>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">PS</EntryPointName>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">PS</EntryPointName>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">5.0</ShaderModel>
+    </FxCompile>
+    <FxCompile Include="Shader\UI\SlotPixelShader.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Pixel</ShaderType>
