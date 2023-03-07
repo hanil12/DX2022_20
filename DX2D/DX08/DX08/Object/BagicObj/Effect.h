@@ -12,6 +12,7 @@ public:
 	void Play(Vector2 pos);
 	void End();
 
+	void SetLeftRight(bool value);
 	void SetActive(bool active);
 	bool IsActive() { return _isActive; }
 

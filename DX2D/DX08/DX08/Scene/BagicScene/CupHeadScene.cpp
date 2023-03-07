@@ -168,5 +168,4 @@ void CupHeadScene::Load()
 	void* ptr = &v[0];
 
 	reader.Byte(&ptr, size * sizeof(int));
-
 }

@@ -10,6 +10,7 @@
 #include "../Scene/BagicScene/CupHeadScene.h"
 #include "../Scene/BagicScene/EffectScene.h"
 #include "../Scene/BagicScene/CupMaptoolScene.h"
+#include "../Scene/BagicScene/InventoryScene.h"
 
 SceneManager* SceneManager::_instance = nullptr;
 
@@ -18,8 +19,9 @@ SceneManager::SceneManager()
 	_sceneTable["SpriteScene"] = make_shared<SpriteScene>();
 	_sceneTable["SolarSystemScene"] = make_shared<SolarSystemScene>();
 	_sceneTable["CupHeadScene"] = make_shared<CupHeadScene>();
+	_sceneTable["InventoryScene"] = make_shared<InventoryScene>();
 
-	_curScene = _sceneTable["CupHeadScene"];
+	_curScene = _sceneTable["InventoryScene"];
 }
 
 SceneManager::~SceneManager()

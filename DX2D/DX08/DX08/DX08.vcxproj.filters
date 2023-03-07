@@ -204,6 +204,12 @@
     <ClInclude Include="Framework\Render\RenderTarget.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+    <ClInclude Include="Scene\BagicScene\InventoryScene.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Framework\Utillity\DataManager.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DX08.cpp">
@@ -380,6 +386,12 @@
     <ClCompile Include="Framework\Render\RenderTarget.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="Scene\BagicScene\InventoryScene.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Framework\Utillity\DataManager.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="DX08.rc">
@@ -479,6 +491,7 @@
     <Xml Include="Resource\XML\Special_Bullet_Loop.xml" />
     <Xml Include="Resource\XML\Jump.xml" />
     <Xml Include="Resource\XML\Clown_Page_Last_Spawn_Penguin_Start.xml" />
+    <Xml Include="Resource\XML\item.xml" />
   </ItemGroup>
   <ItemGroup>
     <Media Include="Resource\Sound\attack.wav">

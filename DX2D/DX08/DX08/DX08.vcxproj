@@ -151,6 +151,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Framework\Utillity\DataManager.h" />
+    <ClInclude Include="Scene\BagicScene\InventoryScene.h" />
     <ClInclude Include="Object\UI\Button.h" />
     <ClInclude Include="Framework\Render\RenderTarget.h" />
     <ClInclude Include="Scene\SceneManager.h" />
@@ -216,6 +218,8 @@
     <ClInclude Include="Object\GameObj\Zelda\Zelda.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Framework\Utillity\DataManager.cpp" />
+    <ClCompile Include="Scene\BagicScene\InventoryScene.cpp" />
     <ClCompile Include="Object\UI\Button.cpp" />
     <ClCompile Include="Framework\Render\RenderTarget.cpp" />
     <ClCompile Include="Scene\SceneManager.cpp" />
@@ -508,6 +512,7 @@
     <Xml Include="Resource\XML\AimStraightShot.xml" />
     <Xml Include="Resource\XML\Clown_Page_Last_Spawn_Penguin_Start.xml" />
     <Xml Include="Resource\XML\Idle.xml" />
+    <Xml Include="Resource\XML\item.xml" />
     <Xml Include="Resource\XML\Jump.xml" />
     <Xml Include="Resource\XML\Run.xml" />
     <Xml Include="Resource\XML\Special_Bullet_Loop.xml" />

@@ -43,6 +43,11 @@ void Effect::End()
 	_action->Reset();
 }
 
+void Effect::SetLeftRight(bool value)
+{
+	_sprite->GetLeftRight() = value;
+}
+
 void Effect::SetActive(bool active)
 {
 	_isActive = active;

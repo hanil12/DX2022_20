@@ -27,7 +27,7 @@ void EffectManager::AddEffect(wstring file, Vector2 maxFrame, Vector2 size, floa
 	}
 }
 
-void EffectManager::Play(string name, Vector2 pos)
+void EffectManager::Play(string name, Vector2 pos, bool isLeftRight)
 {
 	if (_effectTable.count(name) == 0)
 		return;
@@ -43,6 +43,7 @@ void EffectManager::Play(string name, Vector2 pos)
 
 	if (iter != v.end())
 	{
+		(*iter)->SetLeftRight(isLeftRight);
 		(*iter)->Play(pos);
 	}
 }

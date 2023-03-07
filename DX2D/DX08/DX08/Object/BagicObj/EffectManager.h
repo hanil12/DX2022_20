@@ -21,7 +21,7 @@ public:
 	}
 
 	void AddEffect(wstring file, Vector2 maxFrame, Vector2 size, float speed = 0.1f, Action::Type type = Action::Type::END, UINT poolCount = 15);
-	void Play(string name, Vector2 pos);
+	void Play(string name, Vector2 pos, bool isLeftRight = false);
 
 	void Update();
 	void Render();
