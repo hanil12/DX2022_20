@@ -37,6 +37,8 @@
 
 #define SCENE SceneManager::GetInstance()
 
+#define ASSERT(hr) assert(SUCCEEDED(hr))
+
 using CallBack = std::function<void()>;
 using CallBack_String = std::function<void(string)>;
 
