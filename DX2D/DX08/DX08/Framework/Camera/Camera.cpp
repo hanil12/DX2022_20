@@ -111,13 +111,25 @@ void Camera::FreeMode()
 	if (KEY_PRESS(VK_RBUTTON))
 	{
 		if (KEY_PRESS('W'))
-			_transform->GetPos().y -= _speed * DELTA_TIME;
+		{
+			float curY = _transform->GetPos().y - _speed * DELTA_TIME;
+			_transform->SetPosition(Vector2(_transform->GetPos().x, curY));
+		}
 		if (KEY_PRESS('S'))
-			_transform->GetPos().y += _speed * DELTA_TIME;
+		{
+			float curY = _transform->GetPos().y + _speed * DELTA_TIME;
+			_transform->SetPosition(Vector2(_transform->GetPos().x, curY));
+		}
 		if (KEY_PRESS('A'))
-			_transform->GetPos().x += _speed * DELTA_TIME;
+		{
+			float curX = _transform->GetPos().x + _speed * DELTA_TIME;
+			_transform->SetPosition(Vector2(curX, _transform->GetPos().y));
+		}
 		if (KEY_PRESS('D'))
-			_transform->GetPos().x -= _speed * DELTA_TIME;
+		{
+			float curX = _transform->GetPos().x - _speed * DELTA_TIME;
+			_transform->SetPosition(Vector2(curX, _transform->GetPos().y));
+		}
 	}
 }
 

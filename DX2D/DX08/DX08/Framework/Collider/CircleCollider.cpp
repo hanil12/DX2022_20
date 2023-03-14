@@ -67,7 +67,9 @@ HIT_RESULT CircleCollider::Block(shared_ptr<CircleCollider> other)
         Vector2 dir = other->GetTransform()->GetWorldPos() - _transform->GetWorldPos();
         float radiusSum = other->WorldRadius() + WorldRadius();
         float overlap = radiusSum - dir.Length();
-        other->GetTransform()->GetPos() += dir.NormalVector2() * overlap;
+        Vector2 temp = other->GetTransform()->GetPos() + dir.NormalVector2() * overlap;
+        other->GetTransform()->SetPosition(temp);
+        other->GetTransform()->UpdateSRT();
 
         result.isHit = true;
 
@@ -100,7 +102,9 @@ HIT_RESULT CircleCollider::Block(shared_ptr<RectCollider> other)
             float sum = WorldRadius() + halfSize.y;
             float distance = abs(rectPos.y - circlePos.y);
 
-            other->GetTransform()->GetPos() += dir * (sum - distance);
+            Vector2 temp = other->GetTransform()->GetPos() + dir * (sum - distance);
+            other->GetTransform()->SetPosition(temp);
+            other->GetTransform()->UpdateSRT();
 
             result.isHit = true;
         }
@@ -112,7 +116,8 @@ HIT_RESULT CircleCollider::Block(shared_ptr<RectCollider> other)
             float sum = WorldRadius() + halfSize.x;
             float distance = abs(rectPos.x - circlePos.x);
 
-            other->GetTransform()->GetPos() += dir * (sum - distance);
+            Vector2 temp = other->GetTransform()->GetPos() + dir * (sum - distance);
+            other->GetTransform()->SetPosition(temp);
 
             result.isHit = true;
         }
@@ -125,7 +130,8 @@ HIT_RESULT CircleCollider::Block(shared_ptr<RectCollider> other)
             Vector2 dir = closeVertex - circlePos;
             float magnitude = WorldRadius() - dir.Length();
             dir.Normalize();
-            other->GetTransform()->GetPos() += dir * magnitude;
+            Vector2 temp = other->GetTransform()->GetPos() + dir * magnitude;
+            other->GetTransform()->SetPosition(temp);
             
             result.isHit = true;
         }

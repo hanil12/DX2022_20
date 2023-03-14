@@ -13,14 +13,25 @@ Button::Button(wstring path)
 	_buttonBuffer->_data.click = 0.6f;
 }
 
+Button::Button(Vector2 size)
+{
+	_quad = nullptr;
+	_collider = make_shared<RectCollider>(size);
+
+	_buttonBuffer = make_shared<ButtonBuffer>();
+	_buttonBuffer->_data.hover = 0.3f;
+	_buttonBuffer->_data.click = 0.6f;
+}
+
 Button::~Button()
 {
 }
 
 void Button::Update()
 {
+	if (_quad != nullptr)
+		_quad->Update();
 	_collider->Update();
-	_quad->Update();
 	_buttonBuffer->Update();
 
 	if (_collider->IsCollision(MOUSE_POS))
@@ -54,15 +65,23 @@ void Button::PostRender()
 
 	_buttonBuffer->_data.state = static_cast<int>(_state);
 	_buttonBuffer->SetPSBuffer(1);
-	_quad->Render();
+	if(_quad != nullptr)
+		_quad->Render();
 }
 
 void Button::SetPostion(Vector2 pos)
 {
-	_quad->GetTransform()->SetPosition(pos);
+	GetTransform()->SetPosition(pos);
 }
 
 void Button::SetScale(Vector2 scale)
 {
-	_quad->GetTransform()->SetScale(scale);
+	GetTransform()->SetScale(scale);
+}
+
+shared_ptr<Transform> Button::GetTransform()
+{
+	if (_quad != nullptr)
+		return _quad->GetTransform();
+	return _collider->GetTransform();
 }

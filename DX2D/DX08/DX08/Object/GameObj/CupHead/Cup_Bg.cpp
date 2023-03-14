@@ -6,11 +6,15 @@ Cup_Bg::Cup_Bg()
 	_bg = make_shared<Quad>(L"Resource/Texture/CupHead/clown_bg_main.png");
 	_ground1 = make_shared<Quad>(L"Resource/Texture/CupHead/clown_bg_track.png");
 	_ground1->GetTransform()->SetParent(_bg->GetTransform());
-	_ground1->GetTransform()->GetPos().y -= 300.0f;
+	Vector2 temp = _ground1->GetTransform()->GetPos();
+	temp.y -= 300.0f;
+	_ground1->GetTransform()->SetPosition(temp);
 
 	_collider1 = make_shared<RectCollider>(_ground1->GetImageSize());
 	_collider1->GetTransform()->SetParent(_ground1->GetTransform());
-	_collider1->GetTransform()->GetPos().y -= 82.0f;
+	temp = _collider1->GetTransform()->GetPos();
+	temp.y -= 82.0f;
+	_collider1->GetTransform()->SetPosition(temp);
 
 	_ground2 = make_shared<Quad>(L"Resource/Texture/CupHead/clown_bg_track.png");
 	//_ground2->GetTransform()->SetParent(_bg->GetTransform());
@@ -21,7 +25,7 @@ Cup_Bg::Cup_Bg()
 	_collider2->GetTransform()->SetParent(_ground2->GetTransform());
 
 	_ground2->GetTransform()->GetScale() *= 0.5f;
-	_ground2->GetTransform()->GetPos() = Vector2(CENTER_X, 0);
+	_ground2->GetTransform()->SetPosition(Vector2(CENTER_X, 0));
 
 	_colliders.push_back(_collider1);
 	_colliders.push_back(_collider2);

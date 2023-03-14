@@ -9,7 +9,7 @@ public:
 	void Render();
 	void PostRender();
 
-	void SetPos(Vector2 pos) { _bg->GetTransform()->GetPos() = pos; }
+	void SetPos(Vector2 pos) { _bg->GetTransform()->SetPosition(pos); }
 	void SetPlayer(shared_ptr<Cup_Player> player) { _player = player; }
 
 	Vector2 LeftBottom();

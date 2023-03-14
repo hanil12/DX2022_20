@@ -12,7 +12,7 @@ Cup_Advanced_Player::Cup_Advanced_Player()
 
 	_muzzle = make_shared<Transform>();
 	_muzzle->SetParent(_transform);
-	_muzzle->GetPos().x = 50;
+	_muzzle->SetPosition(Vector2(50.0f, _muzzle->GetPos().y));
 }
 
 Cup_Advanced_Player::~Cup_Advanced_Player()
@@ -47,12 +47,12 @@ void Cup_Advanced_Player::Shot()
 
 		if (_isRight)
 		{
-			_muzzle->GetPos().x = 50;
+			_muzzle->SetPosition(Vector2(50.0f, _muzzle->GetPos().y));
 			dir = Vector2(1, 0);
 		}
 		else
 		{
-			_muzzle->GetPos().x = -50;
+			_muzzle->SetPosition(Vector2(-50.0f, _muzzle->GetPos().y));
 			dir = Vector2(-1, 0);
 		}
 

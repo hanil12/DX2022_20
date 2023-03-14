@@ -17,24 +17,29 @@ Zelda::~Zelda()
 
 void Zelda::Update()
 {
+	Vector2 temp = _sprite->GetTransform()->GetPos();
 	if (KEY_PRESS('A'))
 	{
-		_sprite->GetTransform()->GetPos().x -= _speed * DELTA_TIME;
+		temp .x -= _speed * DELTA_TIME;
+		_sprite->GetTransform()->SetPosition(temp);
 		SetAction(State::LEFT_RUN);
 	}
 	if (KEY_PRESS('W'))
 	{
-		_sprite->GetTransform()->GetPos().y += _speed * DELTA_TIME;
+		temp.y += _speed * DELTA_TIME;
+		_sprite->GetTransform()->SetPosition(temp);
 		SetAction(State::BACK_RUN);
 	}
 	if (KEY_PRESS('D'))
 	{
-		_sprite->GetTransform()->GetPos().x += _speed * DELTA_TIME;
+		temp.x += _speed * DELTA_TIME;
+		_sprite->GetTransform()->SetPosition(temp);
 		SetAction(State::RIGHT_RUN);
 	}
 	if (KEY_PRESS('S'))
 	{
-		_sprite->GetTransform()->GetPos().y -= _speed * DELTA_TIME;
+		temp.y -= _speed * DELTA_TIME;
+		_sprite->GetTransform()->SetPosition(temp);
 		SetAction(State::FRONT_RUN);
 	}
 
@@ -63,7 +68,7 @@ void Zelda::SetAction(State state)
 
 void Zelda::SetPos(Vector2 pos)
 {
-	_sprite->GetTransform()->GetPos() = pos;
+	_sprite->GetTransform()->SetPosition(pos);
 }
 
 void Zelda::CreateAction()

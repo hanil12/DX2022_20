@@ -9,7 +9,9 @@ Bow_Bullet::Bow_Bullet()
 
 	_col = make_shared<CircleCollider>(70);
 	_col->GetTransform()->SetParent(_quad->GetTransform());
-	_col->GetTransform()->GetPos().x += 300;
+	Vector2 temp = _col->GetTransform()->GetPos();
+	temp.x += 300.0f;
+	_col->GetTransform()->SetPosition(temp);
 }
 
 Bow_Bullet::~Bow_Bullet()
@@ -29,7 +31,9 @@ void Bow_Bullet::Update()
 		_check = 0.0f;
 	}
 
-	_quad->GetTransform()->GetPos() += _dir * _speed * DELTA_TIME;
+	Vector2 temp = _quad->GetTransform()->GetPos();
+	temp += _dir * _speed * DELTA_TIME;
+	_quad->GetTransform()->SetPosition(temp);
 
 	_quad->Update();
 	_col->Update();

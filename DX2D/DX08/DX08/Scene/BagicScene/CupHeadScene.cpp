@@ -4,10 +4,10 @@
 CupHeadScene::CupHeadScene()
 {
 	_player = make_shared<Cup_Advanced_Player>();
-	_player->GetTransform()->GetPos() = CENTER;
+	_player->GetTransform()->SetPosition(CENTER);
 
 	_monster = make_shared<Cup_Monster>();
-	_monster->GetTransform()->GetPos() = Vector2(WIN_WIDTH - 300, CENTER_Y);
+	_monster->GetTransform()->SetPosition(Vector2(WIN_WIDTH - 300, CENTER_Y));
 
 	_bg = make_shared<Cup_Bg>();
 	_bg->SetPos(CENTER);

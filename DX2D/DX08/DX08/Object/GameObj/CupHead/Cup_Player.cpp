@@ -75,7 +75,9 @@ void Cup_Player::Input()
 {
 	if (KEY_PRESS('A'))
 	{
-		_transform->GetPos().x -= _speed * DELTA_TIME;
+		Vector2 temp = _transform->GetPos();
+		temp.x -= _speed * DELTA_TIME;
+		_transform->SetPosition(temp);
 		if(_curState != State::JUMP)
 			SetAction(State::CUP_RUN);
 
@@ -84,7 +86,9 @@ void Cup_Player::Input()
 
 	if (KEY_PRESS('D'))
 	{
-		_transform->GetPos().x += _speed * DELTA_TIME;
+		Vector2 temp = _transform->GetPos();
+		temp.x += _speed * DELTA_TIME;
+		_transform->SetPosition(temp);
 		if (_curState != State::JUMP)
 			SetAction(State::CUP_RUN);
 
@@ -107,7 +111,9 @@ void Cup_Player::Jump()
 		Audio::GetInstance()->Play("jump");
 	}
 
-	_transform->GetPos().y += _jumpPower * DELTA_TIME;
+	Vector2 temp = _transform->GetPos();
+	temp.y += _jumpPower * DELTA_TIME;
+	_transform->SetPosition(temp);
 
 	if (_curState == State::CUP_RUN || _curState == State::CUP_SHOT)
 		return;

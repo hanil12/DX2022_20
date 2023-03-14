@@ -6,7 +6,7 @@ Bow_Bow::Bow_Bow()
 	_quad = make_shared<Quad>(L"Resource/Texture/Bow.png");
 	_quad->GetTransform()->GetScale() *= 2.0f;
 
-	_quad->GetTransform()->GetPos() = { 100,100 };
+	_quad->GetTransform()->SetPosition({ 100,100 });
 
 	for (int i = 0; i < 30; i++)
 	{
@@ -49,7 +49,7 @@ void Bow_Bow::Fire()
 				bullet->EnAble();
 
 				Vector2 direction = MOUSE_POS - _quad->GetTransform()->GetPos();
-				bullet->GetTransform()->GetPos() = _quad->GetTransform()->GetPos();
+				bullet->GetTransform()->SetPosition(_quad->GetTransform()->GetPos());
 				bullet->SetDirection(direction);
 				bullet->GetTransform()->GetAngle() = direction.Angle();
 

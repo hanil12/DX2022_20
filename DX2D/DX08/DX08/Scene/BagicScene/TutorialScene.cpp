@@ -4,7 +4,7 @@
 TutorialScene::TutorialScene()
 {
 	_quad = make_shared<Quad>(L"Resource/Texture/ChaeYeon.png");
-	_quad->GetTransform()->GetPos() = { WIN_WIDTH * 0.5f, WIN_HEIGHT * 0.5f };
+	_quad->GetTransform()->SetPosition({ WIN_WIDTH * 0.5f, WIN_HEIGHT * 0.5f });
 	_quad->GetTransform()->GetScale() *= 0.5f;
 
 	_quad->SetPS(ADD_PS(L"Shader/FilterPixelShader.hlsl"));

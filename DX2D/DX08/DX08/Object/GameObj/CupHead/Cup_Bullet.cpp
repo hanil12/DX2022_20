@@ -7,7 +7,8 @@ Cup_Bullet::Cup_Bullet()
 
 	_collider = make_shared<CircleCollider>(21);
 	_collider->GetTransform()->SetParent(_sprite->GetTransform());
-	_collider->GetTransform()->GetPos().y += 40;
+	Vector2 temp = _collider->GetTransform()->GetPos() + Vector2(0.0f, 40.0f);
+	_collider->GetTransform()->SetPosition(temp);
 }
 
 Cup_Bullet::~Cup_Bullet()
@@ -29,7 +30,8 @@ void Cup_Bullet::Update()
 		_delay = 0.0f;
 	}
 
-	_sprite->GetTransform()->GetPos() += _direction * _speed * DELTA_TIME;
+	Vector2 temp = _sprite->GetTransform()->GetPos() + _direction * _speed * DELTA_TIME;
+	_sprite->GetTransform()->SetPosition(temp);
 
 	_action->Update();
 	_sprite->Update();

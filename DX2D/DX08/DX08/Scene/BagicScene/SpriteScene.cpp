@@ -60,8 +60,9 @@ void SpriteScene::Update()
 	//for (auto sprite : _sprites)
 	//	sprite->Update();
 
-	_transform->GetPos().x += 300.0f * DELTA_TIME;
-	_transform->UpdateSRT();
+	Vector2 temp = _transform->GetPos();
+	temp.x += 300.0f * DELTA_TIME;
+	_transform->SetPosition(temp);
 
 	_instanceDates[0].matrix = XMMatrixTranspose(_transform->GetMatrix());
 

@@ -38,8 +38,8 @@ void Planet::Render()
 
 void Planet::SetPos(Vector2 pos)
 {
-	_quad->GetTransform()->GetPos() = pos;
-	_virtualTrans->GetPos() = pos;
+	_quad->GetTransform()->SetPosition(pos);
+	_virtualTrans->SetPosition(pos);
 }
 
 void Planet::SetScale(Vector2 scale)

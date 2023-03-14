@@ -4,8 +4,7 @@
 DataManager* DataManager::_instance = nullptr;
 DataManager::DataManager()
 {
-	_itemInfo.reserve(5);
-
+	_itemTable[""] = ItemInfo();
 	LoadItemInfo();
 }
 
@@ -51,8 +50,17 @@ void DataManager::LoadItemInfo()
 		info.atk = temp[1];
 		info.def = temp[2];
 		info.rare = temp[3];
+		info.frameX = temp[4];
+		info.frameY = temp[5];
 
-		_itemInfo.push_back(info);
+		_itemTable[info.name] = info;
 		row = row->NextSiblingElement();
 	}
+}
+
+const ItemInfo& DataManager::GetItemByName(string name)
+{
+	if (_itemTable.count(name) == 0)
+		return _itemTable[""];
+	return _itemTable[name];
 }
