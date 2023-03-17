@@ -11,5 +11,6 @@ public:
 
 private:
 	shared_ptr<Inventory> _inventory;
+	shared_ptr<Store> _store;
 };
 

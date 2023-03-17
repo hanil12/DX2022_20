@@ -20,7 +20,8 @@ Inventory::Inventory()
 
 	for (int i = 0; i < 9; i++)
 	{
-		shared_ptr<ItemIcon> icon = make_shared<ItemIcon>();
+		shared_ptr<ItemIconButton> icon = make_shared<ItemIconButton>();
+		icon->GetButton()->SetIntEvent(std::bind(&Inventory::SetCurIndex, this, i));
 		_icons.push_back(icon);
 	}
 
@@ -57,15 +58,37 @@ void Inventory::Render()
 
 void Inventory::PostRender()
 {
+	Vector2 tempPos = _pannel->GetTransform()->GetWorldPos();
 	RECT rect;
-	// 750 WIN_HEIGHT - 170... 가로세로 200, 30
-	rect.left = 650;
-	rect.right = 850;
-	rect.bottom = WIN_HEIGHT - 185;
-	rect.top = WIN_HEIGHT - 155;
+	rect.left = tempPos.x - 100;
+	rect.right = tempPos.x + 100;
+	rect.bottom = tempPos.y + 185;
+	rect.top = tempPos.y + 155;
 
 	wstring money = to_wstring(_money);
 	DirectWrite::GetInstance()->RenderText(L"Money : " + money, rect, 20.0f, FONT_YOON);
+
+	if (_curIndex >= 0 && _curIndex < 9)
+	{
+		ItemInfo temp = _itemDates[_curIndex];
+		ImGui::Text(temp.name.c_str());
+		ImGui::SliderInt("index", &_curIndex, 0, 8);
+	}
+}
+
+void Inventory::SetCurIndex(int value)
+{
+	if (value < 0 || value > 9)
+	{
+		_curIndex = -1;
+		return;
+	}
+
+	if(_curIndex != -1)
+		_slots[_curIndex]->SetRelease();
+
+	_curIndex = value;
+	_slots[_curIndex]->SetChoice();
 }
 
 void Inventory::Set()
@@ -77,12 +100,12 @@ void Inventory::Set()
 	}
 }
 
-void Inventory::BuyItem(string name)
+bool Inventory::AddItem(string name)
 {
 	ItemInfo info = DATA_M->GetItemByName(name);
 
 	if (info.name == "" || _money - info.price < 0)
-		return;
+		return false;
 
 
 	auto iter = std::find_if(_itemDates.begin(), _itemDates.end(), [](const ItemInfo& info)-> bool
@@ -94,13 +117,12 @@ void Inventory::BuyItem(string name)
 
 	if (iter == _itemDates.end())
 	{
-		return;
+		return false;
 	}
 
 	*iter = info;
 	Set();
-
-	SubMoney(info.price);
+	return true;
 }
 
 void Inventory::SellItem(string name)
@@ -118,6 +140,24 @@ void Inventory::SellItem(string name)
 
 	AddMoney(iter->price);
 	iter->SetEmpty();
+
+	Set();
+}
+
+void Inventory::SellItem()
+{
+	if (_curIndex < 0 || _curIndex > 8)
+		return;
+
+	ItemInfo& info = _itemDates[_curIndex];
+
+	if (info.name == "")
+		return;
+
+	AddMoney(info.price);
+	info.SetEmpty();
+
+	_curIndex = -1;
 
 	Set();
 }

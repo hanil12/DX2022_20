@@ -46,6 +46,7 @@
 
 using CallBack = std::function<void()>;
 using CallBack_String = std::function<void(string)>;
+using CallBack_Int = std::function<void(int)>;
 
 enum Dir
 {

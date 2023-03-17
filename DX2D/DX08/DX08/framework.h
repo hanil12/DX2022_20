@@ -115,6 +115,7 @@ using namespace DirectX;
 #include "Object/UI/Slot.h"
 #include "Object/UI/ItemIcon.h"
 #include "Object/UI/Inventory.h"
+#include "Object/UI/Store.h"
 
 // GameObj
 #include "Object/GameObj/SolarSystem/Planet.h"

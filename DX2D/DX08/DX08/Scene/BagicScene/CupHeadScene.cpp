@@ -134,6 +134,10 @@ void CupHeadScene::PostRender()
 		SCENE->SetScene("SolarSystemScene");
 	}
 
+	ImTextureID id = SRV_ADD(L"Resource/Texture/ChaeYeon.png")->GetSRV_COM().Get();
+	ImGui::Image(id, ImVec2(150, 150));
+
+
 	_button->PostRender();
 	_slider->PostRender();
 }

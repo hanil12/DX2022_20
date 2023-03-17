@@ -1,7 +1,7 @@
 Texture2D map: register(t0);
 SamplerState samp :register(s0);
 
-cbuffer ButonInfo : register(b1)
+cbuffer ButtonInfo : register(b1)
 {
 	int state;
 	float hover;

@@ -39,7 +39,7 @@ void Cup_Advanced_Player::Render()
 
 void Cup_Advanced_Player::Shot()
 {
-	if (KEY_DOWN(VK_LBUTTON))
+	if (KEY_DOWN(VK_LBUTTON) && !ImGui::IsMouseHoveringAnyWindow())
 	{
 		SetAction(State::CUP_SHOT);
 		shared_ptr<Cup_Bullet> bullet = SeletBullet();

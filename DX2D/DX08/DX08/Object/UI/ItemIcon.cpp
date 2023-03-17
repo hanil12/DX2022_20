@@ -1,7 +1,7 @@
 #include "framework.h"
 #include "ItemIcon.h"
 
-ItemIcon::ItemIcon()
+ItemIconButton::ItemIconButton()
 {
 	_sprite = make_shared<Sprite>(L"Resource/Texture/Item_11x5.png", Vector2(11, 5), Vector2(55,55));
 
@@ -10,17 +10,17 @@ ItemIcon::ItemIcon()
 	// TODO : CallBack Àû¿ë
 }
 
-ItemIcon::~ItemIcon()
+ItemIconButton::~ItemIconButton()
 {
 }
 
-void ItemIcon::Update()
+void ItemIconButton::Update()
 {
 	_sprite->Update();
 	_button->Update();
 }
 
-void ItemIcon::Render()
+void ItemIconButton::Render()
 {
 	_sprite->Render();
 	_button->PostRender();

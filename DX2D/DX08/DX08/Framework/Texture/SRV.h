@@ -10,6 +10,8 @@ public:
 
 	Vector2 GetImageSize();
 
+	const ComPtr<ID3D11ShaderResourceView> GetSRV_COM() { return _srv; }
+
 private:
 	Vector2 _size;
 	Microsoft::WRL::ComPtr<ID3D11ShaderResourceView> _srv; // SRV -> 판박이 만드는 아저씨
