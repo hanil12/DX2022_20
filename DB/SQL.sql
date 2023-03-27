@@ -150,3 +150,37 @@ FROM batting
 WHERE yearID = 1999
 GROUP BY teamID, yearID
 HAVING SUM(HR) >= 200
+
+-- 두 테이블을 합치는 방법
+-- Cross Join
+-- Inner Join
+SELECT *
+FROM batting
+
+SELECT *
+FROM salaries
+
+-- INNER JOIN : salaries에서 players 테이블과 겹치는 것을 salaries 기준으로 출력
+SELECT *
+FROM players
+	INNER JOIN salaries
+	ON salaries.playerID = players.playerID
+
+-- Outer Join
+SELECT *
+FROM salaries
+	LEFT JOIN players
+	ON salaries.playerID = players.playerID
+
+	SELECT *
+	FROM salaries
+
+	SELECT *
+	FROM batting
+
+	-- salaries와 batting 참고해서 각 년도에 teamID, 친 홈런 갯수, 벌어들인 연봉의 합 
+	SELECT salaries.yearID, salaries.teamID, SUM(batting.HR) as SUMHR, SUM(salaries.salary) as SUMSALARY
+	FROM salaries
+		LEFT JOIN batting
+		ON salaries.playerID = batting.playerID AND salaries.yearID = batting.yearID AND salaries.teamID = batting.teamID
+	GROUP BY salaries.yearID, salaries.teamID
