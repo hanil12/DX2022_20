@@ -30,7 +30,16 @@ public:
 	void LeftRight(float value);
 	void Yaw(float value);
 
+	float GetHorizontal() { return _leftRight; }
+	float GetVertical() { return _upDown;}
+
 private:
+	UPROPERTY(VisibleAnywhere, Meta = (AllowPrivateAccess = true))
+	float _upDown;
+
+	UPROPERTY(VisibleAnywhere, Meta = (AllowPrivateAccess = true))
+	float _leftRight;
+
 	class USpringArmComponent*		 _springArm;
 	class UCameraComponent*			 _camera;
 };

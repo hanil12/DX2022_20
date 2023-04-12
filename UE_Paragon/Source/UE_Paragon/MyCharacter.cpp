@@ -5,6 +5,7 @@
 #include "GameFramework/SpringArmComponent.h"
 #include "Camera/CameraComponent.h"
 #include "Components/CapsuleComponent.h"
+#include "MyAnimInstance.h"
 
 // ·Î±×
 // UE_LOG(LogTemp, Log, TEXT("UpDown Scale : %f"), value);
@@ -54,16 +55,19 @@ void AMyCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCompone
 	PlayerInputComponent->BindAxis(TEXT("UpDown"), this, &AMyCharacter::UpDown);
 	PlayerInputComponent->BindAxis(TEXT("LeftRight"), this, &AMyCharacter::LeftRight);
 	PlayerInputComponent->BindAxis(TEXT("Yaw"), this, &AMyCharacter::Yaw);
+
+	PlayerInputComponent->BindAction(TEXT("Jump"), EInputEvent::IE_Pressed ,this, &AMyCharacter::Jump);
 }
 
 void AMyCharacter::UpDown(float value)
 {
-
+	_upDown = value;
 	AddMovementInput(GetActorForwardVector(), value);
 }
 
 void AMyCharacter::LeftRight(float value)
 {
+	_leftRight = value;
 	AddMovementInput(GetActorRightVector(), value);
 }
 
