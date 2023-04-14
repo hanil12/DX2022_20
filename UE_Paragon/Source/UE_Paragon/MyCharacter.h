@@ -16,6 +16,8 @@ public:
 	AMyCharacter();
 
 protected:
+	virtual void PostInitializeComponents() override;
+
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
@@ -25,6 +27,12 @@ public:
 
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+
+	UFUNCTION(BlueprintCallable)
+	void Attack();
+
+	UFUNCTION()
+	void OnAttackMontageEnded(UAnimMontage* montage, bool bInterrupted);
 
 	void UpDown(float value);
 	void LeftRight(float value);
@@ -42,4 +50,8 @@ private:
 
 	class USpringArmComponent*		 _springArm;
 	class UCameraComponent*			 _camera;
+	class UMyAnimInstance*				 _animInstance;
+
+	int32 _curAttack = 1;
+	bool _isAttack = false;
 };

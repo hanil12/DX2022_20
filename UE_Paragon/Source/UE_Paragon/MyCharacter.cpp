@@ -34,6 +34,18 @@ AMyCharacter::AMyCharacter()
 	_springArm->SetRelativeRotation(FRotator(-35.0f,0.0f,0.0f));
 }
 
+void AMyCharacter::PostInitializeComponents()
+{
+	Super::PostInitializeComponents();
+
+	_animInstance = Cast<UMyAnimInstance>(GetMesh()->GetAnimInstance());
+
+	if (IsValid(_animInstance))
+	{
+		_animInstance->OnMontageEnded.AddDynamic(this, &AMyCharacter::OnAttackMontageEnded);
+	}
+}
+
 // Called when the game starts or when spawned
 void AMyCharacter::BeginPlay()
 {
@@ -57,6 +69,27 @@ void AMyCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCompone
 	PlayerInputComponent->BindAxis(TEXT("Yaw"), this, &AMyCharacter::Yaw);
 
 	PlayerInputComponent->BindAction(TEXT("Jump"), EInputEvent::IE_Pressed ,this, &AMyCharacter::Jump);
+	PlayerInputComponent->BindAction(TEXT("Attack"), EInputEvent::IE_Pressed ,this, &AMyCharacter::Attack);
+}
+
+void AMyCharacter::Attack()
+{
+	if(_isAttack == true)
+		return;
+
+	if (IsValid(_animInstance))
+	{
+		_animInstance->PlayAttackMontage();
+		_animInstance->JumpToSection(_curAttack);
+	}
+	_curAttack = (_curAttack) % 3 + 1;
+
+	_isAttack = true;
+}
+
+void AMyCharacter::OnAttackMontageEnded(UAnimMontage* montage, bool bInterrupted)
+{
+	_isAttack = false;
 }
 
 void AMyCharacter::UpDown(float value)
