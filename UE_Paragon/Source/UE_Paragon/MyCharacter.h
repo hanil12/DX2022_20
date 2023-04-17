@@ -30,6 +30,8 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 	void Attack();
+	UFUNCTION(BlueprintCallable)
+	void AttackCheck();
 
 	UFUNCTION()
 	void OnAttackMontageEnded(UAnimMontage* montage, bool bInterrupted);
@@ -50,7 +52,7 @@ private:
 
 	class USpringArmComponent*		 _springArm;
 	class UCameraComponent*			 _camera;
-	class UMyAnimInstance*				 _animInstance;
+	class UMyAnimInstance*			 _animInstance;
 
 	int32 _curAttack = 1;
 	bool _isAttack = false;

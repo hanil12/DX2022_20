@@ -5,6 +5,7 @@
 #include "GameFramework/SpringArmComponent.h"
 #include "Camera/CameraComponent.h"
 #include "Components/CapsuleComponent.h"
+#include "DrawDebugHelpers.h"
 #include "MyAnimInstance.h"
 
 // 로그
@@ -32,6 +33,10 @@ AMyCharacter::AMyCharacter()
 
 	_springArm->TargetArmLength = 500.0f;
 	_springArm->SetRelativeRotation(FRotator(-35.0f,0.0f,0.0f));
+
+	// TPS/FPS 용 게임 만들 때 쓰는 설정
+	// _springArm->bUsePawnControlRotation = true;
+	// _camera->bUsePawnControlRotation = false;
 }
 
 void AMyCharacter::PostInitializeComponents()
@@ -43,6 +48,7 @@ void AMyCharacter::PostInitializeComponents()
 	if (IsValid(_animInstance))
 	{
 		_animInstance->OnMontageEnded.AddDynamic(this, &AMyCharacter::OnAttackMontageEnded);
+		_animInstance->_onAttackHit.AddUObject(this, &AMyCharacter::AttackCheck);
 	}
 }
 
@@ -85,6 +91,45 @@ void AMyCharacter::Attack()
 	_curAttack = (_curAttack) % 3 + 1;
 
 	_isAttack = true;
+}
+
+void AMyCharacter::AttackCheck()
+{
+	FHitResult hitResult;
+	FCollisionQueryParams params(NAME_None, false, this);
+
+	float attackRange = 500;
+	float attackRadius = 50.0f;
+
+	bool boolResult = GetWorld()->SweepSingleByChannel(
+	OUT hitResult,
+	GetActorLocation(),
+	GetActorLocation()+ GetActorForwardVector() * attackRange,
+	FQuat::Identity,
+	ECollisionChannel::ECC_EngineTraceChannel2,
+	FCollisionShape::MakeSphere(attackRadius),
+	params
+	);
+
+	// GetWorld()->LineTraceSingleByChannel()
+
+	FColor drawColor;
+	if (boolResult)
+	{
+		drawColor = FColor::Red;
+	}
+	else
+	{
+		drawColor = FColor::Green;
+
+	}
+
+	FVector vec = GetActorForwardVector() * attackRange;
+	FVector center = GetActorLocation() + vec * 0.5f;
+	float halfHeight = attackRange * 0.5f + attackRadius;
+	FQuat rotation = FRotationMatrix::MakeFromZ(vec).ToQuat();
+
+	DrawDebugCapsule(GetWorld(), center, halfHeight, attackRadius, rotation, drawColor, false, 1.0f);
 }
 
 void AMyCharacter::OnAttackMontageEnded(UAnimMontage* montage, bool bInterrupted)

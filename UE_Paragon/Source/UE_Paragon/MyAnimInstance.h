@@ -9,6 +9,8 @@
 /**
  * 
  */
+ DECLARE_MULTICAST_DELEGATE(FOnAttackHit);
+
 UCLASS()
 class UE_PARAGON_API UMyAnimInstance : public UAnimInstance
 {
@@ -21,9 +23,11 @@ public:
 	void PlayAttackMontage();
 	void JumpToSection(int32 sectionIndex);
 
-private:
 	UFUNCTION()
 	void AnimNotify_AttackHit();
+
+public:
+	FOnAttackHit _onAttackHit;
 
 private:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Pawn, Meta = (AllowPrivateAccess = true))

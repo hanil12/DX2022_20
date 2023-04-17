@@ -41,12 +41,11 @@ void UMyAnimInstance::PlayAttackMontage()
 
 void UMyAnimInstance::AnimNotify_AttackHit()
 {
-	UE_LOG(LogTemp, Log, TEXT("AttackHit!!!"));
+	_onAttackHit.Broadcast();
 }
 
 void UMyAnimInstance::JumpToSection(int32 sectionIndex)
 {
-	UE_LOG(LogTemp, Log, TEXT("Attack%d") , sectionIndex);
 	FName sectionName = FName(*FString::Printf(TEXT("Attack%d"), sectionIndex));
 	Montage_JumpToSection(sectionName, _attackMontage);
 }
