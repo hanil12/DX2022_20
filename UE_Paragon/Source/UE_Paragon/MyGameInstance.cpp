@@ -15,9 +15,6 @@ void UMyGameInstance::Init()
 	Super::Init();
 
 	FCharacterStat* stat = GetStatByLevel(1);
-
-	UE_LOG(LogTemp, Warning, TEXT("MaxHP : %d"), stat->maxHp);
-	UE_LOG(LogTemp, Warning, TEXT("Atk : %d"), stat->attack);
 }
 
 FCharacterStat* UMyGameInstance::GetStatByLevel(int32 level)

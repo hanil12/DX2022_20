@@ -36,6 +36,8 @@ public:
 	UFUNCTION()
 	void OnAttackMontageEnded(UAnimMontage* montage, bool bInterrupted);
 
+	virtual float TakeDamage(float Damage, FDamageEvent const& DamageEvent, AController* EventInstigator, AActor* DamageCauser) override;
+
 	void UpDown(float value);
 	void LeftRight(float value);
 	void Yaw(float value);
@@ -52,6 +54,9 @@ private:
 
 	class USpringArmComponent*		 _springArm;
 	class UCameraComponent*			 _camera;
+	class UMyStatComponent*			 _stat;
+	class UWidgetComponent*			 _hpBarWidget;
+
 	class UMyAnimInstance*			 _animInstance;
 
 	int32 _curAttack = 1;

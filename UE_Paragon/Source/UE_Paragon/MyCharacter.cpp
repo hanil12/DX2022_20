@@ -7,6 +7,9 @@
 #include "Components/CapsuleComponent.h"
 #include "DrawDebugHelpers.h"
 #include "MyAnimInstance.h"
+#include "MyStatComponent.h"
+#include "Components/WidgetComponent.h"
+#include "MyHpBarWidget.h"
 
 // 로그
 // UE_LOG(LogTemp, Log, TEXT("UpDown Scale : %f"), value);
@@ -34,9 +37,19 @@ AMyCharacter::AMyCharacter()
 	_springArm->TargetArmLength = 500.0f;
 	_springArm->SetRelativeRotation(FRotator(-35.0f,0.0f,0.0f));
 
-	// TPS/FPS 용 게임 만들 때 쓰는 설정
-	// _springArm->bUsePawnControlRotation = true;
-	// _camera->bUsePawnControlRotation = false;
+	_stat = CreateDefaultSubobject<UMyStatComponent>(TEXT("Stat"));
+	_hpBarWidget = CreateDefaultSubobject<UWidgetComponent>(TEXT("HpBar"));
+	_hpBarWidget->SetupAttachment(GetMesh());
+	_hpBarWidget->SetRelativeLocation(FVector(0.0f,0.0f,230.0f));
+	_hpBarWidget->SetWidgetSpace(EWidgetSpace::Screen);
+
+	static ConstructorHelpers::FClassFinder<UUserWidget> UW(TEXT("WidgetBlueprint'/Game/UI/MyHpBar.MyHpBar_C'"));
+
+	if(UW.Succeeded())
+	{
+		_hpBarWidget->SetWidgetClass(UW.Class);
+		_hpBarWidget->SetDrawSize(FVector2D(200.0f,50.0f));
+	}
 }
 
 void AMyCharacter::PostInitializeComponents()
@@ -49,6 +62,15 @@ void AMyCharacter::PostInitializeComponents()
 	{
 		_animInstance->OnMontageEnded.AddDynamic(this, &AMyCharacter::OnAttackMontageEnded);
 		_animInstance->_onAttackHit.AddUObject(this, &AMyCharacter::AttackCheck);
+	}
+
+	_hpBarWidget->InitWidget();
+	auto hpWidget = Cast<UMyHpBarWidget>(_hpBarWidget->GetUserWidgetObject());
+
+	if (hpWidget)
+	{
+		UE_LOG(LogTemp, Warning, TEXT("BIND!!!"));
+		hpWidget->Bind(_stat);
 	}
 }
 
@@ -130,11 +152,26 @@ void AMyCharacter::AttackCheck()
 	FQuat rotation = FRotationMatrix::MakeFromZ(vec).ToQuat();
 
 	DrawDebugCapsule(GetWorld(), center, halfHeight, attackRadius, rotation, drawColor, false, 1.0f);
+
+	if (boolResult && hitResult.Actor.IsValid())
+	{
+		FDamageEvent damageEvent;
+		hitResult.Actor->TakeDamage(_stat->GetAtk(), damageEvent, GetController(), this);
+	}
 }
 
 void AMyCharacter::OnAttackMontageEnded(UAnimMontage* montage, bool bInterrupted)
 {
 	_isAttack = false;
+}
+
+float AMyCharacter::TakeDamage(float Damage, FDamageEvent const& DamageEvent, AController* EventInstigator, AActor* DamageCauser)
+{
+	_stat->Damaged(Damage);
+
+	UE_LOG(LogTemp, Log, TEXT("CurHp: %d"), _stat->GetHp());
+
+	return Damage;
 }
 
 void AMyCharacter::UpDown(float value)
