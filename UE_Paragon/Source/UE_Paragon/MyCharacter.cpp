@@ -10,6 +10,7 @@
 #include "MyStatComponent.h"
 #include "Components/WidgetComponent.h"
 #include "MyHpBarWidget.h"
+#include "MyAIController.h"
 
 // ·Î±×
 // UE_LOG(LogTemp, Log, TEXT("UpDown Scale : %f"), value);
@@ -50,6 +51,9 @@ AMyCharacter::AMyCharacter()
 		_hpBarWidget->SetWidgetClass(UW.Class);
 		_hpBarWidget->SetDrawSize(FVector2D(200.0f,50.0f));
 	}
+
+	AIControllerClass = AMyAIController::StaticClass();
+	AutoPossessAI = EAutoPossessAI::PlacedInWorldOrSpawned;
 }
 
 void AMyCharacter::PostInitializeComponents()
