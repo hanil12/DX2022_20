@@ -13,7 +13,20 @@ using namespace std;
 // f(1) = 1
 // f(n) = f(n-1) + f(n-2)
 
+// 1. 완전탐색
+// 배열 인덱스 탐색
+// DFS
+// 트리... 재귀호출
+
+// 2. 최적 부분 문제를 찾는다.
+
+// 3. 메모이제이션
+
 vector<int> cache = vector<int>(100,-1);
+
+// f(0) = 1
+// f(1) = 1
+// f(n) = f(n-1) + f(n-2)
 
 int fibonacci(int n, int& count)
 {

@@ -8,7 +8,7 @@ using namespace std;
 
 // 조합
 // f(n) = f(n-1) + f(n-2) // -> 최적 부분 구조
-// nCr = n-1Cr + n-1Cr-1 // -> 최적 부분 구조
+// nCr = n-1Cr + n-1Cr-1 // -> 최적 부분 문제
 
 vector<vector<int>> cache = vector<vector<int>>(100, vector<int>(100, -1));
 
